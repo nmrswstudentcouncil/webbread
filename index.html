@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Breadie - Physics & Bakery Learning App</title>
+  <title>Breadie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -80,7 +80,7 @@
     .mascot-profile {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .mascot-avatar {
@@ -105,15 +105,10 @@
     }
 
     .user-greeting h3 {
-      font-size: 17px;
+      font-size: 22px;
       color: var(--crust-dark);
       font-weight: 700;
       line-height: 1.2;
-    }
-
-    .user-greeting p {
-      font-size: 12px;
-      color: #9E7F60;
     }
 
     .currency-pill {
@@ -519,7 +514,7 @@
       margin: 6px 0;
     }
 
-    /* Tab 4: Friends Co-Baking */
+    /* Tab 4: Friends Co-Baking & Room View */
     .room-card {
       background: #F8EFE0;
       border-radius: 18px;
@@ -538,7 +533,7 @@
     .room-name {
       font-weight: 700;
       color: var(--crust-dark);
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .room-badge {
@@ -550,53 +545,123 @@
       font-weight: 600;
     }
 
-    .friend-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .friend-box {
-      background: var(--card-bg);
+    /* In-Room Live Session Layout */
+    .in-room-header {
+      background: #F2E4CF;
       border-radius: 16px;
-      padding: 12px;
+      padding: 12px 14px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      text-align: center;
-      box-shadow: var(--clay-shadow);
+      margin-bottom: 14px;
     }
 
-    .friend-avatar {
-      font-size: 26px;
-      margin-bottom: 4px;
-    }
-
-    .friend-name {
-      font-size: 13px;
+    .in-room-title {
+      font-size: 14px;
       font-weight: 700;
       color: var(--crust-dark);
     }
 
-    .friend-subject {
-      font-size: 11px;
-      color: #9E7F60;
-      margin-bottom: 6px;
+    .btn-leave {
+      background: #ECD7C0;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--crust-dark);
+      cursor: pointer;
     }
 
-    .cheer-btn {
+    .friend-row {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--clay-shadow);
+      border: 1px solid #EEDFC9;
+    }
+
+    .friend-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .friend-avatar-large {
+      width: 44px;
+      height: 44px;
+      background: #FDF3DB;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: inset 1px 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .friend-details h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 6px var(--accent-green);
+    }
+
+    .friend-details p {
+      font-size: 12px;
+      color: #9E7F60;
+    }
+
+    .friend-metrics {
+      text-align: right;
+    }
+
+    .time-spent-badge {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      background: #F6EBD9;
+      padding: 3px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 3px;
+    }
+
+    .crumb-earned-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-green);
+      display: block;
+    }
+
+    .cheer-mini-btn {
       background: #FFE3E3;
       border: 1px solid #FFB8B8;
       color: #D63447;
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
+      padding: 3px 8px;
+      border-radius: 10px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .cheer-mini-btn:active {
+      transform: scale(0.92);
     }
 
     /* Fixed Bottom Navigation with Safe Area */
@@ -682,8 +747,7 @@
     <div class="mascot-profile">
       <div class="mascot-avatar">🍞</div>
       <div class="user-greeting">
-        <h3>Breadie Focus</h3>
-        <p>ฟิสิกส์ ม.ปลาย สดใหม่ทุกวัน</p>
+        <h3>Breadie</h3>
       </div>
     </div>
     <div class="currency-pill">
@@ -833,44 +897,101 @@
     <!-- TAB 4: STUDY WITH FRIENDS -->
     <section id="screen-friends" class="screen">
       <div class="clay-card">
-        <div class="card-title">👥 ห้องอ่านหนังสือร่วมกับเพื่อน (Co-Baking)</div>
+        <div class="card-title">👥 เตาอบอ่านหนังสือร่วมกับเพื่อน</div>
         
-        <div class="room-card">
-          <div class="room-header">
-            <span class="room-name">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</span>
-            <span class="room-badge">กำลังอ่าน 4 คน</span>
+        <!-- Room Selector View -->
+        <div id="roomOverview">
+          <div class="room-card">
+            <div class="room-header">
+              <span class="room-name">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</span>
+              <span class="room-badge">🟢 สด 4 คน</span>
+            </div>
+            <p style="font-size: 12px; color: #7D6148; margin-bottom: 8px;">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
+            <button class="btn-main" style="padding: 10px; font-size: 14px;" onclick="enterRoomView('🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5')">👉 กดเข้าดูสมาชิกและแต้มเวลา</button>
           </div>
-          <p style="font-size: 12px; color: #7D6148;">อ่านพร้อมกันรับโบนัสแต้มทีม +20%</p>
-          <button class="btn-main" style="padding: 10px; margin-top: 8px; font-size: 13px;" onclick="joinRoom('ฟิสิกส์ ม.5')">🚪 เข้าสู่ห้องอบขนม</button>
+
+          <div class="room-card">
+            <div class="room-header">
+              <span class="room-name">🥐 ห้องเตรียมสอบปลายภาค</span>
+              <span class="room-badge">🟢 สด 2 คน</span>
+            </div>
+            <p style="font-size: 12px; color: #7D6148; margin-bottom: 8px;">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
+            <button class="btn-main" style="padding: 10px; font-size: 14px;" onclick="enterRoomView('🥐 ห้องเตรียมสอบปลายภาค')">👉 กดเข้าดูสมาชิกและแต้มเวลา</button>
+          </div>
         </div>
 
-        <div class="card-title" style="margin-top: 18px;">🔥 เพื่อนที่กำลังโฟกัสอยู่ (Live)</div>
-        <div class="friend-grid">
-          <div class="friend-box">
-            <div class="friend-avatar">🥐</div>
-            <div class="friend-name">Graine</div>
-            <div class="friend-subject">กำลังทำโจทย์คาน</div>
-            <button class="cheer-btn" onclick="cheerFriend('Graine')">❤️ ส่งกลิ่นเนย</button>
+        <!-- In-Room Active Session View -->
+        <div id="roomDetailView" style="display: none;">
+          <div class="in-room-header">
+            <div>
+              <div id="activeRoomName" class="in-room-title">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</div>
+              <div style="font-size: 11px; color: #7D6148;">กำลังจับเวลาโฟกัสร่วมกัน</div>
+            </div>
+            <button class="btn-leave" onclick="leaveRoomView()">◀ ออกจากห้อง</button>
           </div>
-          <div class="friend-box">
-            <div class="friend-avatar">🍞</div>
-            <div class="friend-name">Butter</div>
-            <div class="friend-subject">อ่านสูตรนิวตัน</div>
-            <button class="cheer-btn" onclick="cheerFriend('Butter')">❤️ ส่งกลิ่นเนย</button>
+
+          <!-- Friend List with Tracked Time & Points -->
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="friend-avatar-large">🥐</div>
+              <div class="friend-details">
+                <h4>Graine <span class="live-dot"></span></h4>
+                <p>โจทย์คานสมดุล</p>
+              </div>
+            </div>
+            <div class="friend-metrics">
+              <div class="time-spent-badge">⏱️ 45 นาที</div>
+              <div class="crumb-earned-badge">+90 🍞</div>
+              <button class="cheer-mini-btn" onclick="cheerFriend('Graine')">❤️ ให้กำลังใจ</button>
+            </div>
           </div>
-          <div class="friend-box">
-            <div class="friend-avatar">🥨</div>
-            <div class="friend-name">Ten-Thank</div>
-            <div class="friend-subject">จับเวลาอ่าน 50 นาที</div>
-            <button class="cheer-btn" onclick="cheerFriend('Ten-Thank')">❤️ ส่งกลิ่นเนย</button>
+
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="friend-avatar-large">🍞</div>
+              <div class="friend-details">
+                <h4>Butter <span class="live-dot"></span></h4>
+                <p>สูตรการเคลื่อนที่</p>
+              </div>
+            </div>
+            <div class="friend-metrics">
+              <div class="time-spent-badge">⏱️ 30 นาที</div>
+              <div class="crumb-earned-badge">+60 🍞</div>
+              <button class="cheer-mini-btn" onclick="cheerFriend('Butter')">❤️ ให้กำลังใจ</button>
+            </div>
           </div>
-          <div class="friend-box">
-            <div class="friend-avatar">🧁</div>
-            <div class="friend-name">Panom</div>
-            <div class="friend-subject">สรุปวิชาฟิสิกส์</div>
-            <button class="cheer-btn" onclick="cheerFriend('Panom')">❤️ ส่งกลิ่นเนย</button>
+
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="friend-avatar-large">🥨</div>
+              <div class="friend-details">
+                <h4>Ten-Thank <span class="live-dot"></span></h4>
+                <p>จับเวลาอ่านมาราธอน</p>
+              </div>
+            </div>
+            <div class="friend-metrics">
+              <div class="time-spent-badge">⏱️ 50 นาที</div>
+              <div class="crumb-earned-badge">+100 🍞</div>
+              <button class="cheer-mini-btn" onclick="cheerFriend('Ten-Thank')">❤️ ให้กำลังใจ</button>
+            </div>
+          </div>
+
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="friend-avatar-large">🧁</div>
+              <div class="friend-details">
+                <h4>Panom <span class="live-dot"></span></h4>
+                <p>ทบทวนแฟลชการ์ด</p>
+              </div>
+            </div>
+            <div class="friend-metrics">
+              <div class="time-spent-badge">⏱️ 20 นาที</div>
+              <div class="crumb-earned-badge">+40 🍞</div>
+              <button class="cheer-mini-btn" onclick="cheerFriend('Panom')">❤️ ให้กำลังใจ</button>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -1125,14 +1246,22 @@
     renderCard();
   }
 
-  // Friends Functions
-  function cheerFriend(name) {
-    addPoints(5);
-    showToast(`🧈 ส่งกลิ่นเนยให้ ${name} สำเร็จ!`);
+  // Friends & Room Functions
+  function enterRoomView(roomTitle) {
+    document.getElementById('roomOverview').style.display = 'none';
+    document.getElementById('roomDetailView').style.display = 'block';
+    document.getElementById('activeRoomName').innerText = roomTitle;
+    showToast(`🚪 เข้าสู่ ${roomTitle}`);
   }
 
-  function joinRoom(name) {
-    showToast(`🚪 เข้าร่วมห้อง ${name} แล้ว!`);
+  function leaveRoomView() {
+    document.getElementById('roomDetailView').style.display = 'none';
+    document.getElementById('roomOverview').style.display = 'block';
+  }
+
+  function cheerFriend(name) {
+    addPoints(5);
+    showToast(`🧈 ส่งกำลังใจให้ ${name} สำเร็จ!`);
   }
 
   // Init
