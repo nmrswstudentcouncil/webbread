@@ -4,9 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Breadie</title>
+  
+  <!-- MathJax Configuration & Script for LaTeX formula rendering -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg-cream: #FAF3E0;
@@ -599,12 +613,13 @@
     .formula-tag {
       background: #FDF1D8;
       border: 1px solid #ECD9B6;
-      padding: 6px 10px;
-      border-radius: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
       font-weight: 700;
       color: #8D5B28;
       margin: 6px 0;
-      display: inline-block;
+      display: block;
+      overflow-x: auto;
     }
 
     /* Tab 3: Daily Flashcards */
@@ -660,9 +675,10 @@
       font-weight: 700;
       color: var(--crust-dark);
       background: #FCE8B2;
-      padding: 4px 14px;
+      padding: 6px 16px;
       border-radius: 12px;
       margin: 6px 0;
+      min-width: 140px;
     }
 
     /* Tab 4: Friends Room View */
@@ -803,7 +819,7 @@
       margin-top: 4px;
     }
 
-    /* Fixed Bottom Navigation */
+    /* Bottom Navigation */
     .bottom-nav {
       position: absolute;
       bottom: 0;
@@ -869,7 +885,7 @@
 <body>
 
 <div class="app-frame">
-  <!-- Toast Popup -->
+  <!-- Toast Notification Popup -->
   <div id="toastPopup" class="toast-popup">🎉 +25 Crumbs!</div>
 
   <!-- Header -->
@@ -885,7 +901,7 @@
     </div>
   </header>
 
-  <!-- Main Viewport -->
+  <!-- Screen Viewport -->
   <main class="screen-container">
 
     <!-- TAB 1: HOME & OVEN TIMER -->
@@ -910,7 +926,7 @@
 
           <div class="oven-window">
             <div id="timerDisplay" class="timer-display" onclick="promptCustomMinutes()">25:00</div>
-            <div id="bakingStatus" class="baking-status" style="font-size: 12px; color: #FFF3D6; margin-top: 4px;">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
+            <div id="bakingStatus" style="font-size: 12px; color: #FFF3D6; margin-top: 4px;">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
           </div>
 
           <button id="timerActionBtn" class="btn-main" onclick="toggleTimer()">🍞 เริ่มอบความรู้ (+50 Crumbs)</button>
@@ -970,9 +986,9 @@
           </div>
 
           <div class="torque-indicator">
-            <div>$M_{ทวน}$: <span id="mLeftDisplay">8.0</span> N·m</div>
+            <div><i>M</i><sub>ทวน</sub>: <span id="mLeftDisplay">8.0</span> N·m</div>
             <div id="balanceState" style="color: var(--accent-green);">⚖️ คานสมดุล</div>
-            <div>$M_{ตาม}$: <span id="mRightDisplay">8.0</span> N·m</div>
+            <div><i>M</i><sub>ตาม</sub>: <span id="mRightDisplay">8.0</span> N·m</div>
           </div>
 
           <div class="sim-controls">
@@ -1046,13 +1062,13 @@
 
           <div class="topic-accordion">
             <div class="topic-header" onclick="toggleTopic(this)">
-              <span>1. สภาพสมดุลและโมเมนต์</span>
+              <span>1. สภาพสมดุลและโมเมนต์ (Torque)</span>
               <span>▾</span>
             </div>
             <div class="topic-content">
               <p>วัตถุจะสมดุลต่อการหมุนเมื่อผลรวมของโมเมนต์รอบจุดหมุนใดๆ มีค่าเป็นศูนย์</p>
-              <div class="formula-tag">$\Sigma M = 0 \Rightarrow M_{\text{ทวน}} = M_{\text{ตาม}}$</div>
-              <p style="margin-top:6px;"><b>คานสมดุล:</b> $W_1 \times d_1 = W_2 \times d_2$</p>
+              <div class="formula-tag">$$\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$$</div>
+              <div class="formula-tag">$$W_1 \cdot d_1 = W_2 \cdot d_2$$</div>
               <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
             </div>
           </div>
@@ -1063,10 +1079,11 @@
               <span>▾</span>
             </div>
             <div class="topic-content">
-              <p><b>กฎข้อที่ 1:</b> วัตถุคงสภาพอยู่นิ่งเมื่อ $\Sigma F = 0$</p>
+              <p><b>กฎข้อที่ 1:</b> วัตถุคงสภาพอยู่นิ่งหรือเคลื่อนที่ด้วยความเร็วคงที่</p>
+              <div class="formula-tag">$$\Sigma F = 0$$</div>
               <p><b>กฎข้อที่ 2:</b> แรงลัพธ์ทำให้เกิดความเร่ง</p>
-              <div class="formula-tag">$\Sigma F = ma$</div>
-              <p><b>กฎข้อที่ 3:</b> แรงกิริยาเท่ากับแรงปฏิกิริยา ($Action = Reaction$)</p>
+              <div class="formula-tag">$$\Sigma \vec{F} = m\vec{a}$$</div>
+              <p><b>กฎข้อที่ 3:</b> แรงกิริยาเท่ากับแรงปฏิกิริยา ($\text{Action} = \text{Reaction}$)</p>
               <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
             </div>
           </div>
@@ -1077,9 +1094,9 @@
               <span>▾</span>
             </div>
             <div class="topic-content">
-              <p>งานคือผลคูณของแรงกับการกระจัดในแนวแรง</p>
-              <div class="formula-tag">$W = F \cdot s \cos\theta$</div>
-              <div class="formula-tag">$E_k = \frac{1}{2}mv^2 \quad|\quad E_p = mgh$</div>
+              <p>งานและพลังงานกลชนิดต่างๆ:</p>
+              <div class="formula-tag">$$W = \vec{F} \cdot \vec{s} = F s \cos\theta$$</div>
+              <div class="formula-tag">$$E_k = \frac{1}{2}mv^2 \quad,\quad E_p = mgh$$</div>
               <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
             </div>
           </div>
@@ -1090,8 +1107,8 @@
               <span>▾</span>
             </div>
             <div class="topic-content">
-              <p>กฎของโอห์มและความต้านทานในวงจรไฟฟ้า:</p>
-              <div class="formula-tag">$V = IR \quad|\quad P = IV = I^2R$</div>
+              <p>กฎของโอห์มและกำลังไฟฟ้าในวงจร:</p>
+              <div class="formula-tag">$$V = IR \quad,\quad P = IV = I^2R = \frac{V^2}{R}$$</div>
               <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
             </div>
           </div>
@@ -1115,9 +1132,9 @@
             </div>
             <div class="flashcard-face flashcard-back">
               <div class="toast-butter-badge">✨</div>
-              <div class="fc-formula" id="fcFormula">M = F × d</div>
+              <div class="fc-formula" id="fcFormula">\( M = F \times d \)</div>
               <div class="fc-answer" id="fcA">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
-              <div style="font-size:11px; color:#6B533E; margin-top:6px;">หน่วย: นิวตัน-เมตร ($N\cdot m$)</div>
+              <div style="font-size:11px; color:#6B533E; margin-top:6px;">หน่วย: นิวตัน-เมตร (\(\text{N}\cdot\text{m}\))</div>
             </div>
           </div>
         </div>
@@ -1277,27 +1294,34 @@
   const flashcards = [
     {
       q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
-      formula: "M = F × d",
+      formula: "\\( M = F \\times d \\)",
       a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง"
     },
     {
       q: "กฎข้อที่ 2 ของนิวตัน (แรงและความเร่ง)",
-      formula: "ΣF = ma",
+      formula: "\\( \\Sigma \\vec{F} = m\\vec{a} \\)",
       a: "แรงลัพธ์ = มวล × ความเร่ง"
     },
     {
       q: "สูตรพลังงานจลน์ (Kinetic Energy)",
-      formula: "Ek = ½mv²",
+      formula: "\\( E_k = \\frac{1}{2}mv^2 \\)",
       a: "พลังงานที่สะสมในวัตถุที่กำลังเคลื่อนที่"
     }
   ];
   let currentCardIndex = 0;
+
+  function reRenderMath() {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      MathJax.typesetPromise();
+    }
+  }
 
   function switchTab(screenId, btnElement) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btnElement.classList.add('active');
+    reRenderMath();
   }
 
   function switchLessonSubTab(subId, btnElement) {
@@ -1305,6 +1329,7 @@
     document.getElementById(subId).classList.add('active');
     document.querySelectorAll('.sub-nav-pill').forEach(b => b.classList.remove('active'));
     btnElement.classList.add('active');
+    reRenderMath();
   }
 
   function showToast(msg) {
@@ -1453,7 +1478,7 @@
     const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
     if (Math.abs(tLeft - tRight) < 0.05) {
       addPoints(25);
-      alert("🎉 ถูกต้อง! Mทวน = Mตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
+      alert("🎉 ถูกต้อง! โมเมนต์ทวน = โมเมนต์ตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
     } else {
       alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
     }
@@ -1510,6 +1535,7 @@
     const content = header.nextElementSibling;
     content.classList.toggle('open');
     header.querySelector('span:last-child').innerText = content.classList.contains('open') ? '▴' : '▾';
+    reRenderMath();
   }
 
   /* Flashcards */
@@ -1521,8 +1547,9 @@
     const card = flashcards[currentCardIndex];
     document.getElementById('flashCard').classList.remove('flipped');
     document.getElementById('fcQ').innerText = card.q;
-    document.getElementById('fcFormula').innerText = card.formula;
+    document.getElementById('fcFormula').innerHTML = card.formula;
     document.getElementById('fcA').innerText = card.a;
+    reRenderMath();
   }
 
   function nextCard() {
@@ -1557,6 +1584,7 @@
   // Initial calls
   updateTimerDisplay();
   updateSimulation();
+  renderCard();
 </script>
 </body>
 </html>
