@@ -74,11 +74,28 @@
     .transform-style-3d { transform-style: preserve-3d; }
     .backface-hidden { backface-visibility: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
+
+    /* Realistic Oven Glow & Heating Animations */
+    .oven-glow-active {
+      background: radial-gradient(circle at 50% 60%, rgba(255, 140, 0, 0.35) 0%, rgba(59, 28, 8, 0.95) 75%) !important;
+      box-shadow: inset 0 0 25px rgba(255, 120, 0, 0.4), 0 0 15px rgba(255, 150, 0, 0.2);
+    }
+    .heating-element-active {
+      filter: drop-shadow(0 0 6px #FF4500) drop-shadow(0 0 12px #FF8C00);
+      stroke: #FFA24C !important;
+    }
+    @keyframes breadBakePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04) translateY(-2px); }
+    }
+    .baking-bread-anim {
+      animation: breadBakePulse 3s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="bg-cream-500 min-h-screen flex justify-center items-center m-0 p-0 sm:p-4 select-none">
 
-  <!-- Mobile App Frame Container (Flexbox layout) -->
+  <!-- Mobile App Frame Container (Full Flexbox) -->
   <div class="app-frame w-full max-w-[430px] h-screen h-[100dvh] sm:h-[880px] sm:max-h-[94vh] bg-cream-100 sm:rounded-[40px] shadow-2xl flex flex-col relative overflow-hidden sm:ring-8 sm:ring-cream-400">
     
     <!-- Toast Popup Notification -->
@@ -88,24 +105,22 @@
     </div>
 
     <!-- Header with 3D Toast Mascot Logo -->
-    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/40">
+    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/50">
       <div class="flex items-center gap-3">
         <!-- 3D Clay Toast Logo Avatar -->
         <div class="w-12 h-12 bg-[#F6DEB2] rounded-2xl flex items-center justify-center shadow-clay relative border-2 border-[#D8A86C] overflow-hidden shrink-0">
           <svg viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-sm">
-            <!-- Toast Crust Body -->
+            <!-- Toast Crust -->
             <path d="M22 28 C22 14, 38 10, 50 18 C62 10, 78 14, 78 28 C85 45, 83 74, 75 84 C68 88, 32 88, 25 84 C17 74, 15 45, 22 28 Z" fill="#C68A4C" />
-            <!-- Toast Soft Bread Face -->
+            <!-- Toast Soft Center -->
             <path d="M26 31 C26 19, 39 16, 50 22 C61 16, 74 19, 74 31 C80 46, 78 70, 71 80 C65 84, 35 84, 29 80 C22 70, 20 46, 26 31 Z" fill="#FCE6B5" />
-            <!-- Melting Butter on Top -->
+            <!-- Butter Cube -->
             <path d="M44 20 Q50 13 62 17 Q68 24 64 32 Q55 35 46 31 Q40 26 44 20 Z" fill="#FCE166" stroke="#E5BE32" stroke-width="1.5" />
             <ellipse cx="54" cy="24" rx="4" ry="2" fill="#FFF49C" opacity="0.8" />
-            <!-- Happy Eyes -->
+            <!-- Eyes & Smile -->
             <ellipse cx="38" cy="48" rx="2.5" ry="3.5" fill="#4A2E13" />
             <ellipse cx="62" cy="48" rx="2.5" ry="3.5" fill="#4A2E13" />
-            <!-- Happy Smile Mouth -->
             <path d="M43 56 Q50 64 57 56 Z" fill="#D9534F" stroke="#4A2E13" stroke-width="1.2" />
-            <!-- Blushing Cheeks -->
             <circle cx="33" cy="54" r="3" fill="#FFB4A2" opacity="0.6" />
             <circle cx="67" cy="54" r="3" fill="#FFB4A2" opacity="0.6" />
           </svg>
@@ -116,51 +131,131 @@
         </div>
       </div>
       
-      <!-- Crumb Currency Pill -->
+      <!-- Crumb Points -->
       <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1 flex items-center gap-1.5 shadow-clay select-none">
         <svg class="w-4 h-4 text-butter-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 11V7a1 1 0 112 0v4a1 1 0 11-2 0zm2 4a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
         <span id="crumbPoints" class="font-bold text-sm text-crust-dark">1,250</span>
       </div>
     </header>
 
-    <!-- Main Screens Container (Scrollable Flex Item) -->
+    <!-- Main Screens Container (Scrollable) -->
     <main class="screen-container flex-1 overflow-y-auto px-4 pt-3 pb-6 no-scrollbar scroll-smooth">
 
       <!-- ================= TAB 1: HOME ================= -->
       <section id="screen-home" class="screen block">
-        <!-- Oven Card -->
-        <div class="bg-cream-50 rounded-3xl p-4 mb-4 shadow-clay border border-white/60">
-          <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
-            <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.12 2.05-1.12 3.942 0 .972.19 1.83.473 2.508a3.99 3.99 0 01-.892-.352 1 1 0 00-1.408.878c.03.493.125 1.012.302 1.543.435 1.309 1.26 2.55 2.518 3.396A6.993 6.993 0 0010 16a6.99 6.99 0 006-3.414c1.258-.846 2.083-2.087 2.518-3.396.177-.531.272-1.05.302-1.543a1 1 0 00-1.408-.878 3.99 3.99 0 01-.892.352c.283-.678.473-1.536.473-2.508 0-1.892-.593-3.122-1.12-3.942a4.408 4.408 0 00-.822-.88 1 1 0 00-1.45.385A8.93 8.93 0 0012 5.093a8.93 8.93 0 00-1.605-2.54z" clip-rule="evenodd"/></svg>
-            <span>เตาอบจับเวลาอ่านหนังสือ (Oven Timer)</span>
-          </div>
+        
+        <!-- ULTRA REALISTIC VINTAGE BAKERY OVEN -->
+        <div class="bg-cream-50 rounded-[32px] p-4 mb-4 shadow-clay border border-white/80">
+          
+          <!-- Oven Outer Body -->
+          <div class="bg-gradient-to-b from-[#EFE0C9] to-[#DFCEB3] rounded-[28px] p-4 shadow-[inset_0_4px_8px_rgba(255,255,255,0.7),0_8px_16px_rgba(92,58,22,0.15)] border-2 border-[#CCAFA0]/80 relative">
+            
+            <!-- Oven Top Control Panel -->
+            <div class="bg-[#E4CFB2] rounded-2xl p-2.5 mb-3 border border-[#C7B192] flex justify-between items-center shadow-inner">
+              
+              <!-- Left Knob: Temperature -->
+              <div class="flex items-center gap-1.5">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:rotate-45 transition-transform">
+                  <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
+                  <div class="absolute top-0.5 w-0.5 h-2 bg-red-500 rounded-full"></div>
+                </div>
+                <div class="text-[10px] font-bold text-crust leading-tight">
+                  <div>180°C</div>
+                  <div class="text-[9px] text-[#A07A55]">HEAT</div>
+                </div>
+              </div>
 
-          <div class="bg-cream-200 rounded-[24px] p-4 text-center shadow-inner border border-cream-300/60">
-            <!-- Stepper -->
-            <div class="flex items-center justify-center gap-2 mb-2">
+              <!-- Center Status Light -->
+              <div class="flex items-center gap-1 bg-[#D8BE9E] px-2.5 py-1 rounded-full border border-[#BFA280]">
+                <div id="ovenStatusLed" class="w-2 h-2 rounded-full bg-gray-400"></div>
+                <span id="ovenLedText" class="text-[9px] font-bold text-crust-dark">READY</span>
+              </div>
+
+              <!-- Right Knob: Bake Mode -->
+              <div class="flex items-center gap-1.5">
+                <div class="text-[10px] font-bold text-crust text-right leading-tight">
+                  <div>FOCUS</div>
+                  <div class="text-[9px] text-[#A07A55]">MODE</div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:-rotate-45 transition-transform">
+                  <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
+                  <div class="absolute top-0.5 w-0.5 h-2 bg-amber-600 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Oven Door Frame with Sturdy Metal/Clay Handle -->
+            <div class="bg-[#D3BC9D] p-2.5 rounded-3xl border-2 border-[#BA9E7D] shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
+              
+              <!-- Oven Door Pull Handle -->
+              <div class="w-36 h-3.5 bg-gradient-to-r from-[#8C5D33] via-[#D8B48A] to-[#8C5D33] rounded-full mx-auto mb-2 shadow-[0_3px_5px_rgba(0,0,0,0.25)] border border-[#6B431D] flex items-center justify-center">
+                <div class="w-20 h-1 bg-white/40 rounded-full"></div>
+              </div>
+
+              <!-- Glass Window & Inside Baking Chamber -->
+              <div id="ovenChamber" class="bg-gradient-to-b from-[#1F1207] via-[#2A170A] to-[#1A0D04] rounded-2xl h-44 relative flex flex-col justify-between items-center p-2.5 overflow-hidden border border-[#523318] shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] transition-all duration-500">
+                
+                <!-- Upper Heating Element Wire Coil -->
+                <svg id="heatingElement" class="w-full h-3 stroke-[#5C3A16] fill-none transition-all duration-500" viewBox="0 0 200 10">
+                  <path d="M5 5 Q15 0 25 5 T45 5 T65 5 T85 5 T105 5 T125 5 T145 5 T165 5 T185 5 T195 5" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+
+                <!-- Glowing LCD Countdown Timer inside Oven -->
+                <div class="bg-black/60 border border-amber-900/60 rounded-xl px-4 py-1 z-10 backdrop-blur-sm cursor-pointer" onclick="promptCustomMinutes()">
+                  <div id="timerDisplay" class="text-4xl sm:text-5xl font-bold text-[#FFB020] tracking-widest text-center drop-shadow-[0_0_8px_rgba(255,165,0,0.6)]">25:00</div>
+                  <div id="bakingStatus" class="text-[9px] text-[#FFE8B2] text-center">แตะตัวเลขเพื่อพิมพ์เวลา (นาที)</div>
+                </div>
+
+                <!-- Bread Loaf on Metal Wire Rack -->
+                <div class="w-full relative flex flex-col items-center z-10">
+                  <!-- Bread Mascot Loaf inside Oven -->
+                  <div id="ovenBreadLoaf" class="relative -mb-1 transition-transform duration-300">
+                    <svg viewBox="0 0 80 50" class="w-20 h-12 drop-shadow-md">
+                      <!-- Golden Toast Loaf Body -->
+                      <path d="M12 30 C10 18, 25 12, 40 12 C55 12, 70 18, 68 30 C70 38, 65 42, 58 43 C46 44, 34 44, 22 43 C15 42, 10 38, 12 30 Z" fill="#D4934B" />
+                      <path d="M15 28 C15 20, 26 15, 40 15 C54 15, 65 20, 65 28 C66 35, 60 39, 54 40 C44 41, 36 41, 26 40 C20 39, 14 35, 15 28 Z" fill="#FCE1A9" />
+                      <!-- Melting Butter -->
+                      <rect x="34" y="16" width="12" height="8" rx="2" fill="#FEE75C" stroke="#D4AC0D" stroke-width="1"/>
+                      <!-- Cute Sleepy/Baking Eyes -->
+                      <path d="M30 28 Q33 31 36 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M44 28 Q47 31 50 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+
+                  <!-- Oven Metal Wire Grill Rack -->
+                  <div class="w-full h-2.5 bg-[#4A3828] border-t-2 border-b border-[#73583E] rounded flex justify-around items-center px-2">
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Stepper Adjustment Buttons -->
+            <div class="flex items-center justify-center gap-2 mt-3 mb-2">
               <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-5)">-5</button>
               <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-1)">-1</button>
-              <span class="text-xs font-bold text-crust px-1">ปรับเวลา (นาที)</span>
+              <span class="text-xs font-bold text-crust px-1">ปรับเวลา</span>
               <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+1)">+1</button>
               <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+5)">+5</button>
             </div>
 
             <!-- Presets -->
-            <div class="flex justify-center gap-1.5 my-2.5 flex-wrap">
+            <div class="flex justify-center gap-1.5 my-2 flex-wrap">
               <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(15, this)">15 นาที</button>
               <button class="preset-pill active bg-butter border-crust px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark -translate-y-0.5 shadow-sm" onclick="setPresetTime(25, this)">25 นาที</button>
               <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(45, this)">45 นาที</button>
               <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(60, this)">60 นาที</button>
             </div>
 
-            <!-- Display -->
-            <div class="bg-[#3B2A1D] rounded-2xl py-4 px-2 my-2.5 shadow-inner flex flex-col items-center justify-center">
-              <div id="timerDisplay" class="text-4xl sm:text-5xl font-bold text-[#FFD272] tracking-widest cursor-pointer select-none drop-shadow" onclick="promptCustomMinutes()">25:00</div>
-              <div id="bakingStatus" class="text-[11px] text-[#FFF3D6] mt-1">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
-            </div>
-
-            <!-- Actions -->
-            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2" onclick="toggleTimer()">
+            <!-- Bake Action Buttons -->
+            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 mt-2" onclick="toggleTimer()">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               <span>เริ่มอบความรู้ (+50 Crumbs)</span>
             </button>
@@ -168,6 +263,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               <span>ทดสอบเร่งเวลา (รับแต้มทันที)</span>
             </button>
+
           </div>
         </div>
 
@@ -234,7 +330,6 @@
             <!-- PDF Real Document Cards -->
             <div class="text-xs font-bold text-crust-dark mb-2">เอกสารสรุปในระบบ</div>
             <div id="pdfListContainer" class="space-y-2">
-              <!-- Doc 1: Physics -->
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
@@ -246,7 +341,6 @@
                 <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('phy')">เปิดอ่าน</button>
               </div>
 
-              <!-- Doc 2: Chemistry -->
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
@@ -258,7 +352,6 @@
                 <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('chem')">เปิดอ่าน</button>
               </div>
 
-              <!-- Doc 3: Biology -->
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
@@ -354,46 +447,46 @@
 
             <!-- Physics View -->
             <div id="subj-phys" class="subject-section block space-y-2.5">
-              <div class="text-xs font-bold text-crust">ฟิสิกส์ ม.ปลาย</div>
+              <div class="text-xs font-bold text-crust">ฟิสิกส์ ม.ปลาย[span_6](start_span)[span_6](end_span)</div>
               <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                 <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
                   <span>กลศาสตร์ & การเคลื่อนที่</span>
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• 5 สูตรการเคลื่อนที่แนวตรง (ความเร่งคงที่): $v = u + at$, $s = ut + \frac{1}{2}at^2$, $v^2 = u^2 + 2as$[span_6](start_span)[span_6](end_span)</p>
-                  <p>• กฎการเคลื่อนที่นิวตัน: $\Sigma F = ma$, แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_7](start_span)[span_7](end_span)</p>
-                  <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_8](start_span)[span_8](end_span)</p>
+                  <p>• 5 สูตรการเคลื่อนที่แนวตรง (ความเร่งคงที่): $v = u + at$, $s = ut + \frac{1}{2}at^2$, $v^2 = u^2 + 2as$[span_7](start_span)[span_7](end_span)</p>
+                  <p>• กฎการเคลื่อนที่นิวตัน: $\Sigma F = ma$, แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_8](start_span)[span_8](end_span)</p>
+                  <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_9](start_span)[span_9](end_span)</p>
                 </div>
               </div>
             </div>
 
             <!-- Chemistry View -->
             <div id="subj-chem" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust">เคมี ม.ปลาย</div>
+              <div class="text-xs font-bold text-crust">เคมี ม.ปลาย[span_10](start_span)[span_10](end_span)</div>
               <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                 <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
                   <span>ปริมาณสารสัมพันธ์ & แก๊ส</span>
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_9](start_span)[span_9](end_span)</p>
-                  <p>• กฎแก๊สอุดมคติ: $PV = nRT$, สมดุลเคมี $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_10](start_span)[span_10](end_span)</p>
+                  <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_11](start_span)[span_11](end_span)</p>
+                  <p>• กฎแก๊สอุดมคติ: $PV = nRT$, สมดุลเคมี $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_12](start_span)[span_12](end_span)</p>
                 </div>
               </div>
             </div>
 
             <!-- Biology View -->
             <div id="subj-bio" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust">ชีววิทยา ม.ปลาย</div>
+              <div class="text-xs font-bold text-crust">ชีววิทยา ม.ปลาย[span_13](start_span)[span_13](end_span)</div>
               <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                 <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
                   <span>อนุกรมวิธาน & อาณาจักรสิ่งมีชีวิต</span>
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_11](start_span)[span_11](end_span)</p>
-                  <p>• Monera (แบคทีเรียย้อมแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_12](start_span)[span_12](end_span)</p>
+                  <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_14](start_span)[span_14](end_span)</p>
+                  <p>• Monera (แบคทีเรียย้อมแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_15](start_span)[span_15](end_span)</p>
                 </div>
               </div>
             </div>
@@ -456,7 +549,7 @@
                 </div>
                 <div id="fcFormula" class="text-base font-bold text-crust-dark bg-[#FCE8B2] px-3.5 py-1.5 rounded-xl my-1.5 overflow-x-auto max-w-full">\( M = F \times d_\perp \)</div>
                 <div id="fcA" class="text-xs font-semibold text-[#9C4A1A]">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
-                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม[span_13](start_span)[span_13](end_span)</div>
+                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม[span_16](start_span)[span_16](end_span)</div>
               </div>
             </div>
           </div>
@@ -530,7 +623,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">G</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Graine <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_14](start_span)[span_14](end_span)</p>
+                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_17](start_span)[span_17](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -548,7 +641,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">B</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Butter <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_15](start_span)[span_15](end_span)</p>
+                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_18](start_span)[span_18](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -566,7 +659,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">T</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Thank <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน[span_16](start_span)[span_16](end_span)</p>
+                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน[span_19](start_span)[span_19](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -651,8 +744,8 @@
             heading: "1. การวัดและเลขนัยสำคัญ",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด (น้อยที่สุด) ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
-                • <b>ความคลาดเคลื่อน:</b> $(A \\pm \\Delta A) + (B \\pm \\Delta B) = (A + B) \\pm (\\Delta A + \\Delta B)$
+                • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด (น้อยที่สุด) ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด[span_20](start_span)[span_20](end_span)<br>
+                • <b>ความคลาดเคลื่อน:</b> $(A \\pm \\Delta A) + (B \\pm \\Delta B) = (A + B) \\pm (\\Delta A + \\Delta B)$[span_21](start_span)[span_21](end_span)
               </p>
             `
           },
@@ -660,14 +753,14 @@
             heading: "2. การเคลื่อนที่แนวตรง & กฎนิวตัน",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>5 สูตรการเคลื่อนที่แนวตรงเมื่อความเร่งคงที่ ($a$ คงตัว):</b>
+                • <b>5 สูตรการเคลื่อนที่แนวตรงเมื่อความเร่งคงที่ ($a$ คงตัว):</b>[span_22](start_span)[span_22](end_span)
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
                 $$v = u + at \\quad,\\quad s = \\left(\\frac{u+v}{2}\\right)t \\quad,\\quad s = ut + \\frac{1}{2}at^2 \\quad,\\quad v^2 = u^2 + 2as$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>กฎการเคลื่อนที่ของนิวตัน:</b> กฎข้อที่ 1 $\\Sigma \\vec{F} = 0$, กฎข้อที่ 2 $\\Sigma \\vec{F} = m\\vec{a}$, กฎข้อที่ 3 $\\text{Action} = \\text{Reaction}$<br>
-                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\\max} = \\mu_s N$, จลน์ $f_k = \\mu_k N$
+                • <b>กฎการเคลื่อนที่ของนิวตัน:</b> กฎข้อที่ 1 $\\Sigma \\vec{F} = 0$, กฎข้อที่ 2 $\\Sigma \\vec{F} = m\\vec{a}$, กฎข้อที่ 3 $\\text{Action} = \\text{Reaction}$[span_23](start_span)[span_23](end_span)<br>
+                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\\max} = \\mu_s N$, จลน์ $f_k = \\mu_k N$[span_24](start_span)[span_24](end_span)
               </p>
             `
           },
@@ -675,13 +768,13 @@
             heading: "3. สมดุลกล & โมเมนต์ของแรง (Torque)",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>สมดุลต่อการหมุน:</b> ผลรวมโมเมนต์รอบจุดหมุนเป็นศูนย์
+                • <b>สมดุลต่อการหมุน:</b> ผลรวมโมเมนต์รอบจุดหมุนเป็นศูนย์[span_25](start_span)[span_25](end_span)
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
                 $$\\Sigma M = 0 \\implies M_{\\text{ทวน}} = M_{\\text{ตาม}} \\quad (M = F \\times d_{\\perp})$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>คานสมดุล:</b> $W_1 \\cdot d_1 = W_2 \\cdot d_2$ (น้ำหนักคูณระยะตั้งฉากจากจุดหมุน)
+                • <b>คานสมดุล:</b> $W_1 \\cdot d_1 = W_2 \\cdot d_2$ (น้ำหนักคูณระยะตั้งฉากจากจุดหมุน)[span_26](start_span)[span_26](end_span)
               </p>
             `
           },
@@ -689,9 +782,9 @@
             heading: "4. คลื่น เสียง แสง และฟิสิกส์อะตอม",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>อัตราเร็วคลื่นและเสียง:</b> $v = f\\lambda$, อัตราเร็วเสียงในอากาศ $v = 331 + 0.6t$ ($t$ ในหน่วย °C)<br>
-                • <b>ระดับความเข้มเสียง:</b> $\\beta = 10\\log\\left(\\frac{I}{I_0}\\right)$ (โดย $I_0 = 10^{-12}\\text{ W/m}^2$)<br>
-                • <b>โฟโตอิเล็กทริก:</b> $hf = W_f + E_{k,\\max} \\implies E_{k,\\max} = eV_s$
+                • <b>อัตราเร็วคลื่นและเสียง:</b> $v = f\\lambda$, อัตราเร็วเสียงในอากาศ $v = 331 + 0.6t$ ($t$ ในหน่วย °C)[span_27](start_span)[span_27](end_span)<br>
+                • <b>ระดับความเข้มเสียง:</b> $\\beta = 10\\log\\left(\\frac{I}{I_0}\\right)$ (โดย $I_0 = 10^{-12}\\text{ W/m}^2$)[span_28](start_span)[span_28](end_span)<br>
+                • <b>โฟโตอิเล็กทริก:</b> $hf = W_f + E_{k,\\max} \\implies E_{k,\\max} = eV_s$[span_29](start_span)[span_29](end_span)
               </p>
             `
           }
@@ -705,8 +798,8 @@
             heading: "1. โครงสร้างอะตอมและตารางธาตุ",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \\dots$<br>
-                • <b>แนวโน้มตารางธาตุ:</b> ขนาดอะตอมเพิ่มขึ้นจากขวาไปซ้ายและบนลงล่าง, ค่า $IE_1, EN, EA$ เพิ่มขึ้นจากซ้ายไปขวาและล่างขึ้นบน
+                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \\dots$[span_30](start_span)[span_30](end_span)<br>
+                • <b>แนวโน้มตารางธาตุ:</b> ขนาดอะตอมเพิ่มขึ้นจากขวาไปซ้ายและบนลงล่าง, ค่า $IE_1, EN, EA$ เพิ่มขึ้นจากซ้ายไปขวาและล่างขึ้นบน[span_31](start_span)[span_31](end_span)
               </p>
             `
           },
@@ -714,14 +807,14 @@
             heading: "2. ปริมาณสารสัมพันธ์ & แก๊ส",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>สูตรโมลสัมพันธ์:</b>
+                • <b>สูตรโมลสัมพันธ์:</b>[span_32](start_span)[span_32](end_span)
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
                 $$\\text{mol} = \\frac{g}{M_w} = \\frac{N}{6.02 \\times 10^{23}} = \\frac{V_{\\text{STP}}}{22.4} = \\frac{CV}{1000}$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.0821\\text{ atm}\\cdot\\text{L/mol}\\cdot\\text{K}$ หรือ $8.314\\text{ J/mol}\\cdot\\text{K}$)<br>
-                • <b>การแพร่เกรแฮม:</b> $\\frac{R_1}{R_2} = \\sqrt{\\frac{M_2}{M_1}}$ (แก๊สเบากว่าแพร่ได้เร็วกว่า)
+                • <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.0821\\text{ atm}\\cdot\\text{L/mol}\\cdot\\text{K}$ หรือ $8.314\\text{ J/mol}\\cdot\\text{K}$)[span_33](start_span)[span_33](end_span)<br>
+                • <b>การแพร่เกรแฮม:</b> $\\frac{R_1}{R_2} = \\sqrt{\\frac{M_2}{M_1}}$ (แก๊สเบากว่าแพร่ได้เร็วกว่า)[span_34](start_span)[span_34](end_span)
               </p>
             `
           },
@@ -729,8 +822,8 @@
             heading: "3. สมดุลเคมี และ กรด-เบส",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \\rightleftharpoons cC + dD \\implies K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะของแข็ง $s$ และของเหลวบริสุทธิ์ $l$)<br>
-                • <b>pH และ บัฟเฟอร์:</b> $pH = -\\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]}$
+                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \\rightleftharpoons cC + dD \\implies K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะของแข็ง $s$ และของเหลวบริสุทธิ์ $l$)[span_35](start_span)[span_35](end_span)<br>
+                • <b>pH และ บัฟเฟอร์:</b> $pH = -\\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]}[span_36](start_span)[span_36](end_span)$
               </p>
             `
           },
@@ -738,8 +831,8 @@
             heading: "4. เคมีอินทรีย์ (Organic Chemistry)",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>ลำดับจุดเดือด:</b> Amide > Carboxylic acid > Alcohol > Ketone $\\approx$ Aldehyde > Ether > Alkyne > Alkane > Alkene<br>
-                • <b>ปฏิกิริยาเอสเทอริฟิเคชัน:</b> $\\text{Carboxylic acid} + \\text{Alcohol} \\xrightarrow{H^+} \\text{Ester} + \\text{H}_2\\text{O}$
+                • <b>ลำดับจุดเดือด:</b> Amide > Carboxylic acid > Alcohol > Ketone $\\approx$ Aldehyde > Ether > Alkyne > Alkane > Alkene[span_37](start_span)[span_37](end_span)<br>
+                • <b>ปฏิกิริยาเอสเทอริฟิเคชัน:</b> $\\text{Carboxylic acid} + \\text{Alcohol} \\xrightarrow{H^+} \\text{Ester} + \\text{H}_2\\text{O}$[span_38](start_span)[span_38](end_span)
               </p>
             `
           }
@@ -753,9 +846,9 @@
             heading: "1. อนุกรมวิธาน (Taxonomy) & กำเนิดชีวิต",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>Carolus Linnaeus:</b> บิดาแห่งอนุกรมวิธาน กำหนดระบบชื่อวิทยาศาสตร์แบบทวินาม (Binomial nomenclature: <i>Genus species</i>)<br>
-                • <b>ลำดับหมวดหมู่:</b> Domain $\\rightarrow$ Kingdom $\\rightarrow$ Phylum $\\rightarrow$ Class $\\rightarrow$ Order $\\rightarrow$ Family $\\rightarrow$ Genus $\\rightarrow$ Species<br>
-                • <b>Phylogenetic tree:</b> จุดแยก (Node) แสดงบรรพบุรุษร่วมล่าสุด (Most recent common ancestor), Monophyletic group (สายวิวัฒนาการที่มีบรรพบุรุษร่วมกันทั้งหมด)
+                • <b>Carolus Linnaeus:</b> บิดาแห่งอนุกรมวิธาน กำหนดระบบชื่อวิทยาศาสตร์แบบทวินาม (Binomial nomenclature: <i>Genus species</i>)[span_39](start_span)[span_39](end_span)<br>
+                • <b>ลำดับหมวดหมู่:</b> Domain $\\rightarrow$ Kingdom $\\rightarrow$ Phylum $\\rightarrow$ Class $\\rightarrow$ Order $\\rightarrow$ Family $\\rightarrow$ Genus $\\rightarrow$ Species[span_40](start_span)[span_40](end_span)<br>
+                • <b>Phylogenetic tree:</b> จุดแยก (Node) แสดงบรรพบุรุษร่วมล่าสุด (Most recent common ancestor), Monophyletic group (สายวิวัฒนาการที่มีบรรพบุรุษร่วมกันทั้งหมด)[span_41](start_span)[span_41](end_span)
               </p>
             `
           },
@@ -763,9 +856,9 @@
             heading: "2. อาณาจักรมอเนอรา (Kingdom Monera)",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>เซลล์โพรแคริโอต:</b> ไม่มีเยื่อหุ้มนิวเคลียส (สารพันธุกรรมอยู่ในบริเวณ Nucleoid), ไรโบโซมขนาด 70S, มี DNA วงแหวนนอกโครโมโซมเรียกว่า Plasmid<br>
-                • <b>การย้อมสีแกรม:</b> Gram-positive (สีม่วง Peptidoglycan หนา) vs Gram-negative (สีแดง Peptidoglycan บางและมีชั้น Lipopolysaccharide)<br>
-                • <b>Cyanobacteria:</b> สังเคราะห์ด้วยแสงได้และมีเซลล์พิเศษ Heterocyst ตรึงไนโตรเจน เช่น <i>Anabaena, Nostoc</i>
+                • <b>เซลล์โพรแคริโอต:</b> ไม่มีเยื่อหุ้มนิวเคลียส (สารพันธุกรรมอยู่ในบริเวณ Nucleoid), ไรโบโซมขนาด 70S, มี DNA วงแหวนนอกโครโมโซมเรียกว่า Plasmid[span_42](start_span)[span_42](end_span)<br>
+                • <b>การย้อมสีแกรม:</b> Gram-positive (สีม่วง Peptidoglycan หนา) vs Gram-negative (สีแดง Peptidoglycan บางและมีชั้น Lipopolysaccharide)[span_43](start_span)[span_43](end_span)<br>
+                • <b>Cyanobacteria:</b> สังเคราะห์ด้วยแสงได้และมีเซลล์พิเศษ Heterocyst ตรึงไนโตรเจน เช่น <i>Anabaena, Nostoc</i>[span_44](start_span)[span_44](end_span)
               </p>
             `
           },
@@ -773,8 +866,8 @@
             heading: "3. อาณาจักรโพรทิสตา (Kingdom Protista)",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>Animal-like (โพรโทซัว):</b> อะมีบา (ใช้เท้าเทียม Pseudopodium), พารามีเซียม (ใช้ซิเลีย Cilia และมี Contractile vacuole ควบคุมน้ำ), พลาสโมเดียม (เชื้อมาลาเรีย ไม่มีโครงสร้างเคลื่อนที่)<br>
-                • <b>Plant-like (สาหร่าย):</b> ไดอะตอม (ผนังซิลิกา), ไดโนแฟลกเจลเลต (ปรากฏการณ์ขี้ปลาวาฬ Red tide), สาหร่ายสีเขียว (<i>Chlorella, Spirogyra</i>), สาหร่ายสีแดง (<i>Porphyra</i> จีฉ่าย)
+                • <b>Animal-like (โพรโทซัว):</b> อะมีบา (ใช้เท้าเทียม Pseudopodium), พารามีเซียม (ใช้ซิเลีย Cilia และมี Contractile vacuole ควบคุมน้ำ), พลาสโมเดียม (เชื้อมาลาเรีย ไม่มีโครงสร้างเคลื่อนที่)[span_45](start_span)[span_45](end_span)<br>
+                • <b>Plant-like (สาหร่าย):</b> ไดอะตอม (ผนังซิลิกา), ไดโนแฟลกเจลเลต (ปรากฏการณ์ขี้ปลาวาฬ Red tide), สาหร่ายสีเขียว (<i>Chlorella, Spirogyra</i>), สาหร่ายสีแดง (<i>Porphyra</i> จีฉ่าย)[span_46](start_span)[span_46](end_span)
               </p>
             `
           }
@@ -790,7 +883,7 @@
         q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
         formula: "\\( M = F \\times d_\\perp \\)",
         a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง",
-        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม (\\(\\Sigma M = 0\\))[span_17](start_span)[span_17](end_span)"
+        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม (\\(\\Sigma M = 0\\))[span_47](start_span)[span_47](end_span)"
       },
       {
         subjTag: "phys",
@@ -798,7 +891,7 @@
         q: "สูตรความเร็วปลายเมื่อไม่ทราบเวลา (t)",
         formula: "\\( v^2 = u^2 + 2as \\)",
         a: "ใช้เมื่อความเร่งคงที่และโจทย์ไม่ได้ระบุตัวแปรเวลา",
-        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)[span_18](start_span)[span_18](end_span)"
+        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)[span_48](start_span)[span_48](end_span)"
       },
       {
         subjTag: "phys",
@@ -806,7 +899,7 @@
         q: "สมการโฟโตอิเล็กทริกของไอน์สไตน์",
         formula: "\\( hf = W_f + E_{k,\\max} \\)",
         a: "พลังงานโฟตอน = ฟังก์ชันงาน + พลังงานจลน์สูงสุดของอิเล็กตรอน",
-        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว[span_19](start_span)[span_19](end_span)"
+        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว[span_49](start_span)[span_49](end_span)"
       },
       {
         subjTag: "chem",
@@ -814,7 +907,7 @@
         q: "สูตรคำนวณจำนวนโมล (mol) ของสาร",
         formula: "\\( n = \\frac{g}{M_w} = \\frac{N}{6.02\\times 10^{23}} = \\frac{CV}{1000} \\)",
         a: "เชื่อมโยงมวล, จำนวนอนุภาค และความเข้มข้นสารละลาย",
-        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³[span_20](start_span)[span_20](end_span)"
+        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³[span_50](start_span)[span_50](end_span)"
       },
       {
         subjTag: "chem",
@@ -822,7 +915,7 @@
         q: "ค่าคงที่สมดุลเคมี (Kc) ของปฏิกิริยา aA + bB ⇌ cC + dD",
         formula: "\\( K_c = \\frac{[C]^c [D]^d}{[A]^a [B]^b} \\)",
         a: "อัตราส่วนความเข้มข้นผลิตภัณฑ์ยกกำลังสัมประสิทธิ์ต่อสารตั้งต้น",
-        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ[span_21](start_span)[span_21](end_span)"
+        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ[span_51](start_span)[span_51](end_span)"
       },
       {
         subjTag: "chem",
@@ -830,7 +923,7 @@
         q: "สูตรคำนวณ pH ของสารละลายบัฟเฟอร์กรด",
         formula: "\\( pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]} \\)",
         a: "สมการ Henderson-Hasselbalch",
-        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)[span_22](start_span)[span_22](end_span)"
+        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)[span_52](start_span)[span_52](end_span)"
       },
       {
         subjTag: "bio",
@@ -838,7 +931,7 @@
         q: "การจัดหมวดหมู่สิ่งมีชีวิตจากใหญ่ไปเล็ก",
         formula: "\\( \\text{Domain} \\rightarrow \\text{Kingdom} \\rightarrow \\text{Phylum} \\rightarrow \\text{Class} \\rightarrow \\text{Order} \\rightarrow \\text{Family} \\rightarrow \\text{Genus} \\rightarrow \\text{Species} \\)",
         a: "ลำดับขั้นการจำแนกสิ่งมีชีวิต (Taxonomic Hierarchy)",
-        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ[span_23](start_span)[span_23](end_span)"
+        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ[span_53](start_span)[span_53](end_span)"
       },
       {
         subjTag: "bio",
@@ -846,7 +939,7 @@
         q: "ความแตกต่างของผนังเซลล์ Gram-positive และ Gram-negative",
         formula: "\\( \\text{Gram}+ \\text{ (ม่วง: Peptidoglycan หนา)} \\longleftrightarrow \\text{Gram}- \\text{ (แดง: มี Lipopolysaccharide)} \\)",
         a: "ย้อมติดสี Crystal violet (บวก) vs Safranin (ลบ)",
-        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง[span_24](start_span)[span_24](end_span)"
+        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง[span_54](start_span)[span_54](end_span)"
       },
       {
         subjTag: "math",
@@ -871,7 +964,7 @@
       }
     }
 
-    /* Tab Switcher (Direct display styling to guarantee 100% reliability) */
+    /* Tab Switcher */
     function switchTab(screenId, btnElement) {
       document.querySelectorAll('.screen').forEach(s => {
         s.style.display = 'none';
@@ -1050,6 +1143,31 @@
       closePdfModal();
     }
 
+    /* Oven Visual State Updates */
+    function setOvenVisuals(isActive) {
+      const chamber = document.getElementById('ovenChamber');
+      const heatingEl = document.getElementById('heatingElement');
+      const breadLoaf = document.getElementById('ovenBreadLoaf');
+      const statusLed = document.getElementById('ovenStatusLed');
+      const ledText = document.getElementById('ovenLedText');
+
+      if (isActive) {
+        chamber.classList.add('oven-glow-active');
+        heatingEl.classList.add('heating-element-active');
+        breadLoaf.classList.add('baking-bread-anim');
+        statusLed.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10B981]';
+        ledText.innerText = 'BAKING';
+        ledText.className = 'text-[9px] font-bold text-emerald-800';
+      } else {
+        chamber.classList.remove('oven-glow-active');
+        heatingEl.classList.remove('heating-element-active');
+        breadLoaf.classList.remove('baking-bread-anim');
+        statusLed.className = 'w-2 h-2 rounded-full bg-gray-400';
+        ledText.innerText = 'READY';
+        ledText.className = 'text-[9px] font-bold text-crust-dark';
+      }
+    }
+
     /* Timer Logic */
     function updateTimerDisplay() {
       const mStr = String(timerMinutes).padStart(2, '0');
@@ -1103,18 +1221,21 @@
         clearInterval(timerInterval);
         isTimerRunning = false;
         document.getElementById('bakingStatus').innerText = "พักการอบชั่วคราว";
+        setOvenVisuals(false);
         updateTimerDisplay();
       } else {
         isTimerRunning = true;
-        document.getElementById('bakingStatus').innerText = "กำลังอบความรู้... โฟกัสนะ!";
+        document.getElementById('bakingStatus').innerText = "เตาอบกำลังทำงาน... อบความรู้!";
+        setOvenVisuals(true);
         updateTimerDisplay();
         timerInterval = setInterval(() => {
           if (timerSeconds === 0) {
             if (timerMinutes === 0) {
               clearInterval(timerInterval);
               isTimerRunning = false;
+              setOvenVisuals(false);
               addPoints(timerMinutes * 2 || 50);
-              alert("อบความรู้เสร็จสิ้นแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
+              alert("ติ๊ง! ขนมปังอบเสร็จแล้ว คุณโฟกัสสำเร็จ");
               setPresetTime(25, document.querySelectorAll('.preset-pill')[1]);
               return;
             }
@@ -1131,6 +1252,7 @@
     function fastForwardTimer() {
       if (timerInterval) clearInterval(timerInterval);
       isTimerRunning = false;
+      setOvenVisuals(false);
       addPoints(50);
       timerMinutes = 25;
       timerSeconds = 0;
