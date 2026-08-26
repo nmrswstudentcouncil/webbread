@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breadie - Physics & Bakery Learning App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FAF3E0;
+      --card-bg: #FFFDF9;
+      --butter-yellow: #F6D860;
+      --butter-hover: #E8C84A;
+      --crust-brown: #8D5B28;
+      --crust-dark: #5C3A16;
+      --soft-shadow: 0 8px 20px rgba(141, 91, 40, 0.12);
+      --clay-shadow: 4px 4px 10px #e0d1b4, -4px -4px 10px #ffffff;
+      --inner-shadow: inset 2px 2px 6px rgba(0,0,0,0.08);
+      --accent-green: #68B984;
+      --accent-red: #EB5353;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Prompt', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #EDE2CD;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    /* Mobile Container Mockup */
+    .app-frame {
+      width: 100%;
+      max-width: 412px;
+      height: 860px;
+      background: var(--bg-cream);
+      border-radius: 40px;
+      box-shadow: 0 20px 45px rgba(92, 58, 22, 0.25), inset 0 0 0 8px #DFCBB0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Status & App Bar */
+    .app-header {
+      padding: 24px 20px 12px;
+      background: var(--bg-cream);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mascot-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mascot-avatar {
+      width: 46px;
+      height: 46px;
+      background: var(--butter-yellow);
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 26px;
+      box-shadow: var(--clay-shadow);
+      position: relative;
+    }
+
+    .mascot-avatar::after {
+      content: '🧈';
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      font-size: 14px;
+    }
+
+    .user-greeting h3 {
+      font-size: 17px;
+      color: var(--crust-dark);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .user-greeting p {
+      font-size: 12px;
+      color: #9E7F60;
+    }
+
+    .currency-pill {
+      background: var(--card-bg);
+      border: 2px solid #EAD8C0;
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--clay-shadow);
+    }
+
+    .currency-pill span {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--crust-dark);
+    }
+
+    /* App Screens Viewport */
+    .screen-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 18px 90px;
+      scroll-behavior: smooth;
+    }
+
+    .screen-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Clay Cards */
+    .clay-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--clay-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    /* Tab 1: Oven Timer */
+    .oven-body {
+      background: #F4E7CE;
+      border-radius: 28px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: inset 4px 4px 8px #DECAB0, inset -4px -4px 8px #FFFBF0;
+      position: relative;
+    }
+
+    .oven-window {
+      background: #3B2A1D;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 12px 0;
+      box-shadow: inset 0 6px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .timer-display {
+      font-size: 46px;
+      font-weight: 700;
+      color: #FFD272;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(246, 216, 96, 0.5);
+      cursor: pointer;
+    }
+
+    .timer-input-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .step-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      box-shadow: var(--clay-shadow);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .step-btn:active {
+      transform: scale(0.92);
+    }
+
+    .preset-container {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .preset-pill {
+      background: var(--card-bg);
+      border: 1.5px solid #DFCBB0;
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--crust-dark);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .preset-pill.active {
+      background: var(--butter-yellow);
+      border-color: var(--crust-brown);
+      transform: translateY(-2px);
+    }
+
+    .baking-status {
+      font-size: 13px;
+      color: #FFF3D6;
+      margin-top: 4px;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: var(--butter-yellow);
+      color: var(--crust-dark);
+      border: none;
+      padding: 14px;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 6px 0 #D9B738, var(--soft-shadow);
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn-main:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #D9B738;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: #E8D8C3;
+      color: var(--crust-dark);
+      border: none;
+      padding: 10px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* Checklist */
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed #E5D5BC;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-check {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--crust-brown);
+      cursor: pointer;
+    }
+
+    .task-label {
+      font-size: 14px;
+      color: var(--crust-dark);
+      flex: 1;
+    }
+
+    .task-reward {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-green);
+      background: #EAF8EE;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* Tab 2: Physics Lever Simulation */
+    .lever-stage {
+      background: #FFFDF8;
+      border-radius: 20px;
+      padding: 24px 12px 16px;
+      position: relative;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      border: 2px solid #EBDBC6;
+      overflow: hidden;
+    }
+
+    .lever-bar-container {
+      width: 86%;
+      height: 12px;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center center;
+    }
+
+    .lever-beam {
+      width: 100%;
+      height: 100%;
+      background: #B87B44;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .fulcrum {
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-bottom: 32px solid #734823;
+      margin-top: -2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fulcrum-base {
+      width: 70px;
+      height: 8px;
+      background: #5C3A16;
+      border-radius: 4px;
+    }
+
+    .weight-box {
+      position: absolute;
+      bottom: 12px;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      transition: left 0.3s ease;
+    }
+
+    .dough-icon {
+      font-size: 24px;
+      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15));
+    }
+
+    .sim-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .control-box {
+      background: #FBF6EB;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid #EEDDC5;
+    }
+
+    .control-box h4 {
+      font-size: 13px;
+      color: var(--crust-dark);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sim-slider {
+      width: 100%;
+      accent-color: var(--crust-brown);
+      margin: 6px 0;
+    }
+
+    .torque-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #F3E5D0;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--crust-dark);
+    }
+
+    /* Tab 3: Daily Flashcards */
+    .flashcard-3d-wrap {
+      perspective: 1000px;
+      height: 280px;
+      margin: 10px 0 16px;
+    }
+
+    .flashcard-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 30px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--clay-shadow);
+      border: 4px solid #EAD4B7;
+    }
+
+    .flashcard-front {
+      background: #FFFDF7;
+    }
+
+    .flashcard-back {
+      background: #FFF5DD;
+      transform: rotateY(180deg);
+    }
+
+    .toast-butter-badge {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .fc-question {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      margin-bottom: 8px;
+    }
+
+    .fc-answer {
+      font-size: 17px;
+      font-weight: 600;
+      color: #9C4A1A;
+    }
+
+    .fc-formula {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--crust-dark);
+      background: #FCE8B2;
+      padding: 6px 16px;
+      border-radius: 12px;
+      margin: 8px 0;
+    }
+
+    /* Tab 4: Friends Co-Baking */
+    .room-card {
+      background: #F8EFE0;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1.5px solid #E8D7BF;
+    }
+
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .room-name {
+      font-weight: 700;
+      color: var(--crust-dark);
+      font-size: 15px;
+    }
+
+    .room-badge {
+      background: var(--accent-green);
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .friend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .friend-box {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--clay-shadow);
+    }
+
+    .friend-avatar {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .friend-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--crust-dark);
+    }
+
+    .friend-subject {
+      font-size: 11px;
+      color: #9E7F60;
+      margin-bottom: 6px;
+    }
+
+    .cheer-btn {
+      background: #FFE3E3;
+      border: 1px solid #FFB8B8;
+      color: #D63447;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cheer-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      background: #FFFDF9;
+      border-top: 2px solid #EEDFC9;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 10px 10px;
+      border-radius: 0 0 40px 40px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #B59E87;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn .nav-icon {
+      font-size: 22px;
+      transition: transform 0.2s;
+    }
+
+    .nav-btn.active {
+      color: var(--crust-dark);
+    }
+
+    .nav-btn.active .nav-icon {
+      transform: translateY(-4px) scale(1.15);
+    }
+
+    /* Toast Notification Floating Effect */
+    .toast-popup {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--crust-dark);
+      color: #FFECC7;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .toast-popup.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-frame">
+  <!-- Toast Notification Popup -->
+  <div id="toastPopup" class="toast-popup">🎉 +25 Crumbs!</div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="mascot-profile">
+      <div class="mascot-avatar">🍞</div>
+      <div class="user-greeting">
+        <h3>Breadie Focus</h3>
+        <p>ฟิสิกส์ ม.ปลาย สดใหม่ทุกวัน</p>
+      </div>
+    </div>
+    <div class="currency-pill">
+      <span>🍞 <span id="crumbPoints">1,250</span></span>
+    </div>
+  </header>
+
+  <!-- Screen Viewport -->
+  <main class="screen-container">
+
+    <!-- TAB 1: HOME & CUSTOM OVEN TIMER -->
+    <section id="screen-home" class="screen active">
+      <div class="clay-card">
+        <div class="card-title">🔥 เตาอบจับเวลาความรู้ (Oven Timer)</div>
+        <div class="oven-body">
+          <div class="timer-input-group">
+            <button class="step-btn" onclick="adjustTimer(-5)">-5</button>
+            <button class="step-btn" onclick="adjustTimer(-1)">-1</button>
+            <div style="font-size: 12px; font-weight: 700; color: #8D5B28;">ปรับเวลา (นาที)</div>
+            <button class="step-btn" onclick="adjustTimer(+1)">+1</button>
+            <button class="step-btn" onclick="adjustTimer(+5)">+5</button>
+          </div>
+
+          <div class="preset-container">
+            <button class="preset-pill" onclick="setPresetTime(15)">15 นาที</button>
+            <button class="preset-pill active" id="defaultPreset" onclick="setPresetTime(25)">25 นาที</button>
+            <button class="preset-pill" onclick="setPresetTime(45)">45 นาที</button>
+            <button class="preset-pill" onclick="setPresetTime(60)">60 นาที</button>
+          </div>
+
+          <div class="oven-window">
+            <div id="timerDisplay" class="timer-display" onclick="promptCustomMinutes()">25:00</div>
+            <div id="bakingStatus" class="baking-status">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
+          </div>
+
+          <button id="timerActionBtn" class="btn-main" onclick="toggleTimer()">🍞 เริ่มอบความรู้ (+50 Crumbs)</button>
+          <button class="btn-secondary" onclick="fastForwardTimer()">⏩ ทดสอบเร่งเวลา (รับแต้มทันที)</button>
+        </div>
+      </div>
+
+      <div class="clay-card">
+        <div class="card-title">📋 ภารกิจฟิสิกส์วันนี้ (Daily Toasts)</div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" onchange="completeTask(this, 30)" id="t1">
+          <label class="task-label" for="t1">ทดลองคานสมดุลครบ 1 ครั้ง</label>
+          <span class="task-reward">+30</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" onchange="completeTask(this, 20)" id="t2">
+          <label class="task-label" for="t2">ทบทวนสูตรฟิสิกส์บน Flashcard</label>
+          <span class="task-reward">+20</span>
+        </div>
+        <div class="task-item">
+          <input type="checkbox" class="task-check" onchange="completeTask(this, 50)" id="t3">
+          <label class="task-label" for="t3">อบความรู้ครบ 25 นาทีร่วมกับเพื่อน</label>
+          <span class="task-reward">+50</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PHYSICS LEVER SIMULATION -->
+    <section id="screen-sim" class="screen">
+      <div class="clay-card">
+        <div class="card-title">⚖️ ห้องทดลองคานสมดุล (Lever Lab)</div>
+        
+        <!-- Simulation Stage -->
+        <div class="lever-stage">
+          <div id="leverBar" class="lever-bar-container">
+            <div class="lever-beam">
+              <!-- Left Weight -->
+              <div id="leftWeightBox" class="weight-box" style="left: 20%;">
+                <span class="dough-icon">🍞</span>
+                <span id="leftWeightLabel">4 kg</span>
+              </div>
+              <!-- Right Weight -->
+              <div id="rightWeightBox" class="weight-box" style="left: 80%;">
+                <span class="dough-icon">🧈</span>
+                <span id="rightWeightLabel">4 kg</span>
+              </div>
+            </div>
+          </div>
+          <div class="fulcrum"></div>
+          <div class="fulcrum-base"></div>
+        </div>
+
+        <!-- Torque indicator -->
+        <div class="torque-indicator">
+          <div>$M_{ทวน}$: <span id="mLeftDisplay">8.0</span> N·m</div>
+          <div id="balanceState" style="color: var(--accent-green);">⚖️ คานสมดุล</div>
+          <div>$M_{ตาม}$: <span id="mRightDisplay">8.0</span> N·m</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="sim-controls">
+          <div class="control-box">
+            <h4>ฝั่งซ้าย (ทวนเข็ม)</h4>
+            <label style="font-size:11px;">มวล: <b id="m1Val">4</b> kg</label>
+            <input type="range" class="sim-slider" id="m1" min="1" max="10" value="4" oninput="updateSimulation()">
+            <label style="font-size:11px;">ระยะ: <b id="d1Val">2.0</b> m</label>
+            <input type="range" class="sim-slider" id="d1" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
+          </div>
+
+          <div class="control-box">
+            <h4>ฝั่งขวา (ตามเข็ม)</h4>
+            <label style="font-size:11px;">มวล: <b id="m2Val">4</b> kg</label>
+            <input type="range" class="sim-slider" id="m2" min="1" max="10" value="4" oninput="updateSimulation()">
+            <label style="font-size:11px;">ระยะ: <b id="d2Val">2.0</b> m</label>
+            <input type="range" class="sim-slider" id="d2" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
+          </div>
+        </div>
+
+        <button class="btn-main" style="margin-top:14px;" onclick="checkPhysicsQuiz()">🎯 ส่งคำตอบตรวจสมดุล (+25 Crumbs)</button>
+        <button class="btn-secondary" onclick="randomLeverChallenge()">🎲 สุ่มโจทย์คำนวณใหม่</button>
+      </div>
+    </section>
+
+    <!-- TAB 3: DAILY FLASHCARDS -->
+    <section id="screen-deck" class="screen">
+      <div class="clay-card">
+        <div class="card-title">🍞 แฟลชการ์ดสูตรฟิสิกส์ (Toast Cards)</div>
+        <p style="font-size: 13px; color: #8D5B28; margin-bottom: 8px;">แตะที่การ์ดเพื่อพลิกดูสูตรและคำอธิบาย</p>
+
+        <div class="flashcard-3d-wrap" onclick="flipCard()">
+          <div class="flashcard-inner" id="flashCard">
+            <div class="flashcard-face flashcard-front">
+              <div class="toast-butter-badge">🧈</div>
+              <div style="font-size:12px; color:#A07A55; font-weight:600;">หมวด: สมดุลและกลศาสตร์</div>
+              <div id="fcQ" class="fc-question">สูตรโมเมนต์ของแรง (Torque) คืออะไร?</div>
+              <div style="font-size:12px; color:#8D5B28; margin-top:8px;">(แตะเพื่อพลิกขนมปัง ↷)</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="toast-butter-badge">✨</div>
+              <div class="fc-formula" id="fcFormula">M = F × d</div>
+              <div class="fc-answer" id="fcA">โมเมนต์ = แรง × ระยะตั้งฉากถึงจุดหมุน</div>
+              <div style="font-size:11px; color:#6B533E; margin-top:6px;">หน่วย: นิวตัน-เมตร ($N\cdot m$)</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary" style="flex:1;" onclick="prevCard()">◀ ข้อก่อนหน้า</button>
+          <button class="btn-main" style="flex:1; padding: 10px;" onclick="nextCard()">ข้อถัดไป (+10 🍞)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: STUDY WITH FRIENDS -->
+    <section id="screen-friends" class="screen">
+      <div class="clay-card">
+        <div class="card-title">👥 ห้องอ่านหนังสือร่วมกับเพื่อน (Co-Baking)</div>
+        
+        <div class="room-card">
+          <div class="room-header">
+            <span class="room-name">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</span>
+            <span class="room-badge">กำลังอ่าน 4 คน</span>
+          </div>
+          <p style="font-size: 12px; color: #7D6148;">อ่านพร้อมกันรับโบนัสแต้มทีม +20%</p>
+          <button class="btn-main" style="padding: 10px; margin-top: 8px; font-size: 13px;" onclick="joinRoom('ฟิสิกส์ ม.5')">🚪 เข้าสู่ห้องอบขนม</button>
+        </div>
+
+        <div class="card-title" style="margin-top: 18px;">🔥 เพื่อนที่กำลังโฟกัสอยู่ (Live)</div>
+        <div class="friend-grid">
+          <div class="friend-box">
+            <div class="friend-avatar">🥐</div>
+            <div class="friend-name">Graine</div>
+            <div class="friend-subject">กำลังทำโจทย์คาน</div>
+            <button class="cheer-btn" onclick="cheerFriend('Graine')">❤️ ส่งกลิ่นเนย</button>
+          </div>
+          <div class="friend-box">
+            <div class="friend-avatar">🍞</div>
+            <div class="friend-name">Butter</div>
+            <div class="friend-subject">อ่านสูตรนิวตัน</div>
+            <button class="cheer-btn" onclick="cheerFriend('Butter')">❤️ ส่งกลิ่นเนย</button>
+          </div>
+          <div class="friend-box">
+            <div class="friend-avatar">🥨</div>
+            <div class="friend-name">Ten-Thank</div>
+            <div class="friend-subject">จับเวลาอ่าน 50 นาที</div>
+            <button class="cheer-btn" onclick="cheerFriend('Ten-Thank')">❤️ ส่งกลิ่นเนย</button>
+          </div>
+          <div class="friend-box">
+            <div class="friend-avatar">🧁</div>
+            <div class="friend-name">Panom</div>
+            <div class="friend-subject">สรุปวิชาฟิสิกส์</div>
+            <button class="cheer-btn" onclick="cheerFriend('Panom')">❤️ ส่งกลิ่นเนย</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('screen-home', this)">
+      <span class="nav-icon">🏠</span>
+      <span>หน้าหลัก</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('screen-sim', this)">
+      <span class="nav-icon">⚖️</span>
+      <span>แล็บคาน</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('screen-deck', this)">
+      <span class="nav-icon">🍞</span>
+      <span>การ์ดสูตร</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('screen-friends', this)">
+      <span class="nav-icon">👥</span>
+      <span>กับเพื่อน</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+  // App Global State
+  let crumbPoints = 1250;
+  let timerMinutes = 25;
+  let timerSeconds = 0;
+  let timerInterval = null;
+  let isTimerRunning = false;
+
+  // Flashcards Data
+  const flashcards = [
+    {
+      q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
+      formula: "M = F × d",
+      a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง",
+      sub: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม"
+    },
+    {
+      q: "กฎข้อที่ 2 ของนิวตัน (แรงและความเร่ง)",
+      formula: "ΣF = ma",
+      a: "แรงลัพธ์ = มวล × ความเร่ง",
+      sub: "หน่วยแรงเป็น นิวตัน (N)"
+    },
+    {
+      q: "สูตรพลังงานจลน์ (Kinetic Energy)",
+      formula: "Ek = ½mv²",
+      a: "พลังงานที่สะสมในวัตถุที่กำลังเคลื่อนที่",
+      sub: "หน่วยเป็น จูล (J)"
+    }
+  ];
+  let currentCardIndex = 0;
+
+  // Navigation Switching
+  function switchTab(screenId, btnElement) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+  }
+
+  // Toast Notification
+  function showToast(msg) {
+    const toast = document.getElementById('toastPopup');
+    toast.innerText = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  function addPoints(pts) {
+    crumbPoints += pts;
+    document.getElementById('crumbPoints').innerText = crumbPoints.toLocaleString();
+    showToast(`🎉 +${pts} Crumbs!`);
+  }
+
+  // Timer Functions
+  function updateTimerDisplay() {
+    const mStr = String(timerMinutes).padStart(2, '0');
+    const sStr = String(timerSeconds).padStart(2, '0');
+    document.getElementById('timerDisplay').innerText = `${mStr}:${sStr}`;
+    const reward = timerMinutes * 2;
+    document.getElementById('timerActionBtn').innerText = isTimerRunning 
+      ? '⏸️ พักการอบขนม' 
+      : `🍞 เริ่มอบความรู้ (+${reward} Crumbs)`;
+  }
+
+  function adjustTimer(amount) {
+    if (isTimerRunning) return;
+    timerMinutes = Math.max(1, Math.min(180, timerMinutes + amount));
+    timerSeconds = 0;
+    updateTimerDisplay();
+    document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
+  }
+
+  function setPresetTime(min) {
+    if (isTimerRunning) return;
+    timerMinutes = min;
+    timerSeconds = 0;
+    updateTimerDisplay();
+    document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  function promptCustomMinutes() {
+    if (isTimerRunning) return;
+    const input = prompt("ระบุเวลาที่ต้องการอบความรู้ (1 - 180 นาที):", timerMinutes);
+    const val = parseInt(input);
+    if (!isNaN(val) && val >= 1 && val <= 180) {
+      timerMinutes = val;
+      timerSeconds = 0;
+      updateTimerDisplay();
+    }
+  }
+
+  function toggleTimer() {
+    if (isTimerRunning) {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      document.getElementById('bakingStatus').innerText = "พักการอบชั่วคราว";
+      updateTimerDisplay();
+    } else {
+      isTimerRunning = true;
+      document.getElementById('bakingStatus').innerText = "🔥 กำลังอบความรู้... โฟกัสนะ!";
+      document.getElementById('timerActionBtn').innerText = '⏸️ พักการอบขนม';
+      timerInterval = setInterval(() => {
+        if (timerSeconds === 0) {
+          if (timerMinutes === 0) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            addPoints(timerMinutes * 2 || 50);
+            alert("🍞 ขนมปังอบเสร็จแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
+            setPresetTime(25);
+            return;
+          }
+          timerMinutes--;
+          timerSeconds = 59;
+        } else {
+          timerSeconds--;
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+  }
+
+  function fastForwardTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    isTimerRunning = false;
+    addPoints(50);
+    timerMinutes = 25;
+    timerSeconds = 0;
+    updateTimerDisplay();
+    document.getElementById('bakingStatus').innerText = "✨ อบความรู้เสร็จสิ้นแบบเร่งด่วน!";
+  }
+
+  function completeTask(checkbox, pts) {
+    if (checkbox.checked) {
+      addPoints(pts);
+      checkbox.disabled = true;
+    }
+  }
+
+  // Physics Simulation Functions
+  function updateSimulation() {
+    const m1 = parseFloat(document.getElementById('m1').value);
+    const d1 = parseFloat(document.getElementById('d1').value);
+    const m2 = parseFloat(document.getElementById('m2').value);
+    const d2 = parseFloat(document.getElementById('d2').value);
+
+    document.getElementById('m1Val').innerText = m1;
+    document.getElementById('d1Val').innerText = d1.toFixed(1);
+    document.getElementById('m2Val').innerText = m2;
+    document.getElementById('d2Val').innerText = d2.toFixed(1);
+
+    document.getElementById('leftWeightLabel').innerText = `${m1} kg`;
+    document.getElementById('rightWeightLabel').innerText = `${m2} kg`;
+
+    // Position weights on beam (center is 50%)
+    const leftPosPercent = 50 - (d1 / 3.0) * 42;
+    const rightPosPercent = 50 + (d2 / 3.0) * 42;
+    document.getElementById('leftWeightBox').style.left = `${leftPosPercent}%`;
+    document.getElementById('rightWeightBox').style.left = `${rightPosPercent}%`;
+
+    // Torque Calculation (M = F * d)
+    const tLeft = m1 * d1;
+    const tRight = m2 * d2;
+    document.getElementById('mLeftDisplay').innerText = tLeft.toFixed(1);
+    document.getElementById('mRightDisplay').innerText = tRight.toFixed(1);
+
+    const diff = tRight - tLeft;
+    // Calculate rotation angle (max ±14 deg)
+    const angle = Math.max(-14, Math.min(14, diff * 2.5));
+    document.getElementById('leverBar').style.transform = `rotate(${angle}deg)`;
+
+    const stateElem = document.getElementById('balanceState');
+    if (Math.abs(tLeft - tRight) < 0.05) {
+      stateElem.innerText = "⚖️ คานสมดุล";
+      stateElem.style.color = "var(--accent-green)";
+    } else if (tLeft > tRight) {
+      stateElem.innerText = "↺ เอียงทวนเข็ม";
+      stateElem.style.color = "var(--crust-dark)";
+    } else {
+      stateElem.innerText = "↻ เอียงตามเข็ม";
+      stateElem.style.color = "var(--crust-dark)";
+    }
+  }
+
+  function checkPhysicsQuiz() {
+    const tLeft = parseFloat(document.getElementById('mLeftDisplay').innerText);
+    const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
+    if (Math.abs(tLeft - tRight) < 0.05) {
+      addPoints(25);
+      alert("🎉 ถูกต้อง! $M_{ทวน} = M_{ตาม}$ คานอยู่ในภาวะสมดุลสมบูรณ์");
+    } else {
+      alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
+    }
+  }
+
+  function randomLeverChallenge() {
+    const targetM1 = Math.floor(Math.random() * 6) + 2;
+    const targetD1 = (Math.floor(Math.random() * 5) + 1) * 0.5;
+    document.getElementById('m1').value = targetM1;
+    document.getElementById('d1').value = targetD1;
+    updateSimulation();
+    showToast("🎲 สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
+  }
+
+  // Flashcards Functions
+  function flipCard() {
+    document.getElementById('flashCard').classList.toggle('flipped');
+  }
+
+  function renderCard() {
+    const card = flashcards[currentCardIndex];
+    document.getElementById('flashCard').classList.remove('flipped');
+    document.getElementById('fcQ').innerText = card.q;
+    document.getElementById('fcFormula').innerText = card.formula;
+    document.getElementById('fcA').innerText = card.a;
+  }
+
+  function nextCard() {
+    addPoints(10);
+    currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+    renderCard();
+  }
+
+  function prevCard() {
+    currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+    renderCard();
+  }
+
+  // Friends Functions
+  function cheerFriend(name) {
+    addPoints(5);
+    showToast(`🧈 ส่งกลิ่นเนยให้ ${name} สำเร็จ!`);
+  }
+
+  function joinRoom(name) {
+    showToast(`🚪 เข้าร่วมห้อง ${name} แล้ว!`);
+  }
+
+  // Init
+  updateTimerDisplay();
+  updateSimulation();
+</script>
+</body>
+</html>
