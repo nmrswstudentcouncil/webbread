@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Breadie</title>
+  <title>Breadie - Learning Bakery</title>
 
   <!-- Google Fonts: Prompt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,26 +82,29 @@
   <div class="app-frame w-full max-w-[430px] h-screen h-[100dvh] sm:h-[880px] sm:max-h-[94vh] bg-cream-100 sm:rounded-[40px] shadow-2xl flex flex-col relative overflow-hidden sm:ring-8 sm:ring-cream-400">
     
     <!-- Toast Popup Notification -->
-    <div id="toastPopup" class="fixed top-16 left-1/2 -translate-x-1/2 -translate-y-8 bg-crust-dark text-[#FFECC7] px-4 py-2 rounded-full text-xs font-semibold shadow-toast opacity-0 pointer-events-none transition-all duration-300 z-50">
-      🎉 +25 Crumbs!
+    <div id="toastPopup" class="fixed top-16 left-1/2 -translate-x-1/2 -translate-y-8 bg-crust-dark text-[#FFECC7] px-4 py-2 rounded-full text-xs font-semibold shadow-toast opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-1.5">
+      <svg class="w-4 h-4 text-butter" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      <span id="toastMsg">+25 Crumbs!</span>
     </div>
 
     <!-- Header -->
     <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20">
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 bg-butter rounded-2xl flex items-center justify-center text-2xl shadow-clay relative select-none">
-          🍞
-          <span class="absolute -top-1 -right-1 text-xs">🧈</span>
+        <div class="w-11 h-11 bg-butter rounded-2xl flex items-center justify-center text-crust-dark shadow-clay relative select-none">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 4H5a3 3 0 00-3 3v9a5 5 0 005 5h10a5 5 0 005-5V7a3 3 0 00-3-3zm1 12a3 3 0 01-3 3H7a3 3 0 01-3-3V7a1 1 0 011-1h14a1 1 0 011 1v9z"/>
+          </svg>
+          <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-yellow-300 rounded-md border border-crust/30"></span>
         </div>
         <div>
           <h1 class="text-xl font-bold text-crust-dark leading-tight tracking-tight">Breadie</h1>
-          <p class="text-[11px] text-[#9E7F60] font-medium">Study & Focus Bakery</p>
+          <p class="text-[11px] text-[#9E7F60] font-medium">Science & Math Focus Lab</p>
         </div>
       </div>
       
       <!-- Crumb Currency Pill -->
       <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1 flex items-center gap-1.5 shadow-clay select-none">
-        <span class="text-xs">🍞</span>
+        <svg class="w-4 h-4 text-butter-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 11V7a1 1 0 112 0v4a1 1 0 11-2 0zm2 4a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
         <span id="crumbPoints" class="font-bold text-sm text-crust-dark">1,250</span>
       </div>
     </header>
@@ -114,7 +117,8 @@
         <!-- Oven Card -->
         <div class="bg-cream-50 rounded-3xl p-4 mb-4 shadow-clay border border-white/60">
           <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
-            <span>🔥</span> เตาอบจับเวลาความรู้ (Oven Timer)
+            <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.12 2.05-1.12 3.942 0 .972.19 1.83.473 2.508a3.99 3.99 0 01-.892-.352 1 1 0 00-1.408.878c.03.493.125 1.012.302 1.543.435 1.309 1.26 2.55 2.518 3.396A6.993 6.993 0 0010 16a6.99 6.99 0 006-3.414c1.258-.846 2.083-2.087 2.518-3.396.177-.531.272-1.05.302-1.543a1 1 0 00-1.408-.878 3.99 3.99 0 01-.892.352c.283-.678.473-1.536.473-2.508 0-1.892-.593-3.122-1.12-3.942a4.408 4.408 0 00-.822-.88 1 1 0 00-1.45.385A8.93 8.93 0 0012 5.093a8.93 8.93 0 00-1.605-2.54z" clip-rule="evenodd"/></svg>
+            <span>เตาอบจับเวลาอ่านหนังสือ (Oven Timer)</span>
           </div>
 
           <div class="bg-cream-200 rounded-[24px] p-4 text-center shadow-inner border border-cream-300/60">
@@ -142,11 +146,13 @@
             </div>
 
             <!-- Actions -->
-            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all" onclick="toggleTimer()">
-              🍞 เริ่มอบความรู้ (+50 Crumbs)
+            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2" onclick="toggleTimer()">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>เริ่มอบความรู้ (+50 Crumbs)</span>
             </button>
-            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition" onclick="fastForwardTimer()">
-              ⏩ ทดสอบเร่งเวลา (รับแต้มทันที)
+            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition flex items-center justify-center gap-1.5" onclick="fastForwardTimer()">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>ทดสอบเร่งเวลา (รับแต้มทันที)</span>
             </button>
           </div>
         </div>
@@ -154,17 +160,18 @@
         <!-- Daily Tasks -->
         <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
           <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
-            <span>📋</span> ภารกิจวันนี้ (Daily Toasts)
+            <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            <span>ภารกิจวันนี้ (Daily Tasks)</span>
           </div>
           <div class="divide-y divide-dashed divide-cream-300">
             <div class="flex items-center gap-3 py-2.5">
               <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 30)" id="t1">
-              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t1">ทดลองคานสมดุลครบ 1 ครั้ง</label>
+              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t1">ทดลองคานสมดุลใน Simulation</label>
               <span class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+30</span>
             </div>
             <div class="flex items-center gap-3 py-2.5">
               <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 20)" id="t2">
-              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนเนื้อหา 1 บทเรียน</label>
+              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนการ์ดสูตร 5 ใบ</label>
               <span class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+20</span>
             </div>
             <div class="flex items-center gap-3 py-2.5">
@@ -180,413 +187,244 @@
       <section id="screen-lesson" class="screen hidden">
         <!-- Sub-Nav Switcher -->
         <div class="flex bg-cream-300 rounded-2xl p-1 gap-1 mb-3.5 shadow-inner">
-          <button class="lesson-sub-btn active flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-cream-50 shadow-sm transition" onclick="switchLessonSubTab('lesson-content', this)">📚 เนื้อหาวิชา</button>
-          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition" onclick="switchLessonSubTab('lesson-sim', this)">🕹️ Simulation</button>
-          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition" onclick="switchLessonSubTab('lesson-pdf', this)">📄 สรุป (PDF)</button>
+          <button class="lesson-sub-btn active flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-cream-50 shadow-sm transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-content', this)">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>บทเรียนสรุป</span>
+          </button>
+          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-sim', this)">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+            <span>Simulation</span>
+          </button>
+          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-pdf', this)">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <span>PDF Hub</span>
+          </button>
         </div>
 
         <!-- Sub 1: Comprehensive Subjects Curriculum -->
         <div id="lesson-content" class="lesson-sub-view block">
           <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
             <div class="text-sm font-bold text-crust-dark flex items-center justify-between mb-2">
-              <span class="flex items-center gap-1.5"><span>📚</span> หลักสูตรเนื้อหา ม.ปลาย (ม.4 - ม.6)</span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span>คลังสรุปหลักสูตร ม.ปลาย</span>
+              </span>
             </div>
 
             <!-- Subject Chips Navigation -->
             <div class="grid grid-cols-4 gap-1.5 mb-3 bg-cream-200/60 p-1 rounded-2xl border border-cream-300">
-              <button class="subj-chip active py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition text-center" onclick="filterSubject('subj-math', this)">คณิต</button>
-              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-phys', this)">ฟิสิกส์</button>
+              <button class="subj-chip active py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition text-center" onclick="filterSubject('subj-phys', this)">ฟิสิกส์</button>
               <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-chem', this)">เคมี</button>
               <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-bio', this)">ชีวะ</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-math', this)">คณิต</button>
+            </div>
+
+            <!-- ================= PHYSICS CONTENT (FROM PDF 1) ================= -->
+            <div id="subj-phys" class="subject-section block space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>ฟิสิกส์ ม.ปลาย (สรุปสมบูรณ์)[span_6](start_span)[span_6](end_span)</span>
+              </div>
+              
+              <!-- กลศาสตร์ 1 -->
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. บทนำ การวัด และการเคลื่อนที่แนวตรง</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>เลขนัยสำคัญ:</b> ผลลัพธ์ $+,-$ อิงทศนิยมน้อยสุด[span_7](start_span)[span_7](end_span), ผลลัพธ์ $\times,\div$ อิงเลขนัยสำคัญน้อยสุด[span_8](start_span)[span_8](end_span)</p>
+                  <p>• <b>5 สูตรการเคลื่อนที่แนวตรง (ความเร่ง $a$ คงที่)[span_9](start_span)[span_9](end_span):</b></p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$v = u + at \quad,\quad s = \left(\frac{u+v}{2}\right)t \quad,\quad s = ut + \frac{1}{2}at^2 \quad,\quad v^2 = u^2 + 2as$$
+                  </div>
+                  <p>• <b>กราฟ:</b> ความชัน $s$-$t = v$[span_10](start_span)[span_10](end_span), ความชัน $v$-$t = a$[span_11](start_span)[span_11](end_span), พื้นที่ใต้กราฟ $v$-$t = s$[span_12](start_span)[span_12](end_span), พื้นที่ใต้กราฟ $a$-$t = \Delta v$[span_13](start_span)[span_13](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <!-- กฎนิวตัน และ สมดุลกล -->
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. กฎการเคลื่อนที่นิวตัน & สมดุลกล</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>กฎนิวตัน:</b> $\Sigma F = 0$ (อยู่นิ่ง/เร็วคงที่)[span_14](start_span)[span_14](end_span), $\Sigma F = ma$ (มีความเร่ง)[span_15](start_span)[span_15](end_span), Action = Reaction[span_16](start_span)[span_16](end_span)</p>
+                  <p>• <b>แรงเสียดทาน:</b> $f_s \le \mu_s N$ (สถิตสูงสุดเริ่มขยับ)[span_17](start_span)[span_17](end_span), $f_k = \mu_k N$ (จลน์ขณะเคลื่อนที่)[span_18](start_span)[span_18](end_span)</p>
+                  <p>• <b>สมดุลต่อการหมุน & คาน:</b></p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}} \quad (M = F \times d_{\perp})$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <!-- โพรเจกไทล์ วงกลม SHM -->
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. โพรเจกไทล์ วงกลม และ SHM</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>โพรเจกไทล์:</b> แกนราบ $u_x = u\cos\theta$ (คงที่)[span_19](start_span)[span_19](end_span), แกนดิ่ง $u_y = u\sin\theta$ (ความเร่ง $g$)[span_20](start_span)[span_20](end_span), อัตราส่วน $\frac{S_y}{S_x} = \frac{1}{4}\tan\theta$[span_21](start_span)[span_21](end_span)</p>
+                  <p>• <b>วงกลม:</b> $a_c = \frac{v^2}{R} = \omega^2 R$[span_22](start_span)[span_22](end_span), แรงสู่ศูนย์กลาง $F_c = \frac{mv^2}{R}$[span_23](start_span)[span_23](end_span), เลี้ยวโค้งไม่ไถล $v_{max} = \sqrt{\mu_s R g}$[span_24](start_span)[span_24](end_span)</p>
+                  <p>• <b>Simple Harmonic Motion:</b> มวลติดสปริง $\omega = \sqrt{\frac{k}{m}}$[span_25](start_span)[span_25](end_span), ลูกตุ้ม $\omega = \sqrt{\frac{g}{L}}$[span_26](start_span)[span_26](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <!-- คลื่น แสง เสียง ไฟฟ้า -->
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. คลื่น เสียง แสง และแม่เหล็กไฟฟ้า</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>เสียง:</b> อัตราเร็ว $v = 331 + 0.6t$[span_27](start_span)[span_27](end_span), ระดับความเข้ม $\beta = 10\log\left(\frac{I}{I_0}\right)$[span_28](start_span)[span_28](end_span), ความถี่บีตต์ $f_b = |f_1 - f_2| \le 7\text{ Hz}$[span_29](start_span)[span_29](end_span)</p>
+                  <p>• <b>แสงเชิงคลื่น:</b> สลิตคู่ แถบสว่าง $d\sin\theta = n\lambda$[span_30](start_span)[span_30](end_span), สลิตเดี่ยว แถบมืด $a\sin\theta = n\lambda$[span_31](start_span)[span_31](end_span)</p>
+                  <p>• <b>ไฟฟ้าสถิต & แม่เหล็ก:</b> $F = \frac{kQq}{R^2}$[span_32](start_span)[span_32](end_span), แรงแม่เหล็กกระทำต่อประจุ $\vec{F}_B = q(\vec{v} \times \vec{B}) = qvB\sin\theta$[span_33](start_span)[span_33](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= CHEMISTRY CONTENT (FROM PDF 3) ================= -->
+            <div id="subj-chem" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                <span>เคมี ม.ปลาย (สรุปสมบูรณ์)[span_34](start_span)[span_34](end_span)</span>
+              </div>
+              
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. โครงสร้างอะตอม ตารางธาตุ & พันธะเคมี</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>จัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$[span_35](start_span)[span_35](end_span) | ออร์บิทัล $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \dots$[span_36](start_span)[span_36](end_span)</p>
+                  <p>• <b>แนวโน้ม:</b> ขนาดอะตอม ซ้าย>ขวา, ล่าง>บน[span_37](start_span)[span_37](end_span) | ค่า $IE_1, EN, EA$ ขวา>ซ้าย, บน>ล่าง[span_38](start_span)[span_38](end_span)</p>
+                  <p>• <b>พันธะเคมี:</b> โลหะ (ทะเลอิเล็กตรอน)[span_39](start_span)[span_39](end_span), ไอออนิก (Lattice/Hydration)[span_40](start_span)[span_40](end_span), โคเวเลนต์ (แชร์อิเล็กตรอน, กฎออกเตต)[span_41](start_span)[span_41](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. ปริมาณสารสัมพันธ์ & แก๊ส</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>สูตรโมลสารสัมพันธ์:</b></p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$$
+                  </div>
+                  <p>• <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.082\text{ atm}\cdot\text{L/mol}\cdot\text{K}$)[span_42](start_span)[span_42](end_span), การแพร่ผ่านเกรแฮม $\frac{R_1}{R_2} = \sqrt{\frac{M_2}{M_1}}$[span_43](start_span)[span_43](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. อัตรา สมดุลเคมี และ กรด-เบส</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>สมดุลเคมี:</b> ค่าคงที่ $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะ $s$ และ $l$)[span_44](start_span)[span_44](end_span)</p>
+                  <p>• <b>กรด-เบส & บัฟเฟอร์:</b> $pH = -\log[H_3O^+]$[span_45](start_span)[span_45](end_span), บัฟเฟอร์กรด $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรด}]}$[span_46](start_span)[span_46](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. เคมีอินทรีย์และพอลิเมอร์</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>จุดเดือดสารอินทรีย์:</b> Amide > Carboxylic acid > Alcohol > Ketone/Aldehyde > Ether > Alkyne > Alkane > Alkene[span_47](start_span)[span_47](end_span)</p>
+                  <p>• <b>ปฏิกิริยาสำคัญ:</b> เอสเทอริฟิเคชัน (กรดคาร์บอกซิลิก + แอลกอฮอล์ ได้ เอสเทอร์ + น้ำ)[span_48](start_span)[span_48](end_span), สะพอนิฟิเคชัน (เกิดสบู่)[span_49](start_span)[span_49](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= BIOLOGY CONTENT (FROM PDF 2) ================= -->
+            <div id="subj-bio" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>ชีววิทยา ม.ปลาย (สรุปสมบูรณ์)[span_50](start_span)[span_50](end_span)</span>
+              </div>
+              
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. อนุกรมวิธาน (Taxonomy) & กำเนิดชีวิต</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>ระบบทวินาม:</b> ตั้งชื่อวิทยาศาสตร์ 2 ส่วน (Genus + specific epithet) โดย Carolus Linnaeus[span_51](start_span)[span_51](end_span)</p>
+                  <p>• <b>ลำดับหมวดหมู่:</b> Domain $\rightarrow$ Kingdom $\rightarrow$ Phylum $\rightarrow$ Class $\rightarrow$ Order $\rightarrow$ Family $\rightarrow$ Genus $\rightarrow$ Species[span_52](start_span)[span_52](end_span)</p>
+                  <p>• <b>Phylogenetic Tree:</b> Branch point (Node) แสดงบรรพบุรุษร่วม[span_53](start_span)[span_53](end_span), Monophyletic (รวมบรรพบุรุษและสมาชิกทั้งหมด)[span_54](start_span)[span_54](end_span), Paraphyletic, Polyphyletic[span_55](start_span)[span_55](end_span)</p>
+                  <p>• <b>กำเนิดสิ่งมีชีวิต:</b> การทดลอง Miller-Urey จำลองบรรยากาศโลกยุคแรกสร้างกรดอะมิโน[span_56](start_span)[span_56](end_span), Ribozyme (RNA ทำหน้าที่เร่งปฏิกิริยา)[span_57](start_span)[span_57](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. อาณาจักรมอเนอรา (Kingdom Monera)</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>Prokaryote:</b> เซลล์ไม่มีเยื่อหุ้มนิวเคลียส (Nucleoid)[span_58](start_span)[span_58](end_span), ไรโบโซม 70S[span_59](start_span)[span_59](end_span), มีพลาสมิด (Plasmid)[span_60](start_span)[span_60](end_span)</p>
+                  <p>• <b>ย้อมแกรม (Gram Stain):</b> แกรมบวก (สีม่วง Peptidoglycan หนา)[span_61](start_span)[span_61](end_span) vs แกรมลบ (สีแดง มี Lipopolysaccharide)[span_62](start_span)[span_62](end_span)</p>
+                  <p>• <b>Cyanobacteria:</b> สังเคราะห์ด้วยแสงได้[span_63](start_span)[span_63](end_span), มีเซลล์ Heterocyst ตรึงไนโตรเจน เช่น <i>Anabaena, Nostoc</i>[span_64](start_span)[span_64](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. อาณาจักรโพรทิสตา (Kingdom Protista)</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>Animal-like (โพรโทซัว):</b> อะมีบา (Lobopodia)[span_65](start_span)[span_65](end_span), พารามีเซียม (Cilia & Contractile vacuole)[span_66](start_span)[span_66](end_span), พลาสโมเดียม (ก่อโรคมาลาเรีย ไม่มีโครงสร้างเคลื่อนที่)[span_67](start_span)[span_67](end_span)</p>
+                  <p>• <b>Plant-like (สาหร่าย):</b> ไดอะตอม (ผนังซิลิกา)[span_68](start_span)[span_68](end_span), ไดโนแฟลกเจลเลต (Red tide ขี้ปลาวาฬ)[span_69](start_span)[span_69](end_span), สาหร่ายสีเขียว (<i>Chlorella, Spirogyra</i>)[span_70](start_span)[span_70](end_span), สาหร่ายสีน้ำตาล (Kelp)[span_71](start_span)[span_71](end_span), สาหร่ายสีแดง (<i>Porphyra</i>)[span_72](start_span)[span_72](end_span)</p>
+                  <p>• <b>Fungus-like:</b> ราเมือก (Slime molds) ไม่มีผนังเซลล์[span_73](start_span)[span_73](end_span), ราน้ำ (Water molds) ผนังเซลลูโลส[span_74](start_span)[span_74](end_span)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                </div>
+              </div>
             </div>
 
             <!-- ================= MATHEMATICS CONTENT ================= -->
-            <div id="subj-math" class="subject-section block space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">📐 คณิตศาสตร์ ม.ปลาย</div>
+            <div id="subj-math" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <span>คณิตศาสตร์ ม.ปลาย (สรุปสมบูรณ์)</span>
+              </div>
               
-              <!-- ม.4 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
               <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                 <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>1. เซตและตรรกศาสตร์</span>
-                  <span>▾</span>
+                  <span>1. ตรรกศาสตร์ & จำนวนจริง</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>เซต:</b> การดำเนินการยูเนียน อินเตอร์เซกชัน และสูตรจำนวนสมาชิก:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$n(A \cup B) = n(A) + n(B) - n(A \cap B)$$
-                  </div>
-                  <p>• <b>ตรรกศาสตร์:</b> ประพจน์ ตัวเชื่อม $(\land, \lor, \rightarrow, \leftrightarrow)$ และสมมูลที่สำคัญ $(p \rightarrow q \equiv \sim p \lor q)$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                  <p>• <b>สมมูลตรรกศาสตร์สำคัญ:</b> $p \rightarrow q \equiv \sim p \lor q \equiv \sim q \rightarrow \sim p$</p>
+                  <p>• <b>สูตรรากสมการกำลังสอง:</b> $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
                 </div>
               </div>
 
               <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                 <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>2. จำนวนจริงและพหุนาม</span>
-                  <span>▾</span>
+                  <span>2. แคลคูลัส & เวกเตอร์</span>
+                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ทฤษฎีบทเศษเหลือและการแก้อสมการพหุนามตัวแปรเดียว:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
-                  </div>
-                  <p>• ค่าสัมบูรณ์: $|x| \le a \iff -a \le x \le a$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>3. ฟังก์ชันและเรขาคณิตวิเคราะห์</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ระยะห่างระหว่างจุด ความชัน และสมการวงกลม/พาราโบลา/วงรี/ไฮเพอร์โบลา:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$d = \frac{|Ax_1 + By_1 + C|}{\sqrt{A^2 + B^2}} \quad,\quad (x-h)^2 + (y-k)^2 = r^2$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.5 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>4. ตรีโกณมิติและฟังก์ชันเอกซ์โพเนนเชียล</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• เอกลักษณ์ตรีโกณมิติและกฎของไซน์/โคไซน์:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\sin^2\theta + \cos^2\theta = 1 \quad,\quad c^2 = a^2 + b^2 - 2ab\cos C$$
-                  </div>
-                  <p>• สมบัติลอการิทึม: $\log_a(xy) = \log_a x + \log_a y$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>5. เวกเตอร์ จำนวนเชิงซ้อน และความน่าจะเป็น</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ผลคูณเชิงสเกลาร์ (Dot product) และหลักการนับ/การจัดหมู่:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\vec{u}\cdot\vec{v} = |\vec{u}||\vec{v}|\cos\theta \quad,\quad P(E) = \frac{n(E)}{n(S)} \quad,\quad \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.6 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>6. ลำดับ อนุกรม และแคลคูลัสเบื้องต้น</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• อนุกรมเรขาคณิตและอนุพันธ์/ปริพันธ์ของฟังก์ชัน:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$S_\infty = \frac{a_1}{1-r} \quad,\quad \frac{d}{dx}[x^n] = nx^{n-1} \quad,\quad \int x^n dx = \frac{x^{n+1}}{n+1} + C$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>7. สถิติศาสตร์และการแจกแจงความน่าจะเป็น</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ค่ากลาง การกระจาย และค่ามาตรฐาน ($z$-score):</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\bar{x} = \frac{\sum x_i}{N} \quad,\quad s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{N-1}} \quad,\quad z = \frac{x - \mu}{\sigma}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================= PHYSICS CONTENT ================= -->
-            <div id="subj-phys" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">⚛️ ฟิสิกส์ ม.ปลาย</div>
-              
-              <!-- ม.4 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4 (กลศาสตร์ 1)</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>1. การเคลื่อนที่แนวตรงและกฎนิวตัน</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• 5 สมการการเคลื่อนที่แนวตรงความเร่งคงที่:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$v = u + at \quad,\quad s = ut + \frac{1}{2}at^2 \quad,\quad v^2 = u^2 + 2as$$
-                  </div>
-                  <p>• กฎข้อ 2 ของนิวตันและแรงเสียดทาน: $\Sigma \vec{F} = m\vec{a} \quad,\quad f = \mu N$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>2. สมดุลกล งาน-พลังงาน และโมเมนตัม</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• สมดุลต่อการหมุนและกฎการอนุรักษ์พลังงานกล/โมเมนตัม:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\Sigma M = 0 \quad,\quad E_1 + W = E_2 \quad,\quad \Sigma \vec{p}_{\text{ก่อน}} = \Sigma \vec{p}_{\text{หลัง}}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.5 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5 (คลื่น แสง เสียง ไฟฟ้า)</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>3. คลื่นกล แสง และเสียง</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• อัตราเร็วคลื่น การหักเห (Snell's Law) และความเข้มเสียง:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$v = f\lambda \quad,\quad \frac{\sin\theta_1}{\sin\theta_2} = \frac{n_2}{n_1} = \frac{v_1}{v_2} \quad,\quad \beta = 10\log\left(\frac{I}{I_0}\right)$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>4. ไฟฟ้าสถิตและไฟฟ้ากระแสตรง</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• กฎของคูลอมบ์และกฎของโอห์มในวงจรไฟฟ้า:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$F = \frac{k|q_1q_2|}{r^2} \quad,\quad V = IR \quad,\quad P = IV = I^2R = \frac{V^2}{R}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.6 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6 (ความร้อน ของไหล อะตอมและนิวเคลียร์)</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>5. แม่เหล็กไฟฟ้า แก๊ส และของไหล</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• แรงแม่เหล็ก กฎแก๊สอุดมคติ และสมการแบร์นูลลี:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$F = qvB\sin\theta \quad,\quad PV = nRT \quad,\quad P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = \text{คงที่}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>6. ฟิสิกส์อะตอมและฟิสิกส์นิวเคลียร์</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ปรากฏการณ์โฟโตอิเล็กทริกและครึ่งชีวิต:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$hf = W + E_{k,\max} \quad,\quad N(t) = N_0 \left(\frac{1}{2}\right)^{t/T_{1/2}} \quad,\quad E = mc^2$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================= CHEMISTRY CONTENT ================= -->
-            <div id="subj-chem" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">🧪 เคมี ม.ปลาย</div>
-              
-              <!-- ม.4 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>1. โครงสร้างอะตอม ตารางธาตุ และพันธะเคมี</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• การจัดเรียงอิเล็กตรอนและแนวโน้มตารางธาตุ ($IE, EA, EN$):</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$1s^2 \ 2s^2 \ 2p^6 \ 3s^2 \ 3p^6 \ 4s^2 \ 3d^{10} \dots$$
-                  </div>
-                  <p>• พันธะไอออนิก โคเวเลนต์ (VSEPR รูปร่างโมเลกุล) และพันธะโลหะ</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>2. โมล สารละลาย และปริมาณสารสัมพันธ์</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ความสัมพันธ์ของโมลและการเตรียมสารละลาย:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000} \quad,\quad C_1V_1 = C_2V_2$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.5 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>3. แก๊ส อัตราการเกิดปฏิกิริยา และสมดุลเคมี</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• กฎของแก๊สและค่าคงที่สมดุล ($K_c, K_p$):</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$PV = nRT \quad,\quad aA + bB \rightleftharpoons cC + dD \implies K = \frac{[C]^c[D]^d}{[A]^a[B]^b}$$
-                  </div>
-                  <p>• หลักของเลอชาเตอลิเยร์ (Le Chatelier's Principle)</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>4. กรด-เบส และเกลือ</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• การแตกตัวของกรด-เบส ค่า $pH$ และการไทเทรต:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$pH = -\log[H_3O^+] \quad,\quad [H_3O^+] = \sqrt{K_a C_a} \quad,\quad aC_aV_a = bC_bV_b$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.6 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>5. เคมีไฟฟ้า (Electrochemistry)</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ปฏิกิริยารีดอกซ์ เซลล์กัลวานิก และเซลล์อิเล็กโทรไลต์:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$$
-                  </div>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>6. เคมีอินทรีย์และพอลิเมอร์</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• หมู่ฟังก์ชัน (Functional Groups): แอลกอฮอล์, แอลดีไฮด์, คีโตน, กรดคาร์บอกซิลิก, เอสเทอร์, เอไมด์</p>
-                  <p>• ปฏิกิริยาเอสเทอริฟิเคชัน และการเกิดพอลิเมอร์ (Addition / Condensation)</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================= BIOLOGY CONTENT ================= -->
-            <div id="subj-bio" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">🌿 ชีววิทยา ม.ปลาย</div>
-              
-              <!-- ม.4 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>1. เซลล์ ออร์แกเนลล์ และการลำเลียงสาร</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>โครงสร้างเซลล์:</b> นิวเคลียส, ไมโทคอนเดรีย (สร้าง ATP), คลอโรพลาสต์, ไรโบโซม, ER</p>
-                  <p>• <b>การลำเลียงสาร:</b> Passive Transport (Diffusion, Osmosis, Facilitated) และ Active Transport</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>2. การหายใจระดับเซลล์และการแบ่งเซลล์</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>Cellular Respiration:</b> ไกลโคลิซิส $\rightarrow$ สร้าง Acetyl CoA $\rightarrow$ วัฏจักรเครบส์ $\rightarrow$ การถ่ายทอดอิเล็กตรอน (ได้ 30-32 ATP)</p>
-                  <p>• <b>การแบ่งเซลล์:</b> ไมโทซิส ($2n \rightarrow 2n$) vs ไมโอซิส ($2n \rightarrow n$ เกิด Crossing over ใน Prophase I)</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.5 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>3. สรีรวิทยาของพืชและการสังเคราะห์ด้วยแสง</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>Photosynthesis:</b> Light reaction (ไทลาคอยด์ ได้ ATP, NADPH) และ Calvin cycle (สโตรมา ตรึง $\text{CO}_2$)</p>
-                  <p>• การลำเลียงน้ำ (Xylem - แรงดึงจากการคายน้ำ) และอาหาร (Phloem - แรงดันชลศาสตร์)</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>4. ระบบร่างกายมนุษย์ (สรีรวิทยาสัตว์)</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ระบบย่อยอาหาร, ระบบหมุนเวียนเลือดและภูมิคุ้มกัน, ระบบหายใจ, ระบบขับถ่าย (เนฟรอน), ระบบประสาท (Action potential) และต่อมไร้ท่อ (ฮอร์โมน)</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <!-- ม.6 -->
-              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>5. พันธุศาสตร์ โมเลกุล และเทคโนโลยี DNA</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• กฎของเมนเดล และ Central Dogma:</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$\text{DNA} \xrightarrow{\text{Transcription}} \text{mRNA} \xrightarrow{\text{Translation}} \text{Protein}$$
-                  </div>
-                  <p>• พันธุวิศวกรรม: การตัดต่อยีน, PCR, Gel electrophoresis</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-                </div>
-              </div>
-
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <span>6. วิวัฒนาการและนิเวศวิทยา</span>
-                  <span>▾</span>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• กฎของฮาร์ดี-ไวน์เบิร์ก (Hardy-Weinberg Equilibrium):</p>
-                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
-                    $$p + q = 1 \quad,\quad p^2 + 2pq + q^2 = 1$$
-                  </div>
-                  <p>• ความหลากหลายทางชีวภาพ ไบโอม และวัฏจักรสารอาหารในระบบนิเวศ</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                  <p>• <b>การหาอนุพันธ์ & ปริพันธ์:</b> $\frac{d}{dx}[x^n] = nx^{n-1} \quad,\quad \int x^n dx = \frac{x^{n+1}}{n+1} + C$</p>
+                  <p>• <b>Dot Product:</b> $\vec{u} \cdot \vec{v} = |\vec{u}||\vec{v}|\cos\theta = u_1 v_1 + u_2 v_2 + u_3 v_3$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
                 </div>
               </div>
             </div>
@@ -598,19 +436,18 @@
         <div id="lesson-sim" class="lesson-sub-view hidden">
           <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
             <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
-              <span>⚖️</span> เครื่องจำลองคานสมดุล (Lever Lab)
+              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+              <span>เครื่องจำลองคานสมดุล (Lever Simulation)</span>
             </div>
 
             <!-- Stage -->
             <div class="bg-[#FFFDF8] rounded-2xl p-4 relative h-40 flex flex-col justify-end items-center border-2 border-[#EBDBC6] overflow-hidden">
               <div id="leverBar" class="w-[88%] h-3 relative transition-transform duration-300 origin-center">
                 <div class="w-full h-full bg-crust-light rounded-full shadow relative">
-                  <!-- Left Mass -->
                   <div id="leftWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 20%;">
                     <span class="text-xl select-none">🍞</span>
                     <span id="leftWeightLabel">4 kg</span>
                   </div>
-                  <!-- Right Mass -->
                   <div id="rightWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 80%;">
                     <span class="text-xl select-none">🧈</span>
                     <span id="rightWeightLabel">4 kg</span>
@@ -624,7 +461,7 @@
             <!-- Indicator -->
             <div class="flex justify-between items-center mt-3 px-3 py-2 bg-cream-200 rounded-xl text-xs font-bold text-crust-dark border border-cream-300">
               <div><i>M</i><sub>ทวน</sub>: <span id="mLeftDisplay">8.0</span> N·m</div>
-              <div id="balanceState" class="text-[#68B984]">⚖️ คานสมดุล</div>
+              <div id="balanceState" class="text-[#68B984]">คานสมดุล</div>
               <div><i>M</i><sub>ตาม</sub>: <span id="mRightDisplay">8.0</span> N·m</div>
             </div>
 
@@ -646,51 +483,64 @@
               </div>
             </div>
 
-            <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-xs font-bold mt-3.5 shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition" onclick="checkPhysicsQuiz()">
-              🎯 ส่งคำตอบตรวจสมดุล (+25 Crumbs)
+            <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-xs font-bold mt-3.5 shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1.5" onclick="checkPhysicsQuiz()">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>ส่งคำตอบตรวจสมดุล (+25 Crumbs)</span>
             </button>
             <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition" onclick="randomLeverChallenge()">
-              🎲 สุ่มโจทย์คำนวณใหม่
+              สุ่มโจทย์คำนวณใหม่
             </button>
           </div>
         </div>
 
-        <!-- Sub 3: PDF Hub -->
+        <!-- Sub 3: PDF Hub (Based on attached files) -->
         <div id="lesson-pdf" class="lesson-sub-view hidden">
           <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
             <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
-              <span>📄</span> อัปโหลดสรุปเพื่ออ่าน (PDF Hub)
+              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>คลังไฟล์เอกสารสรุป (PDF Hub)</span>
             </div>
 
             <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handlePdfUpload(event)">
             <div class="border-2 border-dashed border-[#CBB191] rounded-2xl p-4 text-center bg-[#FAF2E4] hover:bg-[#F5E8D3] cursor-pointer transition mb-3" onclick="document.getElementById('pdfFileInput').click()">
-              <div class="text-3xl mb-1 select-none">📥</div>
+              <svg class="w-7 h-7 mx-auto mb-1 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               <div class="font-bold text-crust-dark text-xs sm:text-sm">แตะเพื่ออัปโหลดไฟล์ PDF</div>
               <div class="text-[11px] text-[#9E7F60]">เปิดอ่านชีตสรุปพร้อมสะสมแต้มอ่านหนังสือ</div>
             </div>
 
-            <div class="text-xs font-bold text-crust-dark mb-2">📁 สรุปฟิสิกส์ & วิทย์-คณิต</div>
+            <div class="text-xs font-bold text-crust-dark mb-2">เอกสารสรุปจากบทเรียน</div>
             <div id="pdfListContainer" class="space-y-2">
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">สรุปสูตรฟิสิกส์ ม.ปลาย.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">1.4 MB • 4 หน้า</div>
+                    <div class="text-xs font-bold text-crust-dark">3. PHY 🪐.pdf[span_75](start_span)[span_75](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">กลศาสตร์ คลื่น ไฟฟ้า ฟิสิกส์แผนใหม่[span_76](start_span)[span_76](end_span)</div>
                   </div>
                 </div>
-                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('สรุปสูตรฟิสิกส์ ม.ปลาย.pdf')">เปิดอ่าน</button>
+                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('3. PHY 🪐.pdf', 'สรุปเนื้อหาฟิสิกส์ ม.ปลาย ทุกบท: กลศาสตร์ คลื่น แสง เสียง ไฟฟ้า สสาร อะตอมและนิวเคลียร์')">เปิดอ่าน</button>
               </div>
 
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">สรุปเคมีและตารางธาตุ.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">2.1 MB • 6 หน้า</div>
+                    <div class="text-xs font-bold text-crust-dark">4. CHEM ⚗️.pdf[span_77](start_span)[span_77](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">อะตอม พันธะ สมดุล กรดเบส ไฟฟ้าเคมี[span_78](start_span)[span_78](end_span)</div>
                   </div>
                 </div>
-                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('สรุปเคมีและตารางธาตุ.pdf')">เปิดอ่าน</button>
+                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('4. CHEM ⚗️.pdf', 'สรุปเนื้อหาเคมี ม.ปลาย ครบชุด: อะตอม ตารางธาตุ พันธะเคมี ปริมาณสารสัมพันธ์ แก๊ส อัตรา สมดุล กรด-เบส เคมีไฟฟ้า และเคมีอินทรีย์')">เปิดอ่าน</button>
+              </div>
+
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+                  <div>
+                    <div class="text-xs font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf[span_79](start_span)[span_79](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">อนุกรมวิธาน กำเนิดชีวิต มอเนอรา โพรทิสตา[span_80](start_span)[span_80](end_span)</div>
+                  </div>
+                </div>
+                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf', 'สรุปวิชาชีววิทยา: Taxonomy, Phylogenetic Tree, Origin of Life, Kingdom Monera และ Kingdom Protista')">เปิดอ่าน</button>
               </div>
             </div>
           </div>
@@ -700,35 +550,57 @@
       <!-- ================= TAB 3: DAILY FLASHCARDS ================= -->
       <section id="screen-deck" class="screen hidden">
         <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-          <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-1">
-            <span>🍞</span> แฟลชการ์ดสูตรวิทย์-คณิต (Toast Cards)
+          <div class="text-sm font-bold text-crust-dark flex items-center justify-between mb-1">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <span>การ์ดสูตร & คอนเซปต์ (Toast Cards)</span>
+            </span>
           </div>
-          <p class="text-[11px] text-crust mb-3">แตะที่แผ่นขนมปังเพื่อพลิกดูสูตร</p>
+          <p class="text-[11px] text-crust mb-2.5">เลือกหมวดวิชาแล้วแตะที่การ์ดเพื่อพลิกดูเฉลย</p>
+
+          <!-- Deck Subject Filters -->
+          <div class="flex gap-1 overflow-x-auto no-scrollbar pb-1 mb-2">
+            <button class="deck-filter-chip active px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-butter border border-crust/20 shrink-0" onclick="filterDeckSubject('all', this)">ทั้งหมด</button>
+            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('phys', this)">ฟิสิกส์</button>
+            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('chem', this)">เคมี</button>
+            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('bio', this)">ชีวะ</button>
+            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('math', this)">คณิต</button>
+          </div>
 
           <!-- 3D Card Area -->
           <div class="perspective-1000 h-64 my-2 select-none" onclick="flipCard()">
             <div id="flashCard" class="w-full h-full relative transform-style-3d transition-transform duration-500 cursor-pointer">
               <!-- Front -->
               <div class="flashcard-face absolute inset-0 backface-hidden bg-[#FFFDF7] rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
-                <div class="text-4xl mb-2">🧈</div>
-                <div id="fcSubj" class="text-[11px] font-semibold text-[#A07A55]">หมวด: ฟิสิกส์ (สมดุลกล)</div>
-                <div id="fcQ" class="text-base font-bold text-crust-dark mt-2 mb-1">สูตรโมเมนต์ของแรง (Torque) คืออะไร?</div>
-                <div class="text-[11px] text-crust mt-3">(แตะเพื่อพลิกขนมปัง ↷)</div>
+                <div class="w-10 h-10 rounded-2xl bg-butter flex items-center justify-center text-crust-dark mb-2 shadow-inner">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                </div>
+                <div id="fcSubj" class="text-[11px] font-semibold text-[#A07A55]">หมวด: ฟิสิกส์ (กลศาสตร์)</div>
+                <div id="fcQ" class="text-sm sm:text-base font-bold text-crust-dark mt-2 mb-1">สูตรโมเมนต์ของแรง (Torque) คืออะไร?</div>
+                <div class="text-[10px] text-crust mt-3">(แตะเพื่อพลิกขนมปัง)</div>
               </div>
               <!-- Back -->
               <div class="flashcard-face absolute inset-0 backface-hidden rotate-y-180 bg-butter-light rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
-                <div class="text-3xl mb-1">✨</div>
-                <div id="fcFormula" class="text-lg font-bold text-crust-dark bg-[#FCE8B2] px-4 py-1.5 rounded-xl my-2">\( M = F \times d \)</div>
+                <div class="w-8 h-8 rounded-full bg-butter flex items-center justify-center text-crust-dark mb-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div id="fcFormula" class="text-base font-bold text-crust-dark bg-[#FCE8B2] px-3.5 py-1.5 rounded-xl my-1.5 overflow-x-auto max-w-full">\( M = F \times d \)</div>
                 <div id="fcA" class="text-xs font-semibold text-[#9C4A1A]">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
-                <div class="text-[10px] text-[#6B533E] mt-1">หน่วย: นิวตัน-เมตร (\(\text{N}\cdot\text{m}\))</div>
+                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม</div>
               </div>
             </div>
           </div>
 
           <!-- Card Switch Buttons -->
-          <div class="flex gap-2 mt-4">
-            <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs font-semibold hover:bg-cream-400 transition" onclick="prevCard()">◀ ข้อก่อนหน้า</button>
-            <button class="flex-1 bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition" onclick="nextCard()">ข้อถัดไป (+10 🍞)</button>
+          <div class="flex gap-2 mt-3">
+            <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs font-semibold hover:bg-cream-400 transition flex items-center justify-center gap-1" onclick="prevCard()">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              <span>ก่อนหน้า</span>
+            </button>
+            <button class="flex-1 bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1" onclick="nextCard()">
+              <span>ถัดไป (+10)</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -737,30 +609,33 @@
       <section id="screen-friends" class="screen hidden">
         <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
           <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-3">
-            <span>👥</span> เตาอบอ่านหนังสือร่วมกับเพื่อน
+            <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <span>เตาอบอ่านหนังสือร่วมกับเพื่อน</span>
           </div>
 
           <!-- Room List View -->
           <div id="roomOverview" class="space-y-3">
             <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
               <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-crust-dark text-xs sm:text-sm">🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</span>
-                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">🟢 สด 4 คน</span>
+                <span class="font-bold text-crust-dark text-xs sm:text-sm">ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</span>
+                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">ออนไลน์ 4 คน</span>
               </div>
               <p class="text-[11px] text-[#7D6148] mb-2.5">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
-              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="enterRoomView('🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)')">
-                👉 กดเข้าดูสมาชิกและแต้มเวลา
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1" onclick="enterRoomView('ห้องติวรวม ม.ปลาย (วิทย์-คณิต)')">
+                <span>เข้าดูสมาชิกและเวลาโฟกัส</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
             </div>
 
             <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
               <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-crust-dark text-xs sm:text-sm">🥐 ห้องเตรียมสอบเข้ามหาวิทยาลัย</span>
-                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">🟢 สด 2 คน</span>
+                <span class="font-bold text-crust-dark text-xs sm:text-sm">ห้องเตรียมสอบเข้ามหาวิทยาลัย</span>
+                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">ออนไลน์ 2 คน</span>
               </div>
               <p class="text-[11px] text-[#7D6148] mb-2.5">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
-              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="enterRoomView('🥐 ห้องเตรียมสอบเข้ามหาวิทยาลัย')">
-                👉 กดเข้าดูสมาชิกและแต้มเวลา
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1" onclick="enterRoomView('ห้องเตรียมสอบเข้ามหาวิทยาลัย')">
+                <span>เข้าดูสมาชิกและเวลาโฟกัส</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
             </div>
           </div>
@@ -769,56 +644,68 @@
           <div id="roomDetailView" class="hidden">
             <div class="bg-[#F2E4CF] rounded-2xl p-3 flex justify-between items-center mb-3">
               <div>
-                <div id="activeRoomName" class="text-xs font-bold text-crust-dark">🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</div>
+                <div id="activeRoomName" class="text-xs font-bold text-crust-dark">ห้องติวรวม ม.ปลาย</div>
                 <div class="text-[10px] text-[#7D6148]">กำลังจับเวลาโฟกัสร่วมกัน</div>
               </div>
-              <button class="bg-[#ECD7C0] text-crust-dark px-2.5 py-1 rounded-xl text-[11px] font-semibold hover:bg-cream-400" onclick="leaveRoomView()">◀ ออกจากห้อง</button>
+              <button class="bg-[#ECD7C0] text-crust-dark px-2.5 py-1 rounded-xl text-[11px] font-semibold hover:bg-cream-400 flex items-center gap-1" onclick="leaveRoomView()">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                <span>ออก</span>
+              </button>
             </div>
 
             <!-- Friend Rows -->
             <div class="space-y-2">
               <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🥐</div>
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">G</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Graine <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">กำลังอ่าน: แคลคูลัส ม.6</p>
+                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_81](start_span)[span_81](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 45 นาที</span>
-                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+90 🍞</span>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Graine')">❤️ ให้กำลังใจ</button>
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">45 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+90</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Graine')">
+                    <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                    <span>Cheer</span>
+                  </button>
                 </div>
               </div>
 
               <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🍞</div>
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">B</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Butter <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">กำลังอ่าน: เคมีอินทรีย์</p>
+                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_82](start_span)[span_82](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 30 นาที</span>
-                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+60 🍞</span>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Butter')">❤️ ให้กำลังใจ</button>
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">30 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+60</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Butter')">
+                    <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                    <span>Cheer</span>
+                  </button>
                 </div>
               </div>
 
               <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🥨</div>
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">T</div>
                   <div>
-                    <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Ten-Thank <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">กำลังทำแล็บคานฟิสิกส์</p>
+                    <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Thank <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
+                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน[span_83](start_span)[span_83](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 50 นาที</span>
-                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+100 🍞</span>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Ten-Thank')">❤️ ให้กำลังใจ</button>
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">50 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+100</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Thank')">
+                    <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                    <span>Cheer</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -833,16 +720,15 @@
       <div class="w-full max-w-sm h-[75vh] bg-cream-50 rounded-3xl p-4 flex flex-col shadow-2xl border border-white/60">
         <div class="flex justify-between items-center pb-2 border-b border-cream-300">
           <h4 id="pdfModalTitle" class="text-xs font-bold text-crust-dark truncate">เอกสารสรุป</h4>
-          <button class="bg-cream-300 text-crust-dark px-2.5 py-1 rounded-xl text-xs font-semibold" onclick="closePdfModal()">ปิด ✖</button>
+          <button class="bg-cream-300 text-crust-dark px-2.5 py-1 rounded-xl text-xs font-semibold" onclick="closePdfModal()">ปิด</button>
         </div>
-        <div class="flex-1 bg-cream-200 rounded-2xl my-3 flex items-center justify-center text-center p-4">
-          <div>
-            <div class="text-4xl mb-2 select-none">📄</div>
-            <p id="pdfMockContent" class="text-xs font-semibold text-crust">กำลังเปิดอ่านเอกสารสรุป...</p>
-          </div>
+        <div class="flex-1 bg-cream-200 rounded-2xl my-3 flex flex-col items-center justify-center text-center p-4 overflow-y-auto">
+          <svg class="w-12 h-12 text-red-500 mb-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+          <p id="pdfMockContent" class="text-xs font-semibold text-crust leading-relaxed">กำลังเปิดอ่านเอกสารสรุป...</p>
         </div>
-        <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="readPdfFinish()">
-          ✨ อ่านจบแล้ว รับแต้ม (+20 🍞)
+        <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1.5" onclick="readPdfFinish()">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          <span>อ่านจบแล้ว รับแต้ม (+20)</span>
         </button>
       </div>
     </div>
@@ -850,19 +736,19 @@
     <!-- Fixed Bottom Navigation Bar -->
     <nav class="absolute bottom-0 left-0 right-0 h-[calc(64px+env(safe-area-inset-bottom,0px))] bg-cream-50 border-t-2 border-cream-300 flex justify-around items-start pt-2 pb-[env(safe-area-inset-bottom,8px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
       <button class="nav-btn active flex-1 flex flex-col items-center gap-0.5 text-crust-dark text-[11px] font-semibold" onclick="switchTab('screen-home', this)">
-        <span class="text-xl -translate-y-0.5 scale-110 transition-transform">🏠</span>
+        <svg class="w-5 h-5 -translate-y-0.5 scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span>หน้าหลัก</span>
       </button>
       <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-lesson', this)">
-        <span class="text-xl transition-transform">📚</span>
+        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
         <span>Lesson</span>
       </button>
       <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-deck', this)">
-        <span class="text-xl transition-transform">🍞</span>
+        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
         <span>การ์ดสูตร</span>
       </button>
       <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-friends', this)">
-        <span class="text-xl transition-transform">👥</span>
+        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
         <span>กับเพื่อน</span>
       </button>
     </nav>
@@ -876,33 +762,87 @@
     let timerInterval = null;
     let isTimerRunning = false;
 
-    // Flashcards Data Covering 4 Subjects
-    const flashcards = [
+    // Flashcards Data Covering Physics, Chemistry, Biology, Mathematics
+    const allFlashcards = [
+      // Physics[span_84](start_span)[span_84](end_span)
       {
+        subjTag: "phys",
         subj: "หมวด: ฟิสิกส์ (สมดุลกล)",
         q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
-        formula: "\\( M = F \\times d \\)",
-        a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง"
+        formula: "\\( M = F \\times d_\\perp \\)",
+        a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง",
+        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม (\\(\\Sigma M = 0\\))"
       },
       {
-        subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
-        q: "สูตรการหาอนุพันธ์ของพหุนาม xⁿ",
-        formula: "\\( \\frac{d}{dx}[x^n] = nx^{n-1} \\)",
-        a: "ตบเลขชี้กำลังลงมาคูณ แล้วลดเลขชี้กำลังลง 1"
+        subjTag: "phys",
+        subj: "หมวด: ฟิสิกส์ (การเคลื่อนที่)",
+        q: "สูตรความเร็วปลายเมื่อไม่ทราบเวลา (t)",
+        formula: "\\( v^2 = u^2 + 2as \\)",
+        a: "ใช้เมื่อความเร่งคงที่และโจทย์ไม่ได้ระบุตัวแปรเวลา",
+        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)"
       },
       {
+        subjTag: "phys",
+        subj: "หมวด: ฟิสิกส์ (โฟโตอิเล็กทริก)",
+        q: "สมการโฟโตอิเล็กทริกของไอน์สไตน์",
+        formula: "\\( hf = W_f + E_{k,\\max} \\)",
+        a: "พลังงานโฟตอน = ฟังก์ชันงาน + พลังงานจลน์สูงสุดของอิเล็กตรอน",
+        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว"
+      },
+      // Chemistry[span_85](start_span)[span_85](end_span)
+      {
+        subjTag: "chem",
         subj: "หมวด: เคมี (ปริมาณสารสัมพันธ์)",
-        q: "สูตรการคำนวณจำนวนโมล (mol)",
+        q: "สูตรคำนวณจำนวนโมล (mol) ของสาร",
         formula: "\\( n = \\frac{g}{M_w} = \\frac{N}{6.02\\times 10^{23}} = \\frac{CV}{1000} \\)",
-        a: "ใช้เชื่อมโยงมวล ปริมาตร ความเข้มข้น และจำนวนอนุภาค"
+        a: "เชื่อมโยงมวล, จำนวนอนุภาค และความเข้มข้นสารละลาย",
+        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³"
       },
       {
-        subj: "หมวด: ชีววิทยา (พันธุศาสตร์)",
-        q: "สมดุลฮาร์ดี-ไวน์เบิร์ก (Hardy-Weinberg)",
-        formula: "\\( p^2 + 2pq + q^2 = 1 \\)",
-        a: "p² = โฮโมไซกัสเด่น, 2pq = เฮเทอโรไซกัส, q² = โฮโมไซกัสด้อย"
+        subjTag: "chem",
+        subj: "หมวด: เคมี (สมดุลเคมี)",
+        q: "ค่าคงที่สมดุลเคมี (Kc) ของปฏิกิริยา aA + bB ⇌ cC + dD",
+        formula: "\\( K_c = \\frac{[C]^c [D]^d}{[A]^a [B]^b} \\)",
+        a: "อัตราส่วนความเข้มข้นผลิตภัณฑ์ยกกำลังสัมประสิทธิ์ต่อสารตั้งต้น",
+        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ"
+      },
+      {
+        subjTag: "chem",
+        subj: "หมวด: เคมี (กรด-เบส)",
+        q: "สูตรคำนวณ pH ของสารละลายบัฟเฟอร์กรด",
+        formula: "\\( pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]} \\)",
+        a: "สมการ Henderson-Hasselbalch",
+        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)"
+      },
+      // Biology[span_86](start_span)[span_86](end_span)
+      {
+        subjTag: "bio",
+        subj: "หมวด: ชีววิทยา (อนุกรมวิธาน)",
+        q: "การจัดหมวดหมู่สิ่งมีชีวิตจากใหญ่ไปเล็ก",
+        formula: "\\( \\text{Domain} \\rightarrow \\text{Kingdom} \\rightarrow \\text{Phylum} \\rightarrow \\text{Class} \\rightarrow \\text{Order} \\rightarrow \\text{Family} \\rightarrow \\text{Genus} \\rightarrow \\text{Species} \\)",
+        a: "ลำดับขั้นการจำแนกสิ่งมีชีวิต (Taxonomic Hierarchy)",
+        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ"
+      },
+      {
+        subjTag: "bio",
+        subj: "หมวด: ชีววิทยา (แบคทีเรีย)",
+        q: "ความแตกต่างของผนังเซลล์ Gram-positive และ Gram-negative",
+        formula: "\\( \\text{Gram}+ \\text{ (ม่วง: Peptidoglycan หนา)} \\longleftrightarrow \\text{Gram}- \\text{ (แดง: มี Lipopolysaccharide)} \\)",
+        a: "ย้อมติดสี Crystal violet (บวก) vs Safranin (ลบ)",
+        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง"
+      },
+      // Mathematics
+      {
+        subjTag: "math",
+        subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
+        q: "สูตรอนุพันธ์ของผลคูณ (Product Rule)",
+        formula: "\\( \\frac{d}{dx}[u \\cdot v] = u\\frac{dv}{dx} + v\\frac{du}{dx} \\)",
+        a: "หน้า ดิฟหลัง + หลัง ดิฟหน้า",
+        detail: "สำหรับผลหาร: (ล่าง ดิฟบน - บน ดิฟล่าง) / ล่างกำลังสอง"
       }
     ];
+
+    let filteredCards = [...allFlashcards];
     let currentCardIndex = 0;
 
     function reRenderMath() {
@@ -923,11 +863,13 @@
       document.querySelectorAll('.nav-btn').forEach(b => {
         b.classList.remove('text-crust-dark', 'active');
         b.classList.add('text-[#B59E87]');
-        b.querySelector('span:first-child').classList.remove('-translate-y-0.5', 'scale-110');
+        const icon = b.querySelector('svg');
+        if (icon) icon.classList.remove('-translate-y-0.5', 'scale-110');
       });
       btnElement.classList.add('text-crust-dark', 'active');
       btnElement.classList.remove('text-[#B59E87]');
-      btnElement.querySelector('span:first-child').classList.add('-translate-y-0.5', 'scale-110');
+      const activeIcon = btnElement.querySelector('svg');
+      if (activeIcon) activeIcon.classList.add('-translate-y-0.5', 'scale-110');
 
       reRenderMath();
     }
@@ -970,9 +912,26 @@
       reRenderMath();
     }
 
+    function filterDeckSubject(tag, chipBtn) {
+      document.querySelectorAll('.deck-filter-chip').forEach(c => {
+        c.classList.remove('active', 'bg-butter', 'border-crust/20');
+        c.classList.add('bg-cream-200', 'border-cream-300');
+      });
+      chipBtn.classList.add('active', 'bg-butter', 'border-crust/20');
+      chipBtn.classList.remove('bg-cream-200', 'border-cream-300');
+
+      if (tag === 'all') {
+        filteredCards = [...allFlashcards];
+      } else {
+        filteredCards = allFlashcards.filter(c => c.subjTag === tag);
+      }
+      currentCardIndex = 0;
+      renderCard();
+    }
+
     function showToast(msg) {
       const toast = document.getElementById('toastPopup');
-      toast.innerText = msg;
+      document.getElementById('toastMsg').innerText = msg;
       toast.classList.remove('opacity-0', '-translate-y-8');
       toast.classList.add('opacity-100', 'translate-y-0');
       setTimeout(() => {
@@ -984,7 +943,7 @@
     function addPoints(pts) {
       crumbPoints += pts;
       document.getElementById('crumbPoints').innerText = crumbPoints.toLocaleString();
-      showToast(`🎉 +${pts} Crumbs!`);
+      showToast(`+${pts} Crumbs!`);
     }
 
     /* Timer Logic */
@@ -993,9 +952,12 @@
       const sStr = String(timerSeconds).padStart(2, '0');
       document.getElementById('timerDisplay').innerText = `${mStr}:${sStr}`;
       const reward = timerMinutes * 2;
-      document.getElementById('timerActionBtn').innerText = isTimerRunning 
-        ? '⏸️ พักการอบขนม' 
-        : `🍞 เริ่มอบความรู้ (+${reward} Crumbs)`;
+      const btnSpan = document.getElementById('timerActionBtn').querySelector('span');
+      if (btnSpan) {
+        btnSpan.innerText = isTimerRunning 
+          ? 'พักการอบชั่วคราว' 
+          : `เริ่มอบความรู้ (+${reward} Crumbs)`;
+      }
     }
 
     function adjustTimer(amount) {
@@ -1038,15 +1000,15 @@
         updateTimerDisplay();
       } else {
         isTimerRunning = true;
-        document.getElementById('bakingStatus').innerText = "🔥 กำลังอบความรู้... โฟกัสนะ!";
-        document.getElementById('timerActionBtn').innerText = '⏸️ พักการอบขนม';
+        document.getElementById('bakingStatus').innerText = "กำลังอบความรู้... โฟกัสนะ!";
+        updateTimerDisplay();
         timerInterval = setInterval(() => {
           if (timerSeconds === 0) {
             if (timerMinutes === 0) {
               clearInterval(timerInterval);
               isTimerRunning = false;
               addPoints(timerMinutes * 2 || 50);
-              alert("🍞 ขนมปังอบเสร็จแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
+              alert("อบความรู้เสร็จสิ้นแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
               setPresetTime(25, document.querySelectorAll('.preset-pill')[1]);
               return;
             }
@@ -1067,7 +1029,7 @@
       timerMinutes = 25;
       timerSeconds = 0;
       updateTimerDisplay();
-      document.getElementById('bakingStatus').innerText = "✨ อบความรู้เสร็จสิ้นแบบเร่งด่วน!";
+      document.getElementById('bakingStatus').innerText = "อบความรู้เสร็จสิ้นแบบเร่งด่วน!";
     }
 
     function completeTask(checkbox, pts) {
@@ -1108,13 +1070,13 @@
 
       const stateElem = document.getElementById('balanceState');
       if (Math.abs(tLeft - tRight) < 0.05) {
-        stateElem.innerText = "⚖️ คานสมดุล";
+        stateElem.innerText = "คานสมดุล";
         stateElem.className = "text-[#68B984]";
       } else if (tLeft > tRight) {
-        stateElem.innerText = "↺ เอียงทวนเข็ม";
+        stateElem.innerText = "เอียงทวนเข็ม";
         stateElem.className = "text-crust-dark";
       } else {
-        stateElem.innerText = "↻ เอียงตามเข็ม";
+        stateElem.innerText = "เอียงตามเข็ม";
         stateElem.className = "text-crust-dark";
       }
     }
@@ -1124,9 +1086,9 @@
       const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
       if (Math.abs(tLeft - tRight) < 0.05) {
         addPoints(25);
-        alert("🎉 ถูกต้อง! โมเมนต์ทวน = โมเมนต์ตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
+        alert("ถูกต้อง! โมเมนต์ทวน = โมเมนต์ตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
       } else {
-        alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
+        alert("คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
       }
     }
 
@@ -1136,7 +1098,7 @@
       document.getElementById('m1').value = targetM1;
       document.getElementById('d1').value = targetD1;
       updateSimulation();
-      showToast("🎲 สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
+      showToast("สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
     }
 
     /* PDF Logic */
@@ -1153,17 +1115,17 @@
               <div class="text-[10px] text-[#9E7F60]">${(file.size / (1024*1024)).toFixed(1)} MB • อัปโหลดล่าสุด</div>
             </div>
           </div>
-          <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('${file.name}')">เปิดอ่าน</button>
+          <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('${file.name}', 'ไฟล์เอกสารสรุปที่อัปโหลดพร้อมให้ศึกษาทบทวน')">เปิดอ่าน</button>
         `;
         document.getElementById('pdfListContainer').prepend(newCard);
         addPoints(10);
-        showToast(`📥 อัปโหลด ${file.name} สำเร็จ!`);
+        showToast(`อัปโหลด ${file.name} สำเร็จ!`);
       }
     }
 
-    function openPdfModal(name) {
+    function openPdfModal(name, summaryText) {
       document.getElementById('pdfModalTitle').innerText = name;
-      document.getElementById('pdfMockContent').innerText = `กำลังเปิดอ่าน: ${name}\n(เนื้อหาพร้อมทบทวนบทเรียน)`;
+      document.getElementById('pdfMockContent').innerText = summaryText || `กำลังเปิดอ่าน: ${name}`;
       const modal = document.getElementById('pdfModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -1184,7 +1146,10 @@
     function toggleTopic(header) {
       const content = header.nextElementSibling;
       content.classList.toggle('hidden');
-      header.querySelector('span:last-child').innerText = content.classList.contains('hidden') ? '▾' : '▴';
+      const arrow = header.querySelector('svg');
+      if (arrow) {
+        arrow.classList.toggle('rotate-180');
+      }
       reRenderMath();
     }
 
@@ -1194,23 +1159,27 @@
     }
 
     function renderCard() {
-      const card = flashcards[currentCardIndex];
+      if (filteredCards.length === 0) return;
+      const card = filteredCards[currentCardIndex];
       document.getElementById('flashCard').classList.remove('rotate-y-180');
       document.getElementById('fcSubj').innerText = card.subj;
       document.getElementById('fcQ').innerText = card.q;
       document.getElementById('fcFormula').innerHTML = card.formula;
       document.getElementById('fcA').innerText = card.a;
+      document.getElementById('fcDetail').innerText = card.detail;
       reRenderMath();
     }
 
     function nextCard() {
+      if (filteredCards.length === 0) return;
       addPoints(10);
-      currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+      currentCardIndex = (currentCardIndex + 1) % filteredCards.length;
       renderCard();
     }
 
     function prevCard() {
-      currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+      if (filteredCards.length === 0) return;
+      currentCardIndex = (currentCardIndex - 1 + filteredCards.length) % filteredCards.length;
       renderCard();
     }
 
@@ -1219,7 +1188,7 @@
       document.getElementById('roomOverview').classList.add('hidden');
       document.getElementById('roomDetailView').classList.remove('hidden');
       document.getElementById('activeRoomName').innerText = roomTitle;
-      showToast(`🚪 เข้าสู่ ${roomTitle}`);
+      showToast(`เข้าสู่ ${roomTitle}`);
     }
 
     function leaveRoomView() {
@@ -1229,7 +1198,7 @@
 
     function cheerFriend(name) {
       addPoints(5);
-      showToast(`🧈 ส่งกำลังใจให้ ${name} สำเร็จ!`);
+      showToast(`ส่งกำลังใจให้ ${name} สำเร็จ!`);
     }
 
     // Init App
