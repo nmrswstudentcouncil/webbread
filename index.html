@@ -4,8 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Breadie</title>
-  
-  <!-- MathJax Configuration & Script for LaTeX formula rendering -->
+
+  <!-- Google Fonts: Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            prompt: ['Prompt', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FFFDF9',
+              100: '#FAF3E0',
+              200: '#F4E7CE',
+              300: '#EEDCC6',
+              400: '#DFCBB0',
+              500: '#EDE2CD',
+            },
+            butter: {
+              DEFAULT: '#F6D860',
+              hover: '#E8C84A',
+              light: '#FFF5DD',
+              dark: '#D9B738',
+            },
+            crust: {
+              light: '#B87B44',
+              DEFAULT: '#8D5B28',
+              dark: '#5C3A16',
+              text: '#6C4922',
+            }
+          },
+          boxShadow: {
+            clay: '4px 4px 10px #e0d1b4, -4px -4px 10px #ffffff',
+            soft: '0 8px 20px rgba(141, 91, 40, 0.12)',
+            toast: '0 10px 25px rgba(0,0,0,0.2)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- MathJax Configuration & Script -->
   <script>
     window.MathJax = {
       tex: {
@@ -17,1574 +63,1179 @@
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <style>
-    :root {
-      --bg-cream: #FAF3E0;
-      --card-bg: #FFFDF9;
-      --butter-yellow: #F6D860;
-      --butter-hover: #E8C84A;
-      --crust-brown: #8D5B28;
-      --crust-dark: #5C3A16;
-      --soft-shadow: 0 8px 20px rgba(141, 91, 40, 0.12);
-      --clay-shadow: 4px 4px 10px #e0d1b4, -4px -4px 10px #ffffff;
-      --accent-green: #68B984;
-      --accent-red: #EB5353;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    body {
       font-family: 'Prompt', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .perspective-1000 { perspective: 1000px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="bg-cream-500 min-h-screen flex justify-center items-center m-0 p-0 sm:p-4">
 
-    body {
-      background-color: #EDE2CD;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 0;
-    }
+  <!-- Mobile App Frame Container -->
+  <div class="app-frame w-full max-w-[430px] h-screen h-[100dvh] sm:h-[880px] sm:max-h-[94vh] bg-cream-100 sm:rounded-[40px] shadow-2xl flex flex-col relative overflow-hidden sm:ring-8 sm:ring-cream-400">
+    
+    <!-- Toast Popup Notification -->
+    <div id="toastPopup" class="fixed top-16 left-1/2 -translate-x-1/2 -translate-y-8 bg-crust-dark text-[#FFECC7] px-4 py-2 rounded-full text-xs font-semibold shadow-toast opacity-0 pointer-events-none transition-all duration-300 z-50">
+      🎉 +25 Crumbs!
+    </div>
 
-    .app-frame {
-      width: 100%;
-      max-width: 430px;
-      height: 100vh;
-      height: 100dvh;
-      background: var(--bg-cream);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
+    <!-- Header -->
+    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-butter rounded-2xl flex items-center justify-center text-2xl shadow-clay relative select-none">
+          🍞
+          <span class="absolute -top-1 -right-1 text-xs">🧈</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-crust-dark leading-tight tracking-tight">Breadie</h1>
+          <p class="text-[11px] text-[#9E7F60] font-medium">Study & Focus Bakery</p>
+        </div>
+      </div>
+      
+      <!-- Crumb Currency Pill -->
+      <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1 flex items-center gap-1.5 shadow-clay select-none">
+        <span class="text-xs">🍞</span>
+        <span id="crumbPoints" class="font-bold text-sm text-crust-dark">1,250</span>
+      </div>
+    </header>
 
-    @media (min-width: 481px) {
-      body { padding: 16px; }
-      .app-frame {
-        height: 880px;
-        max-height: 94vh;
-        border-radius: 40px;
-        box-shadow: 0 20px 45px rgba(92, 58, 22, 0.25), inset 0 0 0 8px #DFCBB0;
+    <!-- Main Screens Container -->
+    <main class="screen-container flex-1 overflow-y-auto px-4 pt-2 pb-[calc(80px+env(safe-area-inset-bottom,16px))] no-scrollbar scroll-smooth">
+
+      <!-- ================= TAB 1: HOME ================= -->
+      <section id="screen-home" class="screen block transition-opacity duration-200">
+        <!-- Oven Card -->
+        <div class="bg-cream-50 rounded-3xl p-4 mb-4 shadow-clay border border-white/60">
+          <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
+            <span>🔥</span> เตาอบจับเวลาความรู้ (Oven Timer)
+          </div>
+
+          <div class="bg-cream-200 rounded-[24px] p-4 text-center shadow-inner border border-cream-300/60">
+            <!-- Stepper -->
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-5)">-5</button>
+              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-1)">-1</button>
+              <span class="text-xs font-bold text-crust px-1">ปรับเวลา (นาที)</span>
+              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+1)">+1</button>
+              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+5)">+5</button>
+            </div>
+
+            <!-- Presets -->
+            <div class="flex justify-center gap-1.5 my-2.5 flex-wrap">
+              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(15, this)">15 นาที</button>
+              <button class="preset-pill active bg-butter border-crust px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark -translate-y-0.5 shadow-sm" onclick="setPresetTime(25, this)">25 นาที</button>
+              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(45, this)">45 นาที</button>
+              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(60, this)">60 นาที</button>
+            </div>
+
+            <!-- Display -->
+            <div class="bg-[#3B2A1D] rounded-2xl py-4 px-2 my-2.5 shadow-inner flex flex-col items-center justify-center">
+              <div id="timerDisplay" class="text-4xl sm:text-5xl font-bold text-[#FFD272] tracking-widest cursor-pointer select-none drop-shadow" onclick="promptCustomMinutes()">25:00</div>
+              <div id="bakingStatus" class="text-[11px] text-[#FFF3D6] mt-1">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
+            </div>
+
+            <!-- Actions -->
+            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all" onclick="toggleTimer()">
+              🍞 เริ่มอบความรู้ (+50 Crumbs)
+            </button>
+            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition" onclick="fastForwardTimer()">
+              ⏩ ทดสอบเร่งเวลา (รับแต้มทันที)
+            </button>
+          </div>
+        </div>
+
+        <!-- Daily Tasks -->
+        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+          <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
+            <span>📋</span> ภารกิจวันนี้ (Daily Toasts)
+          </div>
+          <div class="divide-y divide-dashed divide-cream-300">
+            <div class="flex items-center gap-3 py-2.5">
+              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 30)" id="t1">
+              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t1">ทดลองคานสมดุลครบ 1 ครั้ง</label>
+              <span class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+30</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 20)" id="t2">
+              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนเนื้อหา 1 บทเรียน</label>
+              <span class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+20</span>
+            </div>
+            <div class="flex items-center gap-3 py-2.5">
+              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 50)" id="t3">
+              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t3">อบความรู้ครบ 25 นาทีร่วมกับเพื่อน</label>
+              <span class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+50</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: LESSON ================= -->
+      <section id="screen-lesson" class="screen hidden">
+        <!-- Sub-Nav Switcher -->
+        <div class="flex bg-cream-300 rounded-2xl p-1 gap-1 mb-3.5 shadow-inner">
+          <button class="lesson-sub-btn active flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-cream-50 shadow-sm transition" onclick="switchLessonSubTab('lesson-content', this)">📚 เนื้อหาวิชา</button>
+          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition" onclick="switchLessonSubTab('lesson-sim', this)">🕹️ Simulation</button>
+          <button class="lesson-sub-btn flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition" onclick="switchLessonSubTab('lesson-pdf', this)">📄 สรุป (PDF)</button>
+        </div>
+
+        <!-- Sub 1: Comprehensive Subjects Curriculum -->
+        <div id="lesson-content" class="lesson-sub-view block">
+          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+            <div class="text-sm font-bold text-crust-dark flex items-center justify-between mb-2">
+              <span class="flex items-center gap-1.5"><span>📚</span> หลักสูตรเนื้อหา ม.ปลาย (ม.4 - ม.6)</span>
+            </div>
+
+            <!-- Subject Chips Navigation -->
+            <div class="grid grid-cols-4 gap-1.5 mb-3 bg-cream-200/60 p-1 rounded-2xl border border-cream-300">
+              <button class="subj-chip active py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition text-center" onclick="filterSubject('subj-math', this)">คณิต</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-phys', this)">ฟิสิกส์</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-chem', this)">เคมี</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-bio', this)">ชีวะ</button>
+            </div>
+
+            <!-- ================= MATHEMATICS CONTENT ================= -->
+            <div id="subj-math" class="subject-section block space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">📐 คณิตศาสตร์ ม.ปลาย</div>
+              
+              <!-- ม.4 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. เซตและตรรกศาสตร์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>เซต:</b> การดำเนินการยูเนียน อินเตอร์เซกชัน และสูตรจำนวนสมาชิก:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$n(A \cup B) = n(A) + n(B) - n(A \cap B)$$
+                  </div>
+                  <p>• <b>ตรรกศาสตร์:</b> ประพจน์ ตัวเชื่อม $(\land, \lor, \rightarrow, \leftrightarrow)$ และสมมูลที่สำคัญ $(p \rightarrow q \equiv \sim p \lor q)$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. จำนวนจริงและพหุนาม</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ทฤษฎีบทเศษเหลือและการแก้อสมการพหุนามตัวแปรเดียว:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+                  </div>
+                  <p>• ค่าสัมบูรณ์: $|x| \le a \iff -a \le x \le a$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. ฟังก์ชันและเรขาคณิตวิเคราะห์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ระยะห่างระหว่างจุด ความชัน และสมการวงกลม/พาราโบลา/วงรี/ไฮเพอร์โบลา:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$d = \frac{|Ax_1 + By_1 + C|}{\sqrt{A^2 + B^2}} \quad,\quad (x-h)^2 + (y-k)^2 = r^2$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.5 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. ตรีโกณมิติและฟังก์ชันเอกซ์โพเนนเชียล</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• เอกลักษณ์ตรีโกณมิติและกฎของไซน์/โคไซน์:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\sin^2\theta + \cos^2\theta = 1 \quad,\quad c^2 = a^2 + b^2 - 2ab\cos C$$
+                  </div>
+                  <p>• สมบัติลอการิทึม: $\log_a(xy) = \log_a x + \log_a y$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>5. เวกเตอร์ จำนวนเชิงซ้อน และความน่าจะเป็น</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ผลคูณเชิงสเกลาร์ (Dot product) และหลักการนับ/การจัดหมู่:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\vec{u}\cdot\vec{v} = |\vec{u}||\vec{v}|\cos\theta \quad,\quad P(E) = \frac{n(E)}{n(S)} \quad,\quad \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.6 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>6. ลำดับ อนุกรม และแคลคูลัสเบื้องต้น</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• อนุกรมเรขาคณิตและอนุพันธ์/ปริพันธ์ของฟังก์ชัน:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$S_\infty = \frac{a_1}{1-r} \quad,\quad \frac{d}{dx}[x^n] = nx^{n-1} \quad,\quad \int x^n dx = \frac{x^{n+1}}{n+1} + C$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>7. สถิติศาสตร์และการแจกแจงความน่าจะเป็น</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ค่ากลาง การกระจาย และค่ามาตรฐาน ($z$-score):</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\bar{x} = \frac{\sum x_i}{N} \quad,\quad s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{N-1}} \quad,\quad z = \frac{x - \mu}{\sigma}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= PHYSICS CONTENT ================= -->
+            <div id="subj-phys" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">⚛️ ฟิสิกส์ ม.ปลาย</div>
+              
+              <!-- ม.4 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4 (กลศาสตร์ 1)</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. การเคลื่อนที่แนวตรงและกฎนิวตัน</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• 5 สมการการเคลื่อนที่แนวตรงความเร่งคงที่:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$v = u + at \quad,\quad s = ut + \frac{1}{2}at^2 \quad,\quad v^2 = u^2 + 2as$$
+                  </div>
+                  <p>• กฎข้อ 2 ของนิวตันและแรงเสียดทาน: $\Sigma \vec{F} = m\vec{a} \quad,\quad f = \mu N$</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. สมดุลกล งาน-พลังงาน และโมเมนตัม</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• สมดุลต่อการหมุนและกฎการอนุรักษ์พลังงานกล/โมเมนตัม:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\Sigma M = 0 \quad,\quad E_1 + W = E_2 \quad,\quad \Sigma \vec{p}_{\text{ก่อน}} = \Sigma \vec{p}_{\text{หลัง}}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.5 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5 (คลื่น แสง เสียง ไฟฟ้า)</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. คลื่นกล แสง และเสียง</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• อัตราเร็วคลื่น การหักเห (Snell's Law) และความเข้มเสียง:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$v = f\lambda \quad,\quad \frac{\sin\theta_1}{\sin\theta_2} = \frac{n_2}{n_1} = \frac{v_1}{v_2} \quad,\quad \beta = 10\log\left(\frac{I}{I_0}\right)$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. ไฟฟ้าสถิตและไฟฟ้ากระแสตรง</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• กฎของคูลอมบ์และกฎของโอห์มในวงจรไฟฟ้า:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$F = \frac{k|q_1q_2|}{r^2} \quad,\quad V = IR \quad,\quad P = IV = I^2R = \frac{V^2}{R}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.6 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6 (ความร้อน ของไหล อะตอมและนิวเคลียร์)</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>5. แม่เหล็กไฟฟ้า แก๊ส และของไหล</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• แรงแม่เหล็ก กฎแก๊สอุดมคติ และสมการแบร์นูลลี:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$F = qvB\sin\theta \quad,\quad PV = nRT \quad,\quad P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = \text{คงที่}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>6. ฟิสิกส์อะตอมและฟิสิกส์นิวเคลียร์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ปรากฏการณ์โฟโตอิเล็กทริกและครึ่งชีวิต:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$hf = W + E_{k,\max} \quad,\quad N(t) = N_0 \left(\frac{1}{2}\right)^{t/T_{1/2}} \quad,\quad E = mc^2$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= CHEMISTRY CONTENT ================= -->
+            <div id="subj-chem" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">🧪 เคมี ม.ปลาย</div>
+              
+              <!-- ม.4 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. โครงสร้างอะตอม ตารางธาตุ และพันธะเคมี</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• การจัดเรียงอิเล็กตรอนและแนวโน้มตารางธาตุ ($IE, EA, EN$):</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$1s^2 \ 2s^2 \ 2p^6 \ 3s^2 \ 3p^6 \ 4s^2 \ 3d^{10} \dots$$
+                  </div>
+                  <p>• พันธะไอออนิก โคเวเลนต์ (VSEPR รูปร่างโมเลกุล) และพันธะโลหะ</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. โมล สารละลาย และปริมาณสารสัมพันธ์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ความสัมพันธ์ของโมลและการเตรียมสารละลาย:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000} \quad,\quad C_1V_1 = C_2V_2$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.5 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. แก๊ส อัตราการเกิดปฏิกิริยา และสมดุลเคมี</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• กฎของแก๊สและค่าคงที่สมดุล ($K_c, K_p$):</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$PV = nRT \quad,\quad aA + bB \rightleftharpoons cC + dD \implies K = \frac{[C]^c[D]^d}{[A]^a[B]^b}$$
+                  </div>
+                  <p>• หลักของเลอชาเตอลิเยร์ (Le Chatelier's Principle)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. กรด-เบส และเกลือ</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• การแตกตัวของกรด-เบส ค่า $pH$ และการไทเทรต:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$pH = -\log[H_3O^+] \quad,\quad [H_3O^+] = \sqrt{K_a C_a} \quad,\quad aC_aV_a = bC_bV_b$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.6 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>5. เคมีไฟฟ้า (Electrochemistry)</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ปฏิกิริยารีดอกซ์ เซลล์กัลวานิก และเซลล์อิเล็กโทรไลต์:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$$
+                  </div>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>6. เคมีอินทรีย์และพอลิเมอร์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• หมู่ฟังก์ชัน (Functional Groups): แอลกอฮอล์, แอลดีไฮด์, คีโตน, กรดคาร์บอกซิลิก, เอสเทอร์, เอไมด์</p>
+                  <p>• ปฏิกิริยาเอสเทอริฟิเคชัน และการเกิดพอลิเมอร์ (Addition / Condensation)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= BIOLOGY CONTENT ================= -->
+            <div id="subj-bio" class="subject-section hidden space-y-2.5">
+              <div class="text-xs font-bold text-crust flex items-center gap-1">🌿 ชีววิทยา ม.ปลาย</div>
+              
+              <!-- ม.4 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-1">ชั้นมัธยมศึกษาปีที่ 4</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>1. เซลล์ ออร์แกเนลล์ และการลำเลียงสาร</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>โครงสร้างเซลล์:</b> นิวเคลียส, ไมโทคอนเดรีย (สร้าง ATP), คลอโรพลาสต์, ไรโบโซม, ER</p>
+                  <p>• <b>การลำเลียงสาร:</b> Passive Transport (Diffusion, Osmosis, Facilitated) และ Active Transport</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>2. การหายใจระดับเซลล์และการแบ่งเซลล์</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>Cellular Respiration:</b> ไกลโคลิซิส $\rightarrow$ สร้าง Acetyl CoA $\rightarrow$ วัฏจักรเครบส์ $\rightarrow$ การถ่ายทอดอิเล็กตรอน (ได้ 30-32 ATP)</p>
+                  <p>• <b>การแบ่งเซลล์:</b> ไมโทซิส ($2n \rightarrow 2n$) vs ไมโอซิส ($2n \rightarrow n$ เกิด Crossing over ใน Prophase I)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.5 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 5</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>3. สรีรวิทยาของพืชและการสังเคราะห์ด้วยแสง</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• <b>Photosynthesis:</b> Light reaction (ไทลาคอยด์ ได้ ATP, NADPH) และ Calvin cycle (สโตรมา ตรึง $\text{CO}_2$)</p>
+                  <p>• การลำเลียงน้ำ (Xylem - แรงดึงจากการคายน้ำ) และอาหาร (Phloem - แรงดันชลศาสตร์)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>4. ระบบร่างกายมนุษย์ (สรีรวิทยาสัตว์)</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• ระบบย่อยอาหาร, ระบบหมุนเวียนเลือดและภูมิคุ้มกัน, ระบบหายใจ, ระบบขับถ่าย (เนฟรอน), ระบบประสาท (Action potential) และต่อมไร้ท่อ (ฮอร์โมน)</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <!-- ม.6 -->
+              <div class="text-[11px] font-bold text-[#9E7F60] mt-2">ชั้นมัธยมศึกษาปีที่ 6</div>
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>5. พันธุศาสตร์ โมเลกุล และเทคโนโลยี DNA</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• กฎของเมนเดล และ Central Dogma:</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$\text{DNA} \xrightarrow{\text{Transcription}} \text{mRNA} \xrightarrow{\text{Translation}} \text{Protein}$$
+                  </div>
+                  <p>• พันธุวิศวกรรม: การตัดต่อยีน, PCR, Gel electrophoresis</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+
+              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                  <span>6. วิวัฒนาการและนิเวศวิทยา</span>
+                  <span>▾</span>
+                </div>
+                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                  <p>• กฎของฮาร์ดี-ไวน์เบิร์ก (Hardy-Weinberg Equilibrium):</p>
+                  <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2 rounded-xl text-center font-bold text-crust overflow-x-auto">
+                    $$p + q = 1 \quad,\quad p^2 + 2pq + q^2 = 1$$
+                  </div>
+                  <p>• ความหลากหลายทางชีวภาพ ไบโอม และวัฏจักรสารอาหารในระบบนิเวศ</p>
+                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sub 2: Lever Simulation -->
+        <div id="lesson-sim" class="lesson-sub-view hidden">
+          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+            <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
+              <span>⚖️</span> เครื่องจำลองคานสมดุล (Lever Lab)
+            </div>
+
+            <!-- Stage -->
+            <div class="bg-[#FFFDF8] rounded-2xl p-4 relative h-40 flex flex-col justify-end items-center border-2 border-[#EBDBC6] overflow-hidden">
+              <div id="leverBar" class="w-[88%] h-3 relative transition-transform duration-300 origin-center">
+                <div class="w-full h-full bg-crust-light rounded-full shadow relative">
+                  <!-- Left Mass -->
+                  <div id="leftWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 20%;">
+                    <span class="text-xl select-none">🍞</span>
+                    <span id="leftWeightLabel">4 kg</span>
+                  </div>
+                  <!-- Right Mass -->
+                  <div id="rightWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 80%;">
+                    <span class="text-xl select-none">🧈</span>
+                    <span id="rightWeightLabel">4 kg</span>
+                  </div>
+                </div>
+              </div>
+              <div class="w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[26px] border-b-[#734823] -mt-0.5 z-10"></div>
+              <div class="w-16 h-2 bg-[#5C3A16] rounded-full"></div>
+            </div>
+
+            <!-- Indicator -->
+            <div class="flex justify-between items-center mt-3 px-3 py-2 bg-cream-200 rounded-xl text-xs font-bold text-crust-dark border border-cream-300">
+              <div><i>M</i><sub>ทวน</sub>: <span id="mLeftDisplay">8.0</span> N·m</div>
+              <div id="balanceState" class="text-[#68B984]">⚖️ คานสมดุล</div>
+              <div><i>M</i><sub>ตาม</sub>: <span id="mRightDisplay">8.0</span> N·m</div>
+            </div>
+
+            <!-- Controls -->
+            <div class="grid grid-cols-2 gap-2.5 mt-3">
+              <div class="bg-[#FBF6EB] p-2.5 rounded-xl border border-cream-300">
+                <div class="text-xs font-bold text-crust-dark mb-1">ฝั่งซ้าย (ทวนเข็ม)</div>
+                <label class="text-[10px] text-crust">มวล: <b id="m1Val">4</b> kg</label>
+                <input type="range" class="w-full accent-crust my-1" id="m1" min="1" max="10" value="4" oninput="updateSimulation()">
+                <label class="text-[10px] text-crust">ระยะ: <b id="d1Val">2.0</b> m</label>
+                <input type="range" class="w-full accent-crust my-1" id="d1" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
+              </div>
+              <div class="bg-[#FBF6EB] p-2.5 rounded-xl border border-cream-300">
+                <div class="text-xs font-bold text-crust-dark mb-1">ฝั่งขวา (ตามเข็ม)</div>
+                <label class="text-[10px] text-crust">มวล: <b id="m2Val">4</b> kg</label>
+                <input type="range" class="w-full accent-crust my-1" id="m2" min="1" max="10" value="4" oninput="updateSimulation()">
+                <label class="text-[10px] text-crust">ระยะ: <b id="d2Val">2.0</b> m</label>
+                <input type="range" class="w-full accent-crust my-1" id="d2" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
+              </div>
+            </div>
+
+            <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-xs font-bold mt-3.5 shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition" onclick="checkPhysicsQuiz()">
+              🎯 ส่งคำตอบตรวจสมดุล (+25 Crumbs)
+            </button>
+            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition" onclick="randomLeverChallenge()">
+              🎲 สุ่มโจทย์คำนวณใหม่
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub 3: PDF Hub -->
+        <div id="lesson-pdf" class="lesson-sub-view hidden">
+          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+            <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
+              <span>📄</span> อัปโหลดสรุปเพื่ออ่าน (PDF Hub)
+            </div>
+
+            <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handlePdfUpload(event)">
+            <div class="border-2 border-dashed border-[#CBB191] rounded-2xl p-4 text-center bg-[#FAF2E4] hover:bg-[#F5E8D3] cursor-pointer transition mb-3" onclick="document.getElementById('pdfFileInput').click()">
+              <div class="text-3xl mb-1 select-none">📥</div>
+              <div class="font-bold text-crust-dark text-xs sm:text-sm">แตะเพื่ออัปโหลดไฟล์ PDF</div>
+              <div class="text-[11px] text-[#9E7F60]">เปิดอ่านชีตสรุปพร้อมสะสมแต้มอ่านหนังสือ</div>
+            </div>
+
+            <div class="text-xs font-bold text-crust-dark mb-2">📁 สรุปฟิสิกส์ & วิทย์-คณิต</div>
+            <div id="pdfListContainer" class="space-y-2">
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+                  <div>
+                    <div class="text-xs font-bold text-crust-dark">สรุปสูตรฟิสิกส์ ม.ปลาย.pdf</div>
+                    <div class="text-[10px] text-[#9E7F60]">1.4 MB • 4 หน้า</div>
+                  </div>
+                </div>
+                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('สรุปสูตรฟิสิกส์ ม.ปลาย.pdf')">เปิดอ่าน</button>
+              </div>
+
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+                  <div>
+                    <div class="text-xs font-bold text-crust-dark">สรุปเคมีและตารางธาตุ.pdf</div>
+                    <div class="text-[10px] text-[#9E7F60]">2.1 MB • 6 หน้า</div>
+                  </div>
+                </div>
+                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('สรุปเคมีและตารางธาตุ.pdf')">เปิดอ่าน</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: DAILY FLASHCARDS ================= -->
+      <section id="screen-deck" class="screen hidden">
+        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+          <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-1">
+            <span>🍞</span> แฟลชการ์ดสูตรวิทย์-คณิต (Toast Cards)
+          </div>
+          <p class="text-[11px] text-crust mb-3">แตะที่แผ่นขนมปังเพื่อพลิกดูสูตร</p>
+
+          <!-- 3D Card Area -->
+          <div class="perspective-1000 h-64 my-2 select-none" onclick="flipCard()">
+            <div id="flashCard" class="w-full h-full relative transform-style-3d transition-transform duration-500 cursor-pointer">
+              <!-- Front -->
+              <div class="flashcard-face absolute inset-0 backface-hidden bg-[#FFFDF7] rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
+                <div class="text-4xl mb-2">🧈</div>
+                <div id="fcSubj" class="text-[11px] font-semibold text-[#A07A55]">หมวด: ฟิสิกส์ (สมดุลกล)</div>
+                <div id="fcQ" class="text-base font-bold text-crust-dark mt-2 mb-1">สูตรโมเมนต์ของแรง (Torque) คืออะไร?</div>
+                <div class="text-[11px] text-crust mt-3">(แตะเพื่อพลิกขนมปัง ↷)</div>
+              </div>
+              <!-- Back -->
+              <div class="flashcard-face absolute inset-0 backface-hidden rotate-y-180 bg-butter-light rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
+                <div class="text-3xl mb-1">✨</div>
+                <div id="fcFormula" class="text-lg font-bold text-crust-dark bg-[#FCE8B2] px-4 py-1.5 rounded-xl my-2">\( M = F \times d \)</div>
+                <div id="fcA" class="text-xs font-semibold text-[#9C4A1A]">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
+                <div class="text-[10px] text-[#6B533E] mt-1">หน่วย: นิวตัน-เมตร (\(\text{N}\cdot\text{m}\))</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Switch Buttons -->
+          <div class="flex gap-2 mt-4">
+            <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs font-semibold hover:bg-cream-400 transition" onclick="prevCard()">◀ ข้อก่อนหน้า</button>
+            <button class="flex-1 bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition" onclick="nextCard()">ข้อถัดไป (+10 🍞)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: FRIENDS & ROOMS ================= -->
+      <section id="screen-friends" class="screen hidden">
+        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
+          <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-3">
+            <span>👥</span> เตาอบอ่านหนังสือร่วมกับเพื่อน
+          </div>
+
+          <!-- Room List View -->
+          <div id="roomOverview" class="space-y-3">
+            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-crust-dark text-xs sm:text-sm">🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</span>
+                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">🟢 สด 4 คน</span>
+              </div>
+              <p class="text-[11px] text-[#7D6148] mb-2.5">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="enterRoomView('🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)')">
+                👉 กดเข้าดูสมาชิกและแต้มเวลา
+              </button>
+            </div>
+
+            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-crust-dark text-xs sm:text-sm">🥐 ห้องเตรียมสอบเข้ามหาวิทยาลัย</span>
+                <span class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">🟢 สด 2 คน</span>
+              </div>
+              <p class="text-[11px] text-[#7D6148] mb-2.5">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="enterRoomView('🥐 ห้องเตรียมสอบเข้ามหาวิทยาลัย')">
+                👉 กดเข้าดูสมาชิกและแต้มเวลา
+              </button>
+            </div>
+          </div>
+
+          <!-- Inside Room Active View -->
+          <div id="roomDetailView" class="hidden">
+            <div class="bg-[#F2E4CF] rounded-2xl p-3 flex justify-between items-center mb-3">
+              <div>
+                <div id="activeRoomName" class="text-xs font-bold text-crust-dark">🥖 ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</div>
+                <div class="text-[10px] text-[#7D6148]">กำลังจับเวลาโฟกัสร่วมกัน</div>
+              </div>
+              <button class="bg-[#ECD7C0] text-crust-dark px-2.5 py-1 rounded-xl text-[11px] font-semibold hover:bg-cream-400" onclick="leaveRoomView()">◀ ออกจากห้อง</button>
+            </div>
+
+            <!-- Friend Rows -->
+            <div class="space-y-2">
+              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🥐</div>
+                  <div>
+                    <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Graine <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
+                    <p class="text-[10px] text-[#9E7F60]">กำลังอ่าน: แคลคูลัส ม.6</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 45 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+90 🍞</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Graine')">❤️ ให้กำลังใจ</button>
+                </div>
+              </div>
+
+              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🍞</div>
+                  <div>
+                    <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Butter <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
+                    <p class="text-[10px] text-[#9E7F60]">กำลังอ่าน: เคมีอินทรีย์</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 30 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+60 🍞</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Butter')">❤️ ให้กำลังใจ</button>
+                </div>
+              </div>
+
+              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-xl select-none">🥨</div>
+                  <div>
+                    <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Ten-Thank <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
+                    <p class="text-[10px] text-[#9E7F60]">กำลังทำแล็บคานฟิสิกส์</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">⏱️ 50 นาที</span>
+                  <span class="text-[10px] font-bold text-[#68B984] block mt-0.5">+100 🍞</span>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95" onclick="cheerFriend('Ten-Thank')">❤️ ให้กำลังใจ</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal for PDF Reading -->
+    <div id="pdfModal" class="hidden fixed inset-0 bg-[#2B1D0F]/70 z-50 justify-center items-center p-4">
+      <div class="w-full max-w-sm h-[75vh] bg-cream-50 rounded-3xl p-4 flex flex-col shadow-2xl border border-white/60">
+        <div class="flex justify-between items-center pb-2 border-b border-cream-300">
+          <h4 id="pdfModalTitle" class="text-xs font-bold text-crust-dark truncate">เอกสารสรุป</h4>
+          <button class="bg-cream-300 text-crust-dark px-2.5 py-1 rounded-xl text-xs font-semibold" onclick="closePdfModal()">ปิด ✖</button>
+        </div>
+        <div class="flex-1 bg-cream-200 rounded-2xl my-3 flex items-center justify-center text-center p-4">
+          <div>
+            <div class="text-4xl mb-2 select-none">📄</div>
+            <p id="pdfMockContent" class="text-xs font-semibold text-crust">กำลังเปิดอ่านเอกสารสรุป...</p>
+          </div>
+        </div>
+        <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738]" onclick="readPdfFinish()">
+          ✨ อ่านจบแล้ว รับแต้ม (+20 🍞)
+        </button>
+      </div>
+    </div>
+
+    <!-- Fixed Bottom Navigation Bar -->
+    <nav class="absolute bottom-0 left-0 right-0 h-[calc(64px+env(safe-area-inset-bottom,0px))] bg-cream-50 border-t-2 border-cream-300 flex justify-around items-start pt-2 pb-[env(safe-area-inset-bottom,8px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
+      <button class="nav-btn active flex-1 flex flex-col items-center gap-0.5 text-crust-dark text-[11px] font-semibold" onclick="switchTab('screen-home', this)">
+        <span class="text-xl -translate-y-0.5 scale-110 transition-transform">🏠</span>
+        <span>หน้าหลัก</span>
+      </button>
+      <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-lesson', this)">
+        <span class="text-xl transition-transform">📚</span>
+        <span>Lesson</span>
+      </button>
+      <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-deck', this)">
+        <span class="text-xl transition-transform">🍞</span>
+        <span>การ์ดสูตร</span>
+      </button>
+      <button class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-friends', this)">
+        <span class="text-xl transition-transform">👥</span>
+        <span>กับเพื่อน</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    let crumbPoints = 1250;
+    let timerMinutes = 25;
+    let timerSeconds = 0;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    // Flashcards Data Covering 4 Subjects
+    const flashcards = [
+      {
+        subj: "หมวด: ฟิสิกส์ (สมดุลกล)",
+        q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
+        formula: "\\( M = F \\times d \\)",
+        a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง"
+      },
+      {
+        subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
+        q: "สูตรการหาอนุพันธ์ของพหุนาม xⁿ",
+        formula: "\\( \\frac{d}{dx}[x^n] = nx^{n-1} \\)",
+        a: "ตบเลขชี้กำลังลงมาคูณ แล้วลดเลขชี้กำลังลง 1"
+      },
+      {
+        subj: "หมวด: เคมี (ปริมาณสารสัมพันธ์)",
+        q: "สูตรการคำนวณจำนวนโมล (mol)",
+        formula: "\\( n = \\frac{g}{M_w} = \\frac{N}{6.02\\times 10^{23}} = \\frac{CV}{1000} \\)",
+        a: "ใช้เชื่อมโยงมวล ปริมาตร ความเข้มข้น และจำนวนอนุภาค"
+      },
+      {
+        subj: "หมวด: ชีววิทยา (พันธุศาสตร์)",
+        q: "สมดุลฮาร์ดี-ไวน์เบิร์ก (Hardy-Weinberg)",
+        formula: "\\( p^2 + 2pq + q^2 = 1 \\)",
+        a: "p² = โฮโมไซกัสเด่น, 2pq = เฮเทอโรไซกัส, q² = โฮโมไซกัสด้อย"
+      }
+    ];
+    let currentCardIndex = 0;
+
+    function reRenderMath() {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise();
       }
     }
 
-    /* Header */
-    .app-header {
-      padding: calc(env(safe-area-inset-top, 12px) + 12px) 20px 12px;
-      background: var(--bg-cream);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-      z-index: 10;
-    }
-
-    .mascot-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mascot-avatar {
-      width: 46px;
-      height: 46px;
-      background: var(--butter-yellow);
-      border-radius: 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 26px;
-      box-shadow: var(--clay-shadow);
-      position: relative;
-    }
-
-    .mascot-avatar::after {
-      content: '🧈';
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      font-size: 14px;
-    }
-
-    .user-greeting h3 {
-      font-size: 22px;
-      color: var(--crust-dark);
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .currency-pill {
-      background: var(--card-bg);
-      border: 2px solid #EAD8C0;
-      border-radius: 20px;
-      padding: 6px 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: var(--clay-shadow);
-    }
-
-    .currency-pill span {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--crust-dark);
-    }
-
-    /* Viewport */
-    .screen-container {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px 18px calc(80px + env(safe-area-inset-bottom, 16px));
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .screen-container::-webkit-scrollbar { display: none; }
-
-    .screen {
-      display: none;
-      animation: fadeIn 0.25s ease forwards;
-    }
-
-    .screen.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .clay-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: var(--clay-shadow);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    /* Lesson Sub-Navigation */
-    .sub-nav-container {
-      display: flex;
-      background: #EEDCC6;
-      border-radius: 18px;
-      padding: 4px;
-      gap: 4px;
-      margin-bottom: 14px;
-    }
-
-    .sub-nav-pill {
-      flex: 1;
-      padding: 8px 4px;
-      border: none;
-      border-radius: 14px;
-      background: transparent;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-    }
-
-    .sub-nav-pill.active {
-      background: var(--card-bg);
-      box-shadow: 0 3px 8px rgba(141, 91, 40, 0.15);
-      color: #613B13;
-    }
-
-    .lesson-sub-screen {
-      display: none;
-      animation: fadeIn 0.2s ease forwards;
-    }
-
-    .lesson-sub-screen.active {
-      display: block;
-    }
-
-    /* Buttons */
-    .btn-main {
-      width: 100%;
-      background: var(--butter-yellow);
-      color: var(--crust-dark);
-      border: none;
-      padding: 13px;
-      border-radius: 18px;
-      font-size: 15px;
-      font-weight: 700;
-      box-shadow: 0 5px 0 #D9B738, var(--soft-shadow);
-      cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.1s;
-    }
-
-    .btn-main:active {
-      transform: translateY(4px);
-      box-shadow: 0 1px 0 #D9B738;
-    }
-
-    .btn-secondary {
-      width: 100%;
-      background: #E8D8C3;
-      color: var(--crust-dark);
-      border: none;
-      padding: 9px;
-      border-radius: 14px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-
-    /* Tab 1: Timer */
-    .oven-body {
-      background: #F4E7CE;
-      border-radius: 28px;
-      padding: 18px;
-      text-align: center;
-      box-shadow: inset 4px 4px 8px #DECAB0, inset -4px -4px 8px #FFFBF0;
-    }
-
-    .oven-window {
-      background: #3B2A1D;
-      border-radius: 20px;
-      padding: 18px;
-      margin: 10px 0;
-      box-shadow: inset 0 6px 12px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .timer-display {
-      font-size: 44px;
-      font-weight: 700;
-      color: #FFD272;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(246, 216, 96, 0.5);
-      cursor: pointer;
-    }
-
-    .timer-input-group {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .step-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--card-bg);
-      border: none;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      box-shadow: var(--clay-shadow);
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .preset-container {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin: 10px 0;
-      flex-wrap: wrap;
-    }
-
-    .preset-pill {
-      background: var(--card-bg);
-      border: 1.5px solid #DFCBB0;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--crust-dark);
-      cursor: pointer;
-    }
-
-    .preset-pill.active {
-      background: var(--butter-yellow);
-      border-color: var(--crust-brown);
-      transform: translateY(-2px);
-    }
-
-    .task-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px dashed #E5D5BC;
-    }
-
-    .task-item:last-child { border-bottom: none; }
-
-    .task-check {
-      width: 22px;
-      height: 22px;
-      accent-color: var(--crust-brown);
-      cursor: pointer;
-    }
-
-    .task-label {
-      font-size: 14px;
-      color: var(--crust-dark);
-      flex: 1;
-    }
-
-    .task-reward {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent-green);
-      background: #EAF8EE;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
-
-    /* Sub-Tab 1: Simulation (Lever) */
-    .lever-stage {
-      background: #FFFDF8;
-      border-radius: 20px;
-      padding: 20px 10px 14px;
-      position: relative;
-      height: 170px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      border: 2px solid #EBDBC6;
-      overflow: hidden;
-    }
-
-    .lever-bar-container {
-      width: 88%;
-      height: 12px;
-      position: relative;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      transform-origin: center center;
-    }
-
-    .lever-beam {
-      width: 100%;
-      height: 100%;
-      background: #B87B44;
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      position: relative;
-    }
-
-    .fulcrum {
-      width: 0;
-      height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-bottom: 30px solid #734823;
-      margin-top: -2px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .fulcrum-base {
-      width: 65px;
-      height: 8px;
-      background: #5C3A16;
-      border-radius: 4px;
-    }
-
-    .weight-box {
-      position: absolute;
-      bottom: 12px;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-weight: 700;
-      font-size: 11px;
-      transition: left 0.3s ease;
-    }
-
-    .dough-icon {
-      font-size: 22px;
-      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15));
-    }
-
-    .sim-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .control-box {
-      background: #FBF6EB;
-      padding: 10px;
-      border-radius: 16px;
-      border: 1px solid #EEDDC5;
-    }
-
-    .control-box h4 {
-      font-size: 12px;
-      color: var(--crust-dark);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .sim-slider {
-      width: 100%;
-      accent-color: var(--crust-brown);
-      margin: 4px 0;
-    }
-
-    .torque-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      padding: 8px 12px;
-      background: #F3E5D0;
-      border-radius: 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--crust-dark);
-    }
-
-    /* Sub-Tab 2: PDF Summaries */
-    .pdf-upload-box {
-      border: 2px dashed #CBB191;
-      border-radius: 20px;
-      padding: 18px;
-      text-align: center;
-      background: #FAF2E4;
-      cursor: pointer;
-      margin-bottom: 14px;
-      transition: all 0.2s;
-    }
-
-    .pdf-upload-box:hover {
-      background: #F5E8D3;
-      border-color: var(--crust-brown);
-    }
-
-    .pdf-item-card {
-      background: #FFFDF8;
-      border: 1.5px solid #EAD8C1;
-      border-radius: 18px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: var(--clay-shadow);
-    }
-
-    .pdf-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .pdf-icon-badge {
-      width: 38px;
-      height: 38px;
-      background: #FFEAEA;
-      color: #D63447;
-      font-weight: 700;
-      font-size: 12px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #FFCDCD;
-    }
-
-    .pdf-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--crust-dark);
-    }
-
-    .pdf-size {
-      font-size: 11px;
-      color: #9E7F60;
-    }
-
-    .btn-read-pdf {
-      background: var(--butter-yellow);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      cursor: pointer;
-    }
-
-    .pdf-modal-viewer {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(43, 29, 15, 0.7);
-      z-index: 200;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .pdf-modal-viewer.active {
-      display: flex;
-    }
-
-    .pdf-modal-content {
-      width: 100%;
-      max-width: 400px;
-      height: 80vh;
-      background: var(--card-bg);
-      border-radius: 28px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .pdf-frame-wrapper {
-      flex: 1;
-      background: #F3EBDD;
-      border-radius: 18px;
-      overflow: hidden;
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Sub-Tab 3: Course Topics */
-    .topic-accordion {
-      background: #FFFDF8;
-      border: 1.5px solid #E8D7BF;
-      border-radius: 18px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-
-    .topic-header {
-      padding: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--crust-dark);
-    }
-
-    .topic-content {
-      display: none;
-      padding: 0 14px 14px;
-      font-size: 13px;
-      color: #6C4922;
-      border-top: 1px dashed #EEDFC9;
-    }
-
-    .topic-content.open {
-      display: block;
-      padding-top: 10px;
-    }
-
-    .formula-tag {
-      background: #FDF1D8;
-      border: 1px solid #ECD9B6;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-weight: 700;
-      color: #8D5B28;
-      margin: 6px 0;
-      display: block;
-      overflow-x: auto;
-    }
-
-    /* Tab 3: Daily Flashcards */
-    .flashcard-3d-wrap {
-      perspective: 1000px;
-      height: 260px;
-      margin: 8px 0 14px;
-    }
-
-    .flashcard-inner {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-      cursor: pointer;
-    }
-
-    .flashcard-inner.flipped { transform: rotateY(180deg); }
-
-    .flashcard-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 26px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      box-shadow: var(--clay-shadow);
-      border: 4px solid #EAD4B7;
-    }
-
-    .flashcard-front { background: #FFFDF7; }
-    .flashcard-back { background: #FFF5DD; transform: rotateY(180deg); }
-
-    .toast-butter-badge { font-size: 34px; margin-bottom: 6px; }
-
-    .fc-question {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      margin-bottom: 6px;
-    }
-
-    .fc-answer { font-size: 15px; font-weight: 600; color: #9C4A1A; }
-
-    .fc-formula {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      background: #FCE8B2;
-      padding: 6px 16px;
-      border-radius: 12px;
-      margin: 6px 0;
-      min-width: 140px;
-    }
-
-    /* Tab 4: Friends Room View */
-    .room-card {
-      background: #F8EFE0;
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1.5px solid #E8D7BF;
-    }
-
-    .room-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .room-name {
-      font-weight: 700;
-      color: var(--crust-dark);
-      font-size: 15px;
-    }
-
-    .room-badge {
-      background: var(--accent-green);
-      color: white;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    .in-room-header {
-      background: #F2E4CF;
-      border-radius: 16px;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .in-room-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--crust-dark);
-    }
-
-    .btn-leave {
-      background: #ECD7C0;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--crust-dark);
-      cursor: pointer;
-    }
-
-    .friend-row {
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: var(--clay-shadow);
-      border: 1px solid #EEDFC9;
-    }
-
-    .friend-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .friend-avatar-large {
-      width: 44px;
-      height: 44px;
-      background: #FDF3DB;
-      border-radius: 14px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-    }
-
-    .friend-details h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-green);
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 6px var(--accent-green);
-    }
-
-    .friend-details p { font-size: 12px; color: #9E7F60; }
-    .friend-metrics { text-align: right; }
-
-    .time-spent-badge {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--crust-dark);
-      background: #F6EBD9;
-      padding: 3px 8px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-bottom: 3px;
-    }
-
-    .crumb-earned-badge {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-green);
-      display: block;
-    }
-
-    .cheer-mini-btn {
-      background: #FFE3E3;
-      border: 1px solid #FFB8B8;
-      color: #D63447;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 4px;
-    }
-
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      min-height: 64px;
-      height: calc(64px + env(safe-area-inset-bottom, 0px));
-      background: #FFFDF9;
-      border-top: 2px solid #EEDFC9;
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      padding-top: 8px;
-      padding-bottom: env(safe-area-inset-bottom, 8px);
-      z-index: 99;
-      box-shadow: 0 -4px 15px rgba(141, 91, 40, 0.08);
-    }
-
-    .nav-btn {
-      background: none;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      color: #B59E87;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex: 1;
-    }
-
-    .nav-btn .nav-icon { font-size: 20px; transition: transform 0.2s; }
-    .nav-btn.active { color: var(--crust-dark); }
-    .nav-btn.active .nav-icon { transform: translateY(-2px) scale(1.15); }
-
-    /* Toast Notification */
-    .toast-popup {
-      position: absolute;
-      top: calc(env(safe-area-inset-top, 12px) + 70px);
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: var(--crust-dark);
-      color: #FFECC7;
-      padding: 10px 18px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
-
-    .toast-popup.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-  </style>
-</head>
-<body>
-
-<div class="app-frame">
-  <!-- Toast Notification Popup -->
-  <div id="toastPopup" class="toast-popup">🎉 +25 Crumbs!</div>
-
-  <!-- Header -->
-  <header class="app-header">
-    <div class="mascot-profile">
-      <div class="mascot-avatar">🍞</div>
-      <div class="user-greeting">
-        <h3>Breadie</h3>
-      </div>
-    </div>
-    <div class="currency-pill">
-      <span>🍞 <span id="crumbPoints">1,250</span></span>
-    </div>
-  </header>
-
-  <!-- Screen Viewport -->
-  <main class="screen-container">
-
-    <!-- TAB 1: HOME & OVEN TIMER -->
-    <section id="screen-home" class="screen active">
-      <div class="clay-card">
-        <div class="card-title">🔥 เตาอบจับเวลาความรู้ (Oven Timer)</div>
-        <div class="oven-body">
-          <div class="timer-input-group">
-            <button class="step-btn" onclick="adjustTimer(-5)">-5</button>
-            <button class="step-btn" onclick="adjustTimer(-1)">-1</button>
-            <div style="font-size: 12px; font-weight: 700; color: #8D5B28;">ปรับเวลา (นาที)</div>
-            <button class="step-btn" onclick="adjustTimer(+1)">+1</button>
-            <button class="step-btn" onclick="adjustTimer(+5)">+5</button>
-          </div>
-
-          <div class="preset-container">
-            <button class="preset-pill" onclick="setPresetTime(15)">15 นาที</button>
-            <button class="preset-pill active" id="defaultPreset" onclick="setPresetTime(25)">25 นาที</button>
-            <button class="preset-pill" onclick="setPresetTime(45)">45 นาที</button>
-            <button class="preset-pill" onclick="setPresetTime(60)">60 นาที</button>
-          </div>
-
-          <div class="oven-window">
-            <div id="timerDisplay" class="timer-display" onclick="promptCustomMinutes()">25:00</div>
-            <div id="bakingStatus" style="font-size: 12px; color: #FFF3D6; margin-top: 4px;">แตะตัวเลขเพื่อพิมพ์เวลา หรือกดเริ่มอบ</div>
-          </div>
-
-          <button id="timerActionBtn" class="btn-main" onclick="toggleTimer()">🍞 เริ่มอบความรู้ (+50 Crumbs)</button>
-          <button class="btn-secondary" onclick="fastForwardTimer()">⏩ ทดสอบเร่งเวลา (รับแต้มทันที)</button>
-        </div>
-      </div>
-
-      <div class="clay-card">
-        <div class="card-title">📋 ภารกิจฟิสิกส์วันนี้ (Daily Toasts)</div>
-        <div class="task-item">
-          <input type="checkbox" class="task-check" onchange="completeTask(this, 30)" id="t1">
-          <label class="task-label" for="t1">ทดลองคานสมดุลครบ 1 ครั้ง</label>
-          <span class="task-reward">+30</span>
-        </div>
-        <div class="task-item">
-          <input type="checkbox" class="task-check" onchange="completeTask(this, 20)" id="t2">
-          <label class="task-label" for="t2">อ่านสรุป PDF สูตรฟิสิกส์</label>
-          <span class="task-reward">+20</span>
-        </div>
-        <div class="task-item">
-          <input type="checkbox" class="task-check" onchange="completeTask(this, 50)" id="t3">
-          <label class="task-label" for="t3">อบความรู้ครบ 25 นาทีร่วมกับเพื่อน</label>
-          <span class="task-reward">+50</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 2: LESSON (3 SUB-CATEGORIES) -->
-    <section id="screen-lesson" class="screen">
-      <!-- Sub-Tabs Switcher -->
-      <div class="sub-nav-container">
-        <button class="sub-nav-pill active" onclick="switchLessonSubTab('lesson-sim', this)">🕹️ Simulation</button>
-        <button class="sub-nav-pill" onclick="switchLessonSubTab('lesson-pdf', this)">📄 สรุป (PDF)</button>
-        <button class="sub-nav-pill" onclick="switchLessonSubTab('lesson-content', this)">📚 เนื้อหาวิชา</button>
-      </div>
-
-      <!-- 1. SIMULATION SUB-TAB -->
-      <div id="lesson-sim" class="lesson-sub-screen active">
-        <div class="clay-card">
-          <div class="card-title">⚖️ เครื่องจำลองคานสมดุล (Lever Lab)</div>
-          
-          <div class="lever-stage">
-            <div id="leverBar" class="lever-bar-container">
-              <div class="lever-beam">
-                <div id="leftWeightBox" class="weight-box" style="left: 20%;">
-                  <span class="dough-icon">🍞</span>
-                  <span id="leftWeightLabel">4 kg</span>
-                </div>
-                <div id="rightWeightBox" class="weight-box" style="left: 80%;">
-                  <span class="dough-icon">🧈</span>
-                  <span id="rightWeightLabel">4 kg</span>
-                </div>
-              </div>
-            </div>
-            <div class="fulcrum"></div>
-            <div class="fulcrum-base"></div>
-          </div>
-
-          <div class="torque-indicator">
-            <div><i>M</i><sub>ทวน</sub>: <span id="mLeftDisplay">8.0</span> N·m</div>
-            <div id="balanceState" style="color: var(--accent-green);">⚖️ คานสมดุล</div>
-            <div><i>M</i><sub>ตาม</sub>: <span id="mRightDisplay">8.0</span> N·m</div>
-          </div>
-
-          <div class="sim-controls">
-            <div class="control-box">
-              <h4>ฝั่งซ้าย (ทวนเข็ม)</h4>
-              <label style="font-size:11px;">มวล: <b id="m1Val">4</b> kg</label>
-              <input type="range" class="sim-slider" id="m1" min="1" max="10" value="4" oninput="updateSimulation()">
-              <label style="font-size:11px;">ระยะ: <b id="d1Val">2.0</b> m</label>
-              <input type="range" class="sim-slider" id="d1" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
-            </div>
-
-            <div class="control-box">
-              <h4>ฝั่งขวา (ตามเข็ม)</h4>
-              <label style="font-size:11px;">มวล: <b id="m2Val">4</b> kg</label>
-              <input type="range" class="sim-slider" id="m2" min="1" max="10" value="4" oninput="updateSimulation()">
-              <label style="font-size:11px;">ระยะ: <b id="d2Val">2.0</b> m</label>
-              <input type="range" class="sim-slider" id="d2" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
-            </div>
-          </div>
-
-          <button class="btn-main" style="margin-top:14px;" onclick="checkPhysicsQuiz()">🎯 ส่งคำตอบตรวจสมดุล (+25 Crumbs)</button>
-          <button class="btn-secondary" onclick="randomLeverChallenge()">🎲 สุ่มโจทย์คำนวณใหม่</button>
-        </div>
-      </div>
-
-      <!-- 2. สรุป (PDF UPLOAD & VIEWER) SUB-TAB -->
-      <div id="lesson-pdf" class="lesson-sub-screen">
-        <div class="clay-card">
-          <div class="card-title">📄 อัปโหลดสรุปเพื่ออ่าน (PDF Hub)</div>
-          
-          <input type="file" id="pdfFileInput" accept="application/pdf" style="display:none" onchange="handlePdfUpload(event)">
-          <div class="pdf-upload-box" onclick="document.getElementById('pdfFileInput').click()">
-            <div style="font-size: 32px; margin-bottom: 4px;">📥</div>
-            <div style="font-weight: 700; color: var(--crust-dark); font-size: 14px;">แตะเพื่ออัปโหลดไฟล์ PDF</div>
-            <div style="font-size: 11px; color: #9E7F60;">เปิดอ่านชีตสรุปพร้อมสะสมแต้มอ่านหนังสือ</div>
-          </div>
-
-          <div class="card-title" style="font-size: 14px; margin-top: 14px;">📁 สรุปฟิสิกส์พร้อมอ่าน</div>
-          
-          <div id="pdfListContainer">
-            <div class="pdf-item-card">
-              <div class="pdf-info">
-                <div class="pdf-icon-badge">PDF</div>
-                <div>
-                  <div class="pdf-name">สรุปสมดุลกลและโมเมนต์.pdf</div>
-                  <div class="pdf-size">1.4 MB • 4 หน้า</div>
-                </div>
-              </div>
-              <button class="btn-read-pdf" onclick="openPdfModal('สรุปสมดุลกลและโมเมนต์.pdf')">เปิดอ่าน</button>
-            </div>
-
-            <div class="pdf-item-card">
-              <div class="pdf-info">
-                <div class="pdf-icon-badge">PDF</div>
-                <div>
-                  <div class="pdf-name">สูตรกฎการเคลื่อนที่นิวตัน.pdf</div>
-                  <div class="pdf-size">2.1 MB • 6 หน้า</div>
-                </div>
-              </div>
-              <button class="btn-read-pdf" onclick="openPdfModal('สูตรกฎการเคลื่อนที่นิวตัน.pdf')">เปิดอ่าน</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. เนื้อหาวิชาต่างๆ SUB-TAB -->
-      <div id="lesson-content" class="lesson-sub-screen">
-        <div class="clay-card">
-          <div class="card-title">📚 เนื้อหาวิชาฟิสิกส์ ม.ปลาย</div>
-          <p style="font-size: 12px; color: #8D5B28; margin-bottom: 12px;">แตะที่หัวข้อเพื่อเปิดอ่านสรุปเนื้อหาสำคัญ</p>
-
-          <div class="topic-accordion">
-            <div class="topic-header" onclick="toggleTopic(this)">
-              <span>1. สภาพสมดุลและโมเมนต์ (Torque)</span>
-              <span>▾</span>
-            </div>
-            <div class="topic-content">
-              <p>วัตถุจะสมดุลต่อการหมุนเมื่อผลรวมของโมเมนต์รอบจุดหมุนใดๆ มีค่าเป็นศูนย์</p>
-              <div class="formula-tag">$$\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$$</div>
-              <div class="formula-tag">$$W_1 \cdot d_1 = W_2 \cdot d_2$$</div>
-              <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-            </div>
-          </div>
-
-          <div class="topic-accordion">
-            <div class="topic-header" onclick="toggleTopic(this)">
-              <span>2. กฎการเคลื่อนที่ของนิวตัน</span>
-              <span>▾</span>
-            </div>
-            <div class="topic-content">
-              <p><b>กฎข้อที่ 1:</b> วัตถุคงสภาพอยู่นิ่งหรือเคลื่อนที่ด้วยความเร็วคงที่</p>
-              <div class="formula-tag">$$\Sigma F = 0$$</div>
-              <p><b>กฎข้อที่ 2:</b> แรงลัพธ์ทำให้เกิดความเร่ง</p>
-              <div class="formula-tag">$$\Sigma \vec{F} = m\vec{a}$$</div>
-              <p><b>กฎข้อที่ 3:</b> แรงกิริยาเท่ากับแรงปฏิกิริยา ($\text{Action} = \text{Reaction}$)</p>
-              <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-            </div>
-          </div>
-
-          <div class="topic-accordion">
-            <div class="topic-header" onclick="toggleTopic(this)">
-              <span>3. งานและพลังงาน (Work & Energy)</span>
-              <span>▾</span>
-            </div>
-            <div class="topic-content">
-              <p>งานและพลังงานกลชนิดต่างๆ:</p>
-              <div class="formula-tag">$$W = \vec{F} \cdot \vec{s} = F s \cos\theta$$</div>
-              <div class="formula-tag">$$E_k = \frac{1}{2}mv^2 \quad,\quad E_p = mgh$$</div>
-              <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-            </div>
-          </div>
-
-          <div class="topic-accordion">
-            <div class="topic-header" onclick="toggleTopic(this)">
-              <span>4. ไฟฟ้าและแม่เหล็ก (Electricity)</span>
-              <span>▾</span>
-            </div>
-            <div class="topic-content">
-              <p>กฎของโอห์มและกำลังไฟฟ้าในวงจร:</p>
-              <div class="formula-tag">$$V = IR \quad,\quad P = IV = I^2R = \frac{V^2}{R}$$</div>
-              <button class="btn-secondary" style="padding:6px; font-size:11px;" onclick="addPoints(15)">✅ ทำความเข้าใจแล้ว (+15 🍞)</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: DAILY FLASHCARDS -->
-    <section id="screen-deck" class="screen">
-      <div class="clay-card">
-        <div class="card-title">🍞 แฟลชการ์ดสูตรฟิสิกส์ (Toast Cards)</div>
-        <p style="font-size: 13px; color: #8D5B28; margin-bottom: 8px;">แตะที่การ์ดเพื่อพลิกดูสูตรและคำอธิบาย</p>
-
-        <div class="flashcard-3d-wrap" onclick="flipCard()">
-          <div class="flashcard-inner" id="flashCard">
-            <div class="flashcard-face flashcard-front">
-              <div class="toast-butter-badge">🧈</div>
-              <div style="font-size:12px; color:#A07A55; font-weight:600;">หมวด: สมดุลและกลศาสตร์</div>
-              <div id="fcQ" class="fc-question">สูตรโมเมนต์ของแรง (Torque) คืออะไร?</div>
-              <div style="font-size:12px; color:#8D5B28; margin-top:8px;">(แตะเพื่อพลิกขนมปัง ↷)</div>
-            </div>
-            <div class="flashcard-face flashcard-back">
-              <div class="toast-butter-badge">✨</div>
-              <div class="fc-formula" id="fcFormula">\( M = F \times d \)</div>
-              <div class="fc-answer" id="fcA">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
-              <div style="font-size:11px; color:#6B533E; margin-top:6px;">หน่วย: นิวตัน-เมตร (\(\text{N}\cdot\text{m}\))</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 8px;">
-          <button class="btn-secondary" style="flex:1;" onclick="prevCard()">◀ ข้อก่อนหน้า</button>
-          <button class="btn-main" style="flex:1; padding: 10px;" onclick="nextCard()">ข้อถัดไป (+10 🍞)</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 4: STUDY WITH FRIENDS -->
-    <section id="screen-friends" class="screen">
-      <div class="clay-card">
-        <div class="card-title">👥 เตาอบอ่านหนังสือร่วมกับเพื่อน</div>
-        
-        <div id="roomOverview">
-          <div class="room-card">
-            <div class="room-header">
-              <span class="room-name">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</span>
-              <span class="room-badge">🟢 สด 4 คน</span>
-            </div>
-            <p style="font-size: 12px; color: #7D6148; margin-bottom: 8px;">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
-            <button class="btn-main" style="padding: 10px; font-size: 14px;" onclick="enterRoomView('🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5')">👉 กดเข้าดูสมาชิกและแต้มเวลา</button>
-          </div>
-
-          <div class="room-card">
-            <div class="room-header">
-              <span class="room-name">🥐 ห้องเตรียมสอบปลายภาค</span>
-              <span class="room-badge">🟢 สด 2 คน</span>
-            </div>
-            <p style="font-size: 12px; color: #7D6148; margin-bottom: 8px;">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
-            <button class="btn-main" style="padding: 10px; font-size: 14px;" onclick="enterRoomView('🥐 ห้องเตรียมสอบปลายภาค')">👉 กดเข้าดูสมาชิกและแต้มเวลา</button>
-          </div>
-        </div>
-
-        <div id="roomDetailView" style="display: none;">
-          <div class="in-room-header">
-            <div>
-              <div id="activeRoomName" class="in-room-title">🥖 ห้องตะลุยโจทย์ ฟิสิกส์ ม.5</div>
-              <div style="font-size: 11px; color: #7D6148;">กำลังจับเวลาโฟกัสร่วมกัน</div>
-            </div>
-            <button class="btn-leave" onclick="leaveRoomView()">◀ ออกจากห้อง</button>
-          </div>
-
-          <div class="friend-row">
-            <div class="friend-info">
-              <div class="friend-avatar-large">🥐</div>
-              <div class="friend-details">
-                <h4>Graine <span class="live-dot"></span></h4>
-                <p>โจทย์คานสมดุล</p>
-              </div>
-            </div>
-            <div class="friend-metrics">
-              <div class="time-spent-badge">⏱️ 45 นาที</div>
-              <div class="crumb-earned-badge">+90 🍞</div>
-              <button class="cheer-mini-btn" onclick="cheerFriend('Graine')">❤️ ให้กำลังใจ</button>
-            </div>
-          </div>
-
-          <div class="friend-row">
-            <div class="friend-info">
-              <div class="friend-avatar-large">🍞</div>
-              <div class="friend-details">
-                <h4>Butter <span class="live-dot"></span></h4>
-                <p>สูตรการเคลื่อนที่</p>
-              </div>
-            </div>
-            <div class="friend-metrics">
-              <div class="time-spent-badge">⏱️ 30 นาที</div>
-              <div class="crumb-earned-badge">+60 🍞</div>
-              <button class="cheer-mini-btn" onclick="cheerFriend('Butter')">❤️ ให้กำลังใจ</button>
-            </div>
-          </div>
-
-          <div class="friend-row">
-            <div class="friend-info">
-              <div class="friend-avatar-large">🥨</div>
-              <div class="friend-details">
-                <h4>Ten-Thank <span class="live-dot"></span></h4>
-                <p>จับเวลาอ่านมาราธอน</p>
-              </div>
-            </div>
-            <div class="friend-metrics">
-              <div class="time-spent-badge">⏱️ 50 นาที</div>
-              <div class="crumb-earned-badge">+100 🍞</div>
-              <button class="cheer-mini-btn" onclick="cheerFriend('Ten-Thank')">❤️ ให้กำลังใจ</button>
-            </div>
-          </div>
-
-          <div class="friend-row">
-            <div class="friend-info">
-              <div class="friend-avatar-large">🧁</div>
-              <div class="friend-details">
-                <h4>Panom <span class="live-dot"></span></h4>
-                <p>ทบทวนแฟลชการ์ด</p>
-              </div>
-            </div>
-            <div class="friend-metrics">
-              <div class="time-spent-badge">⏱️ 20 นาที</div>
-              <div class="crumb-earned-badge">+40 🍞</div>
-              <button class="cheer-mini-btn" onclick="cheerFriend('Panom')">❤️ ให้กำลังใจ</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- PDF Reader Modal -->
-  <div id="pdfModal" class="pdf-modal-viewer">
-    <div class="pdf-modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h4 id="pdfModalTitle" style="font-size:14px; color:var(--crust-dark); font-weight:700;">เอกสารสรุป</h4>
-        <button class="btn-leave" onclick="closePdfModal()">ปิด ✖</button>
-      </div>
-      <div class="pdf-frame-wrapper" id="pdfFrameBox">
-        <div style="text-align:center; padding:20px; color:#8D5B28;">
-          <div style="font-size:48px; margin-bottom:10px;">📄</div>
-          <p id="pdfMockContent" style="font-size:14px; font-weight:600;">กำลังแสดงตัวอย่างเนื้อหาสรุป...</p>
-        </div>
-      </div>
-      <button class="btn-main" onclick="readPdfFinish()">✨ อ่านจบแล้ว รับแต้ม (+20 🍞)</button>
-    </div>
-  </div>
-
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="switchTab('screen-home', this)">
-      <span class="nav-icon">🏠</span>
-      <span>หน้าหลัก</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('screen-lesson', this)">
-      <span class="nav-icon">⚖️</span>
-      <span>Lesson</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('screen-deck', this)">
-      <span class="nav-icon">🍞</span>
-      <span>การ์ดสูตร</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('screen-friends', this)">
-      <span class="nav-icon">👥</span>
-      <span>กับเพื่อน</span>
-    </button>
-  </nav>
-</div>
-
-<script>
-  let crumbPoints = 1250;
-  let timerMinutes = 25;
-  let timerSeconds = 0;
-  let timerInterval = null;
-  let isTimerRunning = false;
-
-  const flashcards = [
-    {
-      q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
-      formula: "\\( M = F \\times d \\)",
-      a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง"
-    },
-    {
-      q: "กฎข้อที่ 2 ของนิวตัน (แรงและความเร่ง)",
-      formula: "\\( \\Sigma \\vec{F} = m\\vec{a} \\)",
-      a: "แรงลัพธ์ = มวล × ความเร่ง"
-    },
-    {
-      q: "สูตรพลังงานจลน์ (Kinetic Energy)",
-      formula: "\\( E_k = \\frac{1}{2}mv^2 \\)",
-      a: "พลังงานที่สะสมในวัตถุที่กำลังเคลื่อนที่"
-    }
-  ];
-  let currentCardIndex = 0;
-
-  function reRenderMath() {
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      MathJax.typesetPromise();
-    }
-  }
-
-  function switchTab(screenId, btnElement) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
-    reRenderMath();
-  }
-
-  function switchLessonSubTab(subId, btnElement) {
-    document.querySelectorAll('.lesson-sub-screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(subId).classList.add('active');
-    document.querySelectorAll('.sub-nav-pill').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
-    reRenderMath();
-  }
-
-  function showToast(msg) {
-    const toast = document.getElementById('toastPopup');
-    toast.innerText = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
-  }
-
-  function addPoints(pts) {
-    crumbPoints += pts;
-    document.getElementById('crumbPoints').innerText = crumbPoints.toLocaleString();
-    showToast(`🎉 +${pts} Crumbs!`);
-  }
-
-  /* Timer */
-  function updateTimerDisplay() {
-    const mStr = String(timerMinutes).padStart(2, '0');
-    const sStr = String(timerSeconds).padStart(2, '0');
-    document.getElementById('timerDisplay').innerText = `${mStr}:${sStr}`;
-    const reward = timerMinutes * 2;
-    document.getElementById('timerActionBtn').innerText = isTimerRunning 
-      ? '⏸️ พักการอบขนม' 
-      : `🍞 เริ่มอบความรู้ (+${reward} Crumbs)`;
-  }
-
-  function adjustTimer(amount) {
-    if (isTimerRunning) return;
-    timerMinutes = Math.max(1, Math.min(180, timerMinutes + amount));
-    timerSeconds = 0;
-    updateTimerDisplay();
-    document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
-  }
-
-  function setPresetTime(min) {
-    if (isTimerRunning) return;
-    timerMinutes = min;
-    timerSeconds = 0;
-    updateTimerDisplay();
-    document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
-    event.target.classList.add('active');
-  }
-
-  function promptCustomMinutes() {
-    if (isTimerRunning) return;
-    const input = prompt("ระบุเวลาที่ต้องการอบความรู้ (1 - 180 นาที):", timerMinutes);
-    const val = parseInt(input);
-    if (!isNaN(val) && val >= 1 && val <= 180) {
-      timerMinutes = val;
+    function switchTab(screenId, btnElement) {
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.add('hidden');
+        s.classList.remove('block');
+      });
+      const activeScreen = document.getElementById(screenId);
+      activeScreen.classList.remove('hidden');
+      activeScreen.classList.add('block');
+
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('text-crust-dark', 'active');
+        b.classList.add('text-[#B59E87]');
+        b.querySelector('span:first-child').classList.remove('-translate-y-0.5', 'scale-110');
+      });
+      btnElement.classList.add('text-crust-dark', 'active');
+      btnElement.classList.remove('text-[#B59E87]');
+      btnElement.querySelector('span:first-child').classList.add('-translate-y-0.5', 'scale-110');
+
+      reRenderMath();
+    }
+
+    function switchLessonSubTab(subId, btnElement) {
+      document.querySelectorAll('.lesson-sub-view').forEach(s => {
+        s.classList.add('hidden');
+        s.classList.remove('block');
+      });
+      const target = document.getElementById(subId);
+      target.classList.remove('hidden');
+      target.classList.add('block');
+
+      document.querySelectorAll('.lesson-sub-btn').forEach(b => {
+        b.classList.remove('active', 'bg-cream-50', 'shadow-sm');
+        b.classList.add('bg-transparent');
+      });
+      btnElement.classList.add('active', 'bg-cream-50', 'shadow-sm');
+      btnElement.classList.remove('bg-transparent');
+
+      reRenderMath();
+    }
+
+    function filterSubject(subjId, chipBtn) {
+      document.querySelectorAll('.subject-section').forEach(sec => {
+        sec.classList.add('hidden');
+        sec.classList.remove('block');
+      });
+      const targetSection = document.getElementById(subjId);
+      targetSection.classList.remove('hidden');
+      targetSection.classList.add('block');
+
+      document.querySelectorAll('.subj-chip').forEach(c => {
+        c.classList.remove('active', 'bg-butter', 'shadow-sm');
+        c.classList.add('bg-transparent');
+      });
+      chipBtn.classList.add('active', 'bg-butter', 'shadow-sm');
+      chipBtn.classList.remove('bg-transparent');
+
+      reRenderMath();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastPopup');
+      toast.innerText = msg;
+      toast.classList.remove('opacity-0', '-translate-y-8');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-8');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2000);
+    }
+
+    function addPoints(pts) {
+      crumbPoints += pts;
+      document.getElementById('crumbPoints').innerText = crumbPoints.toLocaleString();
+      showToast(`🎉 +${pts} Crumbs!`);
+    }
+
+    /* Timer Logic */
+    function updateTimerDisplay() {
+      const mStr = String(timerMinutes).padStart(2, '0');
+      const sStr = String(timerSeconds).padStart(2, '0');
+      document.getElementById('timerDisplay').innerText = `${mStr}:${sStr}`;
+      const reward = timerMinutes * 2;
+      document.getElementById('timerActionBtn').innerText = isTimerRunning 
+        ? '⏸️ พักการอบขนม' 
+        : `🍞 เริ่มอบความรู้ (+${reward} Crumbs)`;
+    }
+
+    function adjustTimer(amount) {
+      if (isTimerRunning) return;
+      timerMinutes = Math.max(1, Math.min(180, timerMinutes + amount));
       timerSeconds = 0;
       updateTimerDisplay();
+      document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm'));
     }
-  }
 
-  function toggleTimer() {
-    if (isTimerRunning) {
-      clearInterval(timerInterval);
-      isTimerRunning = false;
-      document.getElementById('bakingStatus').innerText = "พักการอบชั่วคราว";
+    function setPresetTime(min, btn) {
+      if (isTimerRunning) return;
+      timerMinutes = min;
+      timerSeconds = 0;
       updateTimerDisplay();
-    } else {
-      isTimerRunning = true;
-      document.getElementById('bakingStatus').innerText = "🔥 กำลังอบความรู้... โฟกัสนะ!";
-      document.getElementById('timerActionBtn').innerText = '⏸️ พักการอบขนม';
-      timerInterval = setInterval(() => {
-        if (timerSeconds === 0) {
-          if (timerMinutes === 0) {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            addPoints(timerMinutes * 2 || 50);
-            alert("🍞 ขนมปังอบเสร็จแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
-            setPresetTime(25);
-            return;
-          }
-          timerMinutes--;
-          timerSeconds = 59;
-        } else {
-          timerSeconds--;
-        }
+      document.querySelectorAll('.preset-pill').forEach(p => {
+        p.classList.remove('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm');
+        p.classList.add('bg-cream-50', 'border-cream-400');
+      });
+      btn.classList.add('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm');
+      btn.classList.remove('bg-cream-50', 'border-cream-400');
+    }
+
+    function promptCustomMinutes() {
+      if (isTimerRunning) return;
+      const input = prompt("ระบุเวลาที่ต้องการอบความรู้ (1 - 180 นาที):", timerMinutes);
+      const val = parseInt(input);
+      if (!isNaN(val) && val >= 1 && val <= 180) {
+        timerMinutes = val;
+        timerSeconds = 0;
         updateTimerDisplay();
-      }, 1000);
+      }
     }
-  }
 
-  function fastForwardTimer() {
-    if (timerInterval) clearInterval(timerInterval);
-    isTimerRunning = false;
-    addPoints(50);
-    timerMinutes = 25;
-    timerSeconds = 0;
-    updateTimerDisplay();
-    document.getElementById('bakingStatus').innerText = "✨ อบความรู้เสร็จสิ้นแบบเร่งด่วน!";
-  }
-
-  function completeTask(checkbox, pts) {
-    if (checkbox.checked) {
-      addPoints(pts);
-      checkbox.disabled = true;
+    function toggleTimer() {
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('bakingStatus').innerText = "พักการอบชั่วคราว";
+        updateTimerDisplay();
+      } else {
+        isTimerRunning = true;
+        document.getElementById('bakingStatus').innerText = "🔥 กำลังอบความรู้... โฟกัสนะ!";
+        document.getElementById('timerActionBtn').innerText = '⏸️ พักการอบขนม';
+        timerInterval = setInterval(() => {
+          if (timerSeconds === 0) {
+            if (timerMinutes === 0) {
+              clearInterval(timerInterval);
+              isTimerRunning = false;
+              addPoints(timerMinutes * 2 || 50);
+              alert("🍞 ขนมปังอบเสร็จแล้ว! ยินดีด้วยที่คุณโฟกัสสำเร็จ");
+              setPresetTime(25, document.querySelectorAll('.preset-pill')[1]);
+              return;
+            }
+            timerMinutes--;
+            timerSeconds = 59;
+          } else {
+            timerSeconds--;
+          }
+          updateTimerDisplay();
+        }, 1000);
+      }
     }
-  }
 
-  /* Physics Lever Simulation */
-  function updateSimulation() {
-    const m1 = parseFloat(document.getElementById('m1').value);
-    const d1 = parseFloat(document.getElementById('d1').value);
-    const m2 = parseFloat(document.getElementById('m2').value);
-    const d2 = parseFloat(document.getElementById('d2').value);
-
-    document.getElementById('m1Val').innerText = m1;
-    document.getElementById('d1Val').innerText = d1.toFixed(1);
-    document.getElementById('m2Val').innerText = m2;
-    document.getElementById('d2Val').innerText = d2.toFixed(1);
-
-    document.getElementById('leftWeightLabel').innerText = `${m1} kg`;
-    document.getElementById('rightWeightLabel').innerText = `${m2} kg`;
-
-    const leftPosPercent = 50 - (d1 / 3.0) * 42;
-    const rightPosPercent = 50 + (d2 / 3.0) * 42;
-    document.getElementById('leftWeightBox').style.left = `${leftPosPercent}%`;
-    document.getElementById('rightWeightBox').style.left = `${rightPosPercent}%`;
-
-    const tLeft = m1 * d1;
-    const tRight = m2 * d2;
-    document.getElementById('mLeftDisplay').innerText = tLeft.toFixed(1);
-    document.getElementById('mRightDisplay').innerText = tRight.toFixed(1);
-
-    const diff = tRight - tLeft;
-    const angle = Math.max(-14, Math.min(14, diff * 2.5));
-    document.getElementById('leverBar').style.transform = `rotate(${angle}deg)`;
-
-    const stateElem = document.getElementById('balanceState');
-    if (Math.abs(tLeft - tRight) < 0.05) {
-      stateElem.innerText = "⚖️ คานสมดุล";
-      stateElem.style.color = "var(--accent-green)";
-    } else if (tLeft > tRight) {
-      stateElem.innerText = "↺ เอียงทวนเข็ม";
-      stateElem.style.color = "var(--crust-dark)";
-    } else {
-      stateElem.innerText = "↻ เอียงตามเข็ม";
-      stateElem.style.color = "var(--crust-dark)";
+    function fastForwardTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      isTimerRunning = false;
+      addPoints(50);
+      timerMinutes = 25;
+      timerSeconds = 0;
+      updateTimerDisplay();
+      document.getElementById('bakingStatus').innerText = "✨ อบความรู้เสร็จสิ้นแบบเร่งด่วน!";
     }
-  }
 
-  function checkPhysicsQuiz() {
-    const tLeft = parseFloat(document.getElementById('mLeftDisplay').innerText);
-    const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
-    if (Math.abs(tLeft - tRight) < 0.05) {
-      addPoints(25);
-      alert("🎉 ถูกต้อง! โมเมนต์ทวน = โมเมนต์ตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
-    } else {
-      alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
+    function completeTask(checkbox, pts) {
+      if (checkbox.checked) {
+        addPoints(pts);
+        checkbox.disabled = true;
+      }
     }
-  }
 
-  function randomLeverChallenge() {
-    const targetM1 = Math.floor(Math.random() * 6) + 2;
-    const targetD1 = (Math.floor(Math.random() * 5) + 1) * 0.5;
-    document.getElementById('m1').value = targetM1;
-    document.getElementById('d1').value = targetD1;
-    updateSimulation();
-    showToast("🎲 สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
-  }
+    /* Lever Simulation Logic */
+    function updateSimulation() {
+      const m1 = parseFloat(document.getElementById('m1').value);
+      const d1 = parseFloat(document.getElementById('d1').value);
+      const m2 = parseFloat(document.getElementById('m2').value);
+      const d2 = parseFloat(document.getElementById('d2').value);
 
-  /* PDF Handling */
-  function handlePdfUpload(e) {
-    const file = e.target.files[0];
-    if (file && file.type === 'application/pdf') {
-      const newCard = document.createElement('div');
-      newCard.className = 'pdf-item-card';
-      newCard.innerHTML = `
-        <div class="pdf-info">
-          <div class="pdf-icon-badge">PDF</div>
-          <div>
-            <div class="pdf-name">${file.name}</div>
-            <div class="pdf-size">${(file.size / (1024*1024)).toFixed(1)} MB • อัปโหลดล่าสุด</div>
+      document.getElementById('m1Val').innerText = m1;
+      document.getElementById('d1Val').innerText = d1.toFixed(1);
+      document.getElementById('m2Val').innerText = m2;
+      document.getElementById('d2Val').innerText = d2.toFixed(1);
+
+      document.getElementById('leftWeightLabel').innerText = `${m1} kg`;
+      document.getElementById('rightWeightLabel').innerText = `${m2} kg`;
+
+      const leftPosPercent = 50 - (d1 / 3.0) * 42;
+      const rightPosPercent = 50 + (d2 / 3.0) * 42;
+      document.getElementById('leftWeightBox').style.left = `${leftPosPercent}%`;
+      document.getElementById('rightWeightBox').style.left = `${rightPosPercent}%`;
+
+      const tLeft = m1 * d1;
+      const tRight = m2 * d2;
+      document.getElementById('mLeftDisplay').innerText = tLeft.toFixed(1);
+      document.getElementById('mRightDisplay').innerText = tRight.toFixed(1);
+
+      const diff = tRight - tLeft;
+      const angle = Math.max(-14, Math.min(14, diff * 2.5));
+      document.getElementById('leverBar').style.transform = `rotate(${angle}deg)`;
+
+      const stateElem = document.getElementById('balanceState');
+      if (Math.abs(tLeft - tRight) < 0.05) {
+        stateElem.innerText = "⚖️ คานสมดุล";
+        stateElem.className = "text-[#68B984]";
+      } else if (tLeft > tRight) {
+        stateElem.innerText = "↺ เอียงทวนเข็ม";
+        stateElem.className = "text-crust-dark";
+      } else {
+        stateElem.innerText = "↻ เอียงตามเข็ม";
+        stateElem.className = "text-crust-dark";
+      }
+    }
+
+    function checkPhysicsQuiz() {
+      const tLeft = parseFloat(document.getElementById('mLeftDisplay').innerText);
+      const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
+      if (Math.abs(tLeft - tRight) < 0.05) {
+        addPoints(25);
+        alert("🎉 ถูกต้อง! โมเมนต์ทวน = โมเมนต์ตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
+      } else {
+        alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
+      }
+    }
+
+    function randomLeverChallenge() {
+      const targetM1 = Math.floor(Math.random() * 6) + 2;
+      const targetD1 = (Math.floor(Math.random() * 5) + 1) * 0.5;
+      document.getElementById('m1').value = targetM1;
+      document.getElementById('d1').value = targetD1;
+      updateSimulation();
+      showToast("🎲 สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
+    }
+
+    /* PDF Logic */
+    function handlePdfUpload(e) {
+      const file = e.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        const newCard = document.createElement('div');
+        newCard.className = 'bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm';
+        newCard.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+            <div>
+              <div class="text-xs font-bold text-crust-dark">${file.name}</div>
+              <div class="text-[10px] text-[#9E7F60]">${(file.size / (1024*1024)).toFixed(1)} MB • อัปโหลดล่าสุด</div>
+            </div>
           </div>
-        </div>
-        <button class="btn-read-pdf" onclick="openPdfModal('${file.name}')">เปิดอ่าน</button>
-      `;
-      document.getElementById('pdfListContainer').prepend(newCard);
-      addPoints(10);
-      showToast(`📥 อัปโหลด ${file.name} สำเร็จ!`);
+          <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openPdfModal('${file.name}')">เปิดอ่าน</button>
+        `;
+        document.getElementById('pdfListContainer').prepend(newCard);
+        addPoints(10);
+        showToast(`📥 อัปโหลด ${file.name} สำเร็จ!`);
+      }
     }
-  }
 
-  function openPdfModal(name) {
-    document.getElementById('pdfModalTitle').innerText = name;
-    document.getElementById('pdfMockContent').innerText = `กำลังเปิดอ่าน: ${name}\n(เนื้อหาวิชาและสรุปพร้อมให้ทบทวน)`;
-    document.getElementById('pdfModal').classList.add('active');
-  }
+    function openPdfModal(name) {
+      document.getElementById('pdfModalTitle').innerText = name;
+      document.getElementById('pdfMockContent').innerText = `กำลังเปิดอ่าน: ${name}\n(เนื้อหาพร้อมทบทวนบทเรียน)`;
+      const modal = document.getElementById('pdfModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
 
-  function closePdfModal() {
-    document.getElementById('pdfModal').classList.remove('active');
-  }
+    function closePdfModal() {
+      const modal = document.getElementById('pdfModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
 
-  function readPdfFinish() {
-    addPoints(20);
-    closePdfModal();
-  }
+    function readPdfFinish() {
+      addPoints(20);
+      closePdfModal();
+    }
 
-  /* Topic Accordion */
-  function toggleTopic(header) {
-    const content = header.nextElementSibling;
-    content.classList.toggle('open');
-    header.querySelector('span:last-child').innerText = content.classList.contains('open') ? '▴' : '▾';
-    reRenderMath();
-  }
+    /* Accordion Logic */
+    function toggleTopic(header) {
+      const content = header.nextElementSibling;
+      content.classList.toggle('hidden');
+      header.querySelector('span:last-child').innerText = content.classList.contains('hidden') ? '▾' : '▴';
+      reRenderMath();
+    }
 
-  /* Flashcards */
-  function flipCard() {
-    document.getElementById('flashCard').classList.toggle('flipped');
-  }
+    /* Flashcard Logic */
+    function flipCard() {
+      document.getElementById('flashCard').classList.toggle('rotate-y-180');
+    }
 
-  function renderCard() {
-    const card = flashcards[currentCardIndex];
-    document.getElementById('flashCard').classList.remove('flipped');
-    document.getElementById('fcQ').innerText = card.q;
-    document.getElementById('fcFormula').innerHTML = card.formula;
-    document.getElementById('fcA').innerText = card.a;
-    reRenderMath();
-  }
+    function renderCard() {
+      const card = flashcards[currentCardIndex];
+      document.getElementById('flashCard').classList.remove('rotate-y-180');
+      document.getElementById('fcSubj').innerText = card.subj;
+      document.getElementById('fcQ').innerText = card.q;
+      document.getElementById('fcFormula').innerHTML = card.formula;
+      document.getElementById('fcA').innerText = card.a;
+      reRenderMath();
+    }
 
-  function nextCard() {
-    addPoints(10);
-    currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+    function nextCard() {
+      addPoints(10);
+      currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+      renderCard();
+    }
+
+    function prevCard() {
+      currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+      renderCard();
+    }
+
+    /* Friends Live Rooms */
+    function enterRoomView(roomTitle) {
+      document.getElementById('roomOverview').classList.add('hidden');
+      document.getElementById('roomDetailView').classList.remove('hidden');
+      document.getElementById('activeRoomName').innerText = roomTitle;
+      showToast(`🚪 เข้าสู่ ${roomTitle}`);
+    }
+
+    function leaveRoomView() {
+      document.getElementById('roomDetailView').classList.add('hidden');
+      document.getElementById('roomOverview').classList.remove('hidden');
+    }
+
+    function cheerFriend(name) {
+      addPoints(5);
+      showToast(`🧈 ส่งกำลังใจให้ ${name} สำเร็จ!`);
+    }
+
+    // Init App
+    updateTimerDisplay();
+    updateSimulation();
     renderCard();
-  }
-
-  function prevCard() {
-    currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
-    renderCard();
-  }
-
-  /* Friends */
-  function enterRoomView(roomTitle) {
-    document.getElementById('roomOverview').style.display = 'none';
-    document.getElementById('roomDetailView').style.display = 'block';
-    document.getElementById('activeRoomName').innerText = roomTitle;
-    showToast(`🚪 เข้าสู่ ${roomTitle}`);
-  }
-
-  function leaveRoomView() {
-    document.getElementById('roomDetailView').style.display = 'none';
-    document.getElementById('roomOverview').style.display = 'block';
-  }
-
-  function cheerFriend(name) {
-    addPoints(5);
-    showToast(`🧈 ส่งกำลังใจให้ ${name} สำเร็จ!`);
-  }
-
-  // Initial calls
-  updateTimerDisplay();
-  updateSimulation();
-  renderCard();
-</script>
+  </script>
 </body>
 </html>
