@@ -76,9 +76,9 @@
     .rotate-y-180 { transform: rotateY(180deg); }
   </style>
 </head>
-<body class="bg-cream-500 min-h-screen flex justify-center items-center m-0 p-0 sm:p-4">
+<body class="bg-cream-500 min-h-screen flex justify-center items-center m-0 p-0 sm:p-4 select-none">
 
-  <!-- Mobile App Frame Container -->
+  <!-- Mobile App Frame Container (Flexbox layout) -->
   <div class="app-frame w-full max-w-[430px] h-screen h-[100dvh] sm:h-[880px] sm:max-h-[94vh] bg-cream-100 sm:rounded-[40px] shadow-2xl flex flex-col relative overflow-hidden sm:ring-8 sm:ring-cream-400">
     
     <!-- Toast Popup Notification -->
@@ -88,17 +88,17 @@
     </div>
 
     <!-- Header with 3D Toast Mascot Logo -->
-    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20">
+    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/40">
       <div class="flex items-center gap-3">
         <!-- 3D Clay Toast Logo Avatar -->
-        <div class="w-12 h-12 bg-[#F3D7A0] rounded-2xl flex items-center justify-center shadow-clay relative border-2 border-[#D8A86C] overflow-hidden">
+        <div class="w-12 h-12 bg-[#F6DEB2] rounded-2xl flex items-center justify-center shadow-clay relative border-2 border-[#D8A86C] overflow-hidden shrink-0">
           <svg viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-sm">
-            <!-- Toast Crust -->
-            <path d="M22 28 C22 15, 38 10, 50 18 C62 10, 78 15, 78 28 C85 45, 83 72, 75 84 C68 88, 32 88, 25 84 C17 72, 15 45, 22 28 Z" fill="#C68A4C" />
-            <!-- Toast Soft Center -->
-            <path d="M26 31 C26 20, 39 16, 50 22 C61 16, 74 20, 74 31 C80 46, 78 69, 71 80 C65 84, 35 84, 29 80 C22 69, 20 46, 26 31 Z" fill="#FCE6B5" />
-            <!-- Butter Cube on Head -->
-            <path d="M44 20 Q50 14 62 18 Q68 25 64 33 Q55 35 46 31 Q40 26 44 20 Z" fill="#FCE166" stroke="#E5BE32" stroke-width="1.5" />
+            <!-- Toast Crust Body -->
+            <path d="M22 28 C22 14, 38 10, 50 18 C62 10, 78 14, 78 28 C85 45, 83 74, 75 84 C68 88, 32 88, 25 84 C17 74, 15 45, 22 28 Z" fill="#C68A4C" />
+            <!-- Toast Soft Bread Face -->
+            <path d="M26 31 C26 19, 39 16, 50 22 C61 16, 74 19, 74 31 C80 46, 78 70, 71 80 C65 84, 35 84, 29 80 C22 70, 20 46, 26 31 Z" fill="#FCE6B5" />
+            <!-- Melting Butter on Top -->
+            <path d="M44 20 Q50 13 62 17 Q68 24 64 32 Q55 35 46 31 Q40 26 44 20 Z" fill="#FCE166" stroke="#E5BE32" stroke-width="1.5" />
             <ellipse cx="54" cy="24" rx="4" ry="2" fill="#FFF49C" opacity="0.8" />
             <!-- Happy Eyes -->
             <ellipse cx="38" cy="48" rx="2.5" ry="3.5" fill="#4A2E13" />
@@ -123,11 +123,11 @@
       </div>
     </header>
 
-    <!-- Main Screens Container -->
-    <main class="screen-container flex-1 overflow-y-auto px-4 pt-2 pb-[calc(80px+env(safe-area-inset-bottom,16px))] no-scrollbar scroll-smooth">
+    <!-- Main Screens Container (Scrollable Flex Item) -->
+    <main class="screen-container flex-1 overflow-y-auto px-4 pt-3 pb-6 no-scrollbar scroll-smooth">
 
       <!-- ================= TAB 1: HOME ================= -->
-      <section id="screen-home" class="screen block transition-opacity duration-200">
+      <section id="screen-home" class="screen block">
         <!-- Oven Card -->
         <div class="bg-cream-50 rounded-3xl p-4 mb-4 shadow-clay border border-white/60">
           <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
@@ -239,8 +239,8 @@
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">3. PHY 🪐.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)</div>
+                    <div class="text-xs font-bold text-crust-dark">3. PHY 🪐.pdf[span_0](start_span)[span_0](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)[span_1](start_span)[span_1](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('phy')">เปิดอ่าน</button>
@@ -251,8 +251,8 @@
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">4. CHEM ⚗️.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)</div>
+                    <div class="text-xs font-bold text-crust-dark">4. CHEM ⚗️.pdf[span_2](start_span)[span_2](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)[span_3](start_span)[span_3](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('chem')">เปิดอ่าน</button>
@@ -263,8 +263,8 @@
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)</div>
+                    <div class="text-xs font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf[span_4](start_span)[span_4](end_span)</div>
+                    <div class="text-[10px] text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)[span_5](start_span)[span_5](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('bio')">เปิดอ่าน</button>
@@ -361,9 +361,9 @@
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• 5 สูตรการเคลื่อนที่แนวตรง (ความเร่งคงที่): $v = u + at$, $s = ut + \frac{1}{2}at^2$, $v^2 = u^2 + 2as$</p>
-                  <p>• กฎการเคลื่อนที่นิวตัน: $\Sigma F = ma$, แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$</p>
-                  <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$</p>
+                  <p>• 5 สูตรการเคลื่อนที่แนวตรง (ความเร่งคงที่): $v = u + at$, $s = ut + \frac{1}{2}at^2$, $v^2 = u^2 + 2as$[span_6](start_span)[span_6](end_span)</p>
+                  <p>• กฎการเคลื่อนที่นิวตัน: $\Sigma F = ma$, แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_7](start_span)[span_7](end_span)</p>
+                  <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_8](start_span)[span_8](end_span)</p>
                 </div>
               </div>
             </div>
@@ -377,8 +377,8 @@
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$</p>
-                  <p>• กฎแก๊สอุดมคติ: $PV = nRT$, สมดุลเคมี $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$</p>
+                  <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_9](start_span)[span_9](end_span)</p>
+                  <p>• กฎแก๊สอุดมคติ: $PV = nRT$, สมดุลเคมี $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_10](start_span)[span_10](end_span)</p>
                 </div>
               </div>
             </div>
@@ -392,8 +392,8 @@
                   <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </div>
                 <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species</p>
-                  <p>• Monera (แบคทีเรียย้อมแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)</p>
+                  <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_11](start_span)[span_11](end_span)</p>
+                  <p>• Monera (แบคทีเรียย้อมแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_12](start_span)[span_12](end_span)</p>
                 </div>
               </div>
             </div>
@@ -456,7 +456,7 @@
                 </div>
                 <div id="fcFormula" class="text-base font-bold text-crust-dark bg-[#FCE8B2] px-3.5 py-1.5 rounded-xl my-1.5 overflow-x-auto max-w-full">\( M = F \times d_\perp \)</div>
                 <div id="fcA" class="text-xs font-semibold text-[#9C4A1A]">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
-                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม</div>
+                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม[span_13](start_span)[span_13](end_span)</div>
               </div>
             </div>
           </div>
@@ -530,7 +530,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">G</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Graine <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์</p>
+                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_14](start_span)[span_14](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -548,7 +548,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">B</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Butter <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์</p>
+                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_15](start_span)[span_15](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -566,7 +566,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">T</div>
                   <div>
                     <h4 class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Thank <span class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></span></h4>
-                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน</p>
+                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน[span_16](start_span)[span_16](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -612,8 +612,8 @@
       </div>
     </div>
 
-    <!-- Fixed Bottom Navigation Bar -->
-    <nav class="absolute bottom-0 left-0 right-0 h-[calc(64px+env(safe-area-inset-bottom,0px))] bg-cream-50 border-t-2 border-cream-300 flex justify-around items-start pt-2 pb-[env(safe-area-inset-bottom,8px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
+    <!-- Fixed Bottom Navigation Bar (Solid Flex Item) -->
+    <nav class="shrink-0 bg-cream-50 border-t-2 border-cream-300 flex justify-around items-center pt-2 pb-[calc(env(safe-area-inset-bottom,8px)+6px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
       <button class="nav-btn active flex-1 flex flex-col items-center gap-0.5 text-crust-dark text-[11px] font-semibold" onclick="switchTab('screen-home', this)">
         <svg class="w-5 h-5 -translate-y-0.5 scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span>หน้าหลัก</span>
@@ -652,7 +652,7 @@
             body: `
               <p class="text-xs text-crust leading-relaxed">
                 • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด (น้อยที่สุด) ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
-                • <b>ความคลาดเคลื่อน:</b> $(A \pm \Delta A) + (B \pm \Delta B) = (A + B) \pm (\Delta A + \Delta B)$
+                • <b>ความคลาดเคลื่อน:</b> $(A \\pm \\Delta A) + (B \\pm \\Delta B) = (A + B) \\pm (\\Delta A + \\Delta B)$
               </p>
             `
           },
@@ -663,11 +663,11 @@
                 • <b>5 สูตรการเคลื่อนที่แนวตรงเมื่อความเร่งคงที่ ($a$ คงตัว):</b>
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$v = u + at \quad,\quad s = \left(\frac{u+v}{2}\right)t \quad,\quad s = ut + \frac{1}{2}at^2 \quad,\quad v^2 = u^2 + 2as$$
+                $$v = u + at \\quad,\\quad s = \\left(\\frac{u+v}{2}\\right)t \\quad,\\quad s = ut + \\frac{1}{2}at^2 \\quad,\\quad v^2 = u^2 + 2as$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>กฎการเคลื่อนที่ของนิวตัน:</b> กฎข้อที่ 1 $\Sigma \vec{F} = 0$, กฎข้อที่ 2 $\Sigma \vec{F} = m\vec{a}$, กฎข้อที่ 3 $\text{Action} = \text{Reaction}$<br>
-                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\max} = \mu_s N$, จลน์ $f_k = \mu_k N$
+                • <b>กฎการเคลื่อนที่ของนิวตัน:</b> กฎข้อที่ 1 $\\Sigma \\vec{F} = 0$, กฎข้อที่ 2 $\\Sigma \\vec{F} = m\\vec{a}$, กฎข้อที่ 3 $\\text{Action} = \\text{Reaction}$<br>
+                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\\max} = \\mu_s N$, จลน์ $f_k = \\mu_k N$
               </p>
             `
           },
@@ -678,10 +678,10 @@
                 • <b>สมดุลต่อการหมุน:</b> ผลรวมโมเมนต์รอบจุดหมุนเป็นศูนย์
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}} \quad (M = F \times d_{\perp})$$
+                $$\\Sigma M = 0 \\implies M_{\\text{ทวน}} = M_{\\text{ตาม}} \\quad (M = F \\times d_{\\perp})$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>คานสมดุล:</b> $W_1 \cdot d_1 = W_2 \cdot d_2$ (น้ำหนักคูณระยะตั้งฉากจากจุดหมุน)
+                • <b>คานสมดุล:</b> $W_1 \\cdot d_1 = W_2 \\cdot d_2$ (น้ำหนักคูณระยะตั้งฉากจากจุดหมุน)
               </p>
             `
           },
@@ -689,9 +689,9 @@
             heading: "4. คลื่น เสียง แสง และฟิสิกส์อะตอม",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>อัตราเร็วคลื่นและเสียง:</b> $v = f\lambda$, อัตราเร็วเสียงในอากาศ $v = 331 + 0.6t$ ($t$ ในหน่วย °C)<br>
-                • <b>ระดับความเข้มเสียง:</b> $\beta = 10\log\left(\frac{I}{I_0}\right)$ (โดย $I_0 = 10^{-12}\text{ W/m}^2$)<br>
-                • <b>โฟโตอิเล็กทริก:</b> $hf = W_f + E_{k,\max} \implies E_{k,\max} = eV_s$
+                • <b>อัตราเร็วคลื่นและเสียง:</b> $v = f\\lambda$, อัตราเร็วเสียงในอากาศ $v = 331 + 0.6t$ ($t$ ในหน่วย °C)<br>
+                • <b>ระดับความเข้มเสียง:</b> $\\beta = 10\\log\\left(\\frac{I}{I_0}\\right)$ (โดย $I_0 = 10^{-12}\\text{ W/m}^2$)<br>
+                • <b>โฟโตอิเล็กทริก:</b> $hf = W_f + E_{k,\\max} \\implies E_{k,\\max} = eV_s$
               </p>
             `
           }
@@ -705,7 +705,7 @@
             heading: "1. โครงสร้างอะตอมและตารางธาตุ",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \dots$<br>
+                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \\dots$<br>
                 • <b>แนวโน้มตารางธาตุ:</b> ขนาดอะตอมเพิ่มขึ้นจากขวาไปซ้ายและบนลงล่าง, ค่า $IE_1, EN, EA$ เพิ่มขึ้นจากซ้ายไปขวาและล่างขึ้นบน
               </p>
             `
@@ -717,11 +717,11 @@
                 • <b>สูตรโมลสัมพันธ์:</b>
               </p>
               <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-2.5 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$$
+                $$\\text{mol} = \\frac{g}{M_w} = \\frac{N}{6.02 \\times 10^{23}} = \\frac{V_{\\text{STP}}}{22.4} = \\frac{CV}{1000}$$
               </div>
               <p class="text-xs text-crust leading-relaxed">
-                • <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.0821\text{ atm}\cdot\text{L/mol}\cdot\text{K}$ หรือ $8.314\text{ J/mol}\cdot\text{K}$)<br>
-                • <b>การแพร่เกรแฮม:</b> $\frac{R_1}{R_2} = \sqrt{\frac{M_2}{M_1}}$ (แก๊สเบากว่าแพร่ได้เร็วกว่า)
+                • <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.0821\\text{ atm}\\cdot\\text{L/mol}\\cdot\\text{K}$ หรือ $8.314\\text{ J/mol}\\cdot\\text{K}$)<br>
+                • <b>การแพร่เกรแฮม:</b> $\\frac{R_1}{R_2} = \\sqrt{\\frac{M_2}{M_1}}$ (แก๊สเบากว่าแพร่ได้เร็วกว่า)
               </p>
             `
           },
@@ -729,8 +729,8 @@
             heading: "3. สมดุลเคมี และ กรด-เบส",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \rightleftharpoons cC + dD \implies K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะของแข็ง $s$ และของเหลวบริสุทธิ์ $l$)<br>
-                • <b>pH และ บัฟเฟอร์:</b> $pH = -\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรดอ่อน}]}$
+                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \\rightleftharpoons cC + dD \\implies K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะของแข็ง $s$ และของเหลวบริสุทธิ์ $l$)<br>
+                • <b>pH และ บัฟเฟอร์:</b> $pH = -\\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]}$
               </p>
             `
           },
@@ -738,8 +738,8 @@
             heading: "4. เคมีอินทรีย์ (Organic Chemistry)",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>ลำดับจุดเดือด:</b> Amide > Carboxylic acid > Alcohol > Ketone $\approx$ Aldehyde > Ether > Alkyne > Alkane > Alkene<br>
-                • <b>ปฏิกิริยาเอสเทอริฟิเคชัน:</b> $\text{Carboxylic acid} + \text{Alcohol} \xrightarrow{H^+} \text{Ester} + \text{H}_2\text{O}$
+                • <b>ลำดับจุดเดือด:</b> Amide > Carboxylic acid > Alcohol > Ketone $\\approx$ Aldehyde > Ether > Alkyne > Alkane > Alkene<br>
+                • <b>ปฏิกิริยาเอสเทอริฟิเคชัน:</b> $\\text{Carboxylic acid} + \\text{Alcohol} \\xrightarrow{H^+} \\text{Ester} + \\text{H}_2\\text{O}$
               </p>
             `
           }
@@ -754,7 +754,7 @@
             body: `
               <p class="text-xs text-crust leading-relaxed">
                 • <b>Carolus Linnaeus:</b> บิดาแห่งอนุกรมวิธาน กำหนดระบบชื่อวิทยาศาสตร์แบบทวินาม (Binomial nomenclature: <i>Genus species</i>)<br>
-                • <b>ลำดับหมวดหมู่:</b> Domain $\rightarrow$ Kingdom $\rightarrow$ Phylum $\rightarrow$ Class $\rightarrow$ Order $\rightarrow$ Family $\rightarrow$ Genus $\rightarrow$ Species<br>
+                • <b>ลำดับหมวดหมู่:</b> Domain $\\rightarrow$ Kingdom $\\rightarrow$ Phylum $\\rightarrow$ Class $\\rightarrow$ Order $\\rightarrow$ Family $\\rightarrow$ Genus $\\rightarrow$ Species<br>
                 • <b>Phylogenetic tree:</b> จุดแยก (Node) แสดงบรรพบุรุษร่วมล่าสุด (Most recent common ancestor), Monophyletic group (สายวิวัฒนาการที่มีบรรพบุรุษร่วมกันทั้งหมด)
               </p>
             `
@@ -790,7 +790,7 @@
         q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
         formula: "\\( M = F \\times d_\\perp \\)",
         a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง",
-        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม (\\(\\Sigma M = 0\\))"
+        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม (\\(\\Sigma M = 0\\))[span_17](start_span)[span_17](end_span)"
       },
       {
         subjTag: "phys",
@@ -798,7 +798,7 @@
         q: "สูตรความเร็วปลายเมื่อไม่ทราบเวลา (t)",
         formula: "\\( v^2 = u^2 + 2as \\)",
         a: "ใช้เมื่อความเร่งคงที่และโจทย์ไม่ได้ระบุตัวแปรเวลา",
-        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)"
+        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)[span_18](start_span)[span_18](end_span)"
       },
       {
         subjTag: "phys",
@@ -806,7 +806,7 @@
         q: "สมการโฟโตอิเล็กทริกของไอน์สไตน์",
         formula: "\\( hf = W_f + E_{k,\\max} \\)",
         a: "พลังงานโฟตอน = ฟังก์ชันงาน + พลังงานจลน์สูงสุดของอิเล็กตรอน",
-        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว"
+        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว[span_19](start_span)[span_19](end_span)"
       },
       {
         subjTag: "chem",
@@ -814,7 +814,7 @@
         q: "สูตรคำนวณจำนวนโมล (mol) ของสาร",
         formula: "\\( n = \\frac{g}{M_w} = \\frac{N}{6.02\\times 10^{23}} = \\frac{CV}{1000} \\)",
         a: "เชื่อมโยงมวล, จำนวนอนุภาค และความเข้มข้นสารละลาย",
-        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³"
+        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³[span_20](start_span)[span_20](end_span)"
       },
       {
         subjTag: "chem",
@@ -822,7 +822,7 @@
         q: "ค่าคงที่สมดุลเคมี (Kc) ของปฏิกิริยา aA + bB ⇌ cC + dD",
         formula: "\\( K_c = \\frac{[C]^c [D]^d}{[A]^a [B]^b} \\)",
         a: "อัตราส่วนความเข้มข้นผลิตภัณฑ์ยกกำลังสัมประสิทธิ์ต่อสารตั้งต้น",
-        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ"
+        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ[span_21](start_span)[span_21](end_span)"
       },
       {
         subjTag: "chem",
@@ -830,7 +830,7 @@
         q: "สูตรคำนวณ pH ของสารละลายบัฟเฟอร์กรด",
         formula: "\\( pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]} \\)",
         a: "สมการ Henderson-Hasselbalch",
-        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)"
+        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)[span_22](start_span)[span_22](end_span)"
       },
       {
         subjTag: "bio",
@@ -838,7 +838,7 @@
         q: "การจัดหมวดหมู่สิ่งมีชีวิตจากใหญ่ไปเล็ก",
         formula: "\\( \\text{Domain} \\rightarrow \\text{Kingdom} \\rightarrow \\text{Phylum} \\rightarrow \\text{Class} \\rightarrow \\text{Order} \\rightarrow \\text{Family} \\rightarrow \\text{Genus} \\rightarrow \\text{Species} \\)",
         a: "ลำดับขั้นการจำแนกสิ่งมีชีวิต (Taxonomic Hierarchy)",
-        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ"
+        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ[span_23](start_span)[span_23](end_span)"
       },
       {
         subjTag: "bio",
@@ -846,7 +846,7 @@
         q: "ความแตกต่างของผนังเซลล์ Gram-positive และ Gram-negative",
         formula: "\\( \\text{Gram}+ \\text{ (ม่วง: Peptidoglycan หนา)} \\longleftrightarrow \\text{Gram}- \\text{ (แดง: มี Lipopolysaccharide)} \\)",
         a: "ย้อมติดสี Crystal violet (บวก) vs Safranin (ลบ)",
-        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง"
+        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง[span_24](start_span)[span_24](end_span)"
       },
       {
         subjTag: "math",
@@ -860,22 +860,26 @@
 
     let filteredCards = [...allFlashcards];
     let currentCardIndex = 0;
+    let isMathJaxRendering = false;
 
     function reRenderMath() {
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        MathJax.typesetPromise();
+      if (window.MathJax && window.MathJax.typesetPromise && !isMathJaxRendering) {
+        isMathJaxRendering = true;
+        MathJax.typesetPromise()
+          .catch((err) => console.warn('MathJax error:', err))
+          .finally(() => { isMathJaxRendering = false; });
       }
     }
 
-    /* Tab Switcher */
+    /* Tab Switcher (Direct display styling to guarantee 100% reliability) */
     function switchTab(screenId, btnElement) {
       document.querySelectorAll('.screen').forEach(s => {
-        s.classList.add('hidden');
-        s.classList.remove('block');
+        s.style.display = 'none';
       });
       const activeScreen = document.getElementById(screenId);
-      activeScreen.classList.remove('hidden');
-      activeScreen.classList.add('block');
+      if (activeScreen) {
+        activeScreen.style.display = 'block';
+      }
 
       document.querySelectorAll('.nav-btn').forEach(b => {
         b.classList.remove('text-crust-dark', 'active');
@@ -883,48 +887,54 @@
         const icon = b.querySelector('svg');
         if (icon) icon.classList.remove('-translate-y-0.5', 'scale-110');
       });
-      btnElement.classList.add('text-crust-dark', 'active');
-      btnElement.classList.remove('text-[#B59E87]');
-      const activeIcon = btnElement.querySelector('svg');
-      if (activeIcon) activeIcon.classList.add('-translate-y-0.5', 'scale-110');
+      if (btnElement) {
+        btnElement.classList.add('text-crust-dark', 'active');
+        btnElement.classList.remove('text-[#B59E87]');
+        const activeIcon = btnElement.querySelector('svg');
+        if (activeIcon) activeIcon.classList.add('-translate-y-0.5', 'scale-110');
+      }
 
       reRenderMath();
     }
 
     function switchLessonSubTab(subId, btnElement) {
       document.querySelectorAll('.lesson-sub-view').forEach(s => {
-        s.classList.add('hidden');
-        s.classList.remove('block');
+        s.style.display = 'none';
       });
       const target = document.getElementById(subId);
-      target.classList.remove('hidden');
-      target.classList.add('block');
+      if (target) {
+        target.style.display = 'block';
+      }
 
       document.querySelectorAll('.lesson-sub-btn').forEach(b => {
         b.classList.remove('active', 'bg-cream-50', 'shadow-sm');
         b.classList.add('bg-transparent');
       });
-      btnElement.classList.add('active', 'bg-cream-50', 'shadow-sm');
-      btnElement.classList.remove('bg-transparent');
+      if (btnElement) {
+        btnElement.classList.add('active', 'bg-cream-50', 'shadow-sm');
+        btnElement.classList.remove('bg-transparent');
+      }
 
       reRenderMath();
     }
 
     function filterSubject(subjId, chipBtn) {
       document.querySelectorAll('.subject-section').forEach(sec => {
-        sec.classList.add('hidden');
-        sec.classList.remove('block');
+        sec.style.display = 'none';
       });
       const targetSection = document.getElementById(subjId);
-      targetSection.classList.remove('hidden');
-      targetSection.classList.add('block');
+      if (targetSection) {
+        targetSection.style.display = 'block';
+      }
 
       document.querySelectorAll('.subj-chip').forEach(c => {
         c.classList.remove('active', 'bg-butter', 'shadow-sm');
         c.classList.add('bg-transparent');
       });
-      chipBtn.classList.add('active', 'bg-butter', 'shadow-sm');
-      chipBtn.classList.remove('bg-transparent');
+      if (chipBtn) {
+        chipBtn.classList.add('active', 'bg-butter', 'shadow-sm');
+        chipBtn.classList.remove('bg-transparent');
+      }
 
       reRenderMath();
     }
@@ -934,8 +944,10 @@
         c.classList.remove('active', 'bg-butter', 'border-crust/20');
         c.classList.add('bg-cream-200', 'border-cream-300');
       });
-      chipBtn.classList.add('active', 'bg-butter', 'border-crust/20');
-      chipBtn.classList.remove('bg-cream-200', 'border-cream-300');
+      if (chipBtn) {
+        chipBtn.classList.add('active', 'bg-butter', 'border-crust/20');
+        chipBtn.classList.remove('bg-cream-200', 'border-cream-300');
+      }
 
       if (tag === 'all') {
         filteredCards = [...allFlashcards];
@@ -1069,8 +1081,10 @@
         p.classList.remove('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm');
         p.classList.add('bg-cream-50', 'border-cream-400');
       });
-      btn.classList.add('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm');
-      btn.classList.remove('bg-cream-50', 'border-cream-400');
+      if (btn) {
+        btn.classList.add('active', 'bg-butter', 'border-crust', '-translate-y-0.5', 'shadow-sm');
+        btn.classList.remove('bg-cream-50', 'border-cream-400');
+      }
     }
 
     function promptCustomMinutes() {
@@ -1236,15 +1250,15 @@
 
     /* Friends Live Rooms */
     function enterRoomView(roomTitle) {
-      document.getElementById('roomOverview').classList.add('hidden');
-      document.getElementById('roomDetailView').classList.remove('hidden');
+      document.getElementById('roomOverview').style.display = 'none';
+      document.getElementById('roomDetailView').style.display = 'block';
       document.getElementById('activeRoomName').innerText = roomTitle;
       showToast(`เข้าสู่ ${roomTitle}`);
     }
 
     function leaveRoomView() {
-      document.getElementById('roomDetailView').classList.add('hidden');
-      document.getElementById('roomOverview').classList.remove('hidden');
+      document.getElementById('roomDetailView').style.display = 'none';
+      document.getElementById('roomOverview').style.display = 'block';
     }
 
     function cheerFriend(name) {
