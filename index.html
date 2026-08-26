@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Breadie - Physics & Bakery Learning App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,30 +36,45 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 16px;
+      min-height: 100dvh;
+      padding: 0;
     }
 
     /* Mobile Container Mockup */
     .app-frame {
       width: 100%;
-      max-width: 412px;
-      height: 860px;
+      max-width: 430px;
+      height: 100vh;
+      height: 100dvh;
       background: var(--bg-cream);
-      border-radius: 40px;
-      box-shadow: 0 20px 45px rgba(92, 58, 22, 0.25), inset 0 0 0 8px #DFCBB0;
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
     }
 
+    /* Desktop View Styling */
+    @media (min-width: 481px) {
+      body {
+        padding: 16px;
+      }
+      .app-frame {
+        height: 880px;
+        max-height: 94vh;
+        border-radius: 40px;
+        box-shadow: 0 20px 45px rgba(92, 58, 22, 0.25), inset 0 0 0 8px #DFCBB0;
+      }
+    }
+
     /* Status & App Bar */
     .app-header {
-      padding: 24px 20px 12px;
+      padding: calc(env(safe-area-inset-top, 12px) + 12px) 20px 12px;
       background: var(--bg-cream);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
+      z-index: 10;
     }
 
     .mascot-profile {
@@ -122,8 +137,9 @@
     .screen-container {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 18px 90px;
+      padding: 10px 18px calc(80px + env(safe-area-inset-bottom, 16px));
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
 
     .screen-container::-webkit-scrollbar {
@@ -168,7 +184,7 @@
     .oven-body {
       background: #F4E7CE;
       border-radius: 28px;
-      padding: 20px;
+      padding: 18px;
       text-align: center;
       box-shadow: inset 4px 4px 8px #DECAB0, inset -4px -4px 8px #FFFBF0;
       position: relative;
@@ -177,8 +193,8 @@
     .oven-window {
       background: #3B2A1D;
       border-radius: 20px;
-      padding: 20px;
-      margin: 12px 0;
+      padding: 18px;
+      margin: 10px 0;
       box-shadow: inset 0 6px 12px rgba(0,0,0,0.4);
       display: flex;
       flex-direction: column;
@@ -188,7 +204,7 @@
     }
 
     .timer-display {
-      font-size: 46px;
+      font-size: 44px;
       font-weight: 700;
       color: #FFD272;
       letter-spacing: 2px;
@@ -200,17 +216,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 8px;
+      gap: 10px;
+      margin-bottom: 6px;
     }
 
     .step-btn {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: var(--card-bg);
       border: none;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--crust-dark);
       box-shadow: var(--clay-shadow);
@@ -227,17 +243,17 @@
     .preset-container {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      margin: 12px 0;
+      gap: 6px;
+      margin: 10px 0;
       flex-wrap: wrap;
     }
 
     .preset-pill {
       background: var(--card-bg);
       border: 1.5px solid #DFCBB0;
-      padding: 6px 12px;
-      border-radius: 14px;
-      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--crust-dark);
       cursor: pointer;
@@ -251,7 +267,7 @@
     }
 
     .baking-status {
-      font-size: 13px;
+      font-size: 12px;
       color: #FFF3D6;
       margin-top: 4px;
     }
@@ -261,18 +277,18 @@
       background: var(--butter-yellow);
       color: var(--crust-dark);
       border: none;
-      padding: 14px;
+      padding: 13px;
       border-radius: 18px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      box-shadow: 0 6px 0 #D9B738, var(--soft-shadow);
+      box-shadow: 0 5px 0 #D9B738, var(--soft-shadow);
       cursor: pointer;
       transition: transform 0.1s, box-shadow 0.1s;
     }
 
     .btn-main:active {
       transform: translateY(4px);
-      box-shadow: 0 2px 0 #D9B738;
+      box-shadow: 0 1px 0 #D9B738;
     }
 
     .btn-secondary {
@@ -280,9 +296,9 @@
       background: #E8D8C3;
       color: var(--crust-dark);
       border: none;
-      padding: 10px;
+      padding: 9px;
       border-radius: 14px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       margin-top: 8px;
@@ -323,13 +339,13 @@
       border-radius: 10px;
     }
 
-    /* Tab 2: Physics Lever Simulation */
+    /* Tab 2: Physics Lever Simulation (Lesson) */
     .lever-stage {
       background: #FFFDF8;
       border-radius: 20px;
-      padding: 24px 12px 16px;
+      padding: 20px 10px 14px;
       position: relative;
-      height: 180px;
+      height: 170px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -339,7 +355,7 @@
     }
 
     .lever-bar-container {
-      width: 86%;
+      width: 88%;
       height: 12px;
       position: relative;
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -358,16 +374,16 @@
     .fulcrum {
       width: 0;
       height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-bottom: 32px solid #734823;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-bottom: 30px solid #734823;
       margin-top: -2px;
       position: relative;
       z-index: 2;
     }
 
     .fulcrum-base {
-      width: 70px;
+      width: 65px;
       height: 8px;
       background: #5C3A16;
       border-radius: 4px;
@@ -381,33 +397,33 @@
       flex-direction: column;
       align-items: center;
       font-weight: 700;
-      font-size: 12px;
+      font-size: 11px;
       transition: left 0.3s ease;
     }
 
     .dough-icon {
-      font-size: 24px;
+      font-size: 22px;
       filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15));
     }
 
     .sim-controls {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .control-box {
       background: #FBF6EB;
-      padding: 12px;
+      padding: 10px;
       border-radius: 16px;
       border: 1px solid #EEDDC5;
     }
 
     .control-box h4 {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--crust-dark);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
     }
@@ -415,17 +431,17 @@
     .sim-slider {
       width: 100%;
       accent-color: var(--crust-brown);
-      margin: 6px 0;
+      margin: 4px 0;
     }
 
     .torque-indicator {
       display: flex;
       justify-content: space-between;
-      margin-top: 12px;
-      padding: 10px 14px;
+      margin-top: 10px;
+      padding: 8px 12px;
       background: #F3E5D0;
       border-radius: 14px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--crust-dark);
     }
@@ -433,8 +449,8 @@
     /* Tab 3: Daily Flashcards */
     .flashcard-3d-wrap {
       perspective: 1000px;
-      height: 280px;
-      margin: 10px 0 16px;
+      height: 260px;
+      margin: 8px 0 14px;
     }
 
     .flashcard-inner {
@@ -455,8 +471,8 @@
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      border-radius: 30px;
-      padding: 24px;
+      border-radius: 26px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -476,31 +492,31 @@
     }
 
     .toast-butter-badge {
-      font-size: 38px;
-      margin-bottom: 8px;
+      font-size: 34px;
+      margin-bottom: 6px;
     }
 
     .fc-question {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--crust-dark);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .fc-answer {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 600;
       color: #9C4A1A;
     }
 
     .fc-formula {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--crust-dark);
       background: #FCE8B2;
-      padding: 6px 16px;
+      padding: 4px 14px;
       border-radius: 12px;
-      margin: 8px 0;
+      margin: 6px 0;
     }
 
     /* Tab 4: Friends Co-Baking */
@@ -516,13 +532,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .room-name {
       font-weight: 700;
       color: var(--crust-dark);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .room-badge {
@@ -553,7 +569,7 @@
     }
 
     .friend-avatar {
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 4px;
     }
 
@@ -583,24 +599,23 @@
       gap: 4px;
     }
 
-    .cheer-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* Bottom Navigation */
+    /* Fixed Bottom Navigation with Safe Area */
     .bottom-nav {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 76px;
+      min-height: 64px;
+      height: calc(64px + env(safe-area-inset-bottom, 0px));
       background: #FFFDF9;
       border-top: 2px solid #EEDFC9;
       display: flex;
       justify-content: space-around;
-      align-items: center;
-      padding: 0 10px 10px;
-      border-radius: 0 0 40px 40px;
+      align-items: flex-start;
+      padding-top: 8px;
+      padding-bottom: env(safe-area-inset-bottom, 8px);
+      z-index: 99;
+      box-shadow: 0 -4px 15px rgba(141, 91, 40, 0.08);
     }
 
     .nav-btn {
@@ -609,16 +624,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       color: #B59E87;
       font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
+      flex: 1;
     }
 
     .nav-btn .nav-icon {
-      font-size: 22px;
+      font-size: 20px;
       transition: transform 0.2s;
     }
 
@@ -627,13 +643,13 @@
     }
 
     .nav-btn.active .nav-icon {
-      transform: translateY(-4px) scale(1.15);
+      transform: translateY(-2px) scale(1.15);
     }
 
     /* Toast Notification Floating Effect */
     .toast-popup {
       position: absolute;
-      top: 80px;
+      top: calc(env(safe-area-inset-top, 12px) + 70px);
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
       background: var(--crust-dark);
@@ -728,10 +744,10 @@
       </div>
     </section>
 
-    <!-- TAB 2: PHYSICS LEVER SIMULATION -->
+    <!-- TAB 2: PHYSICS LEVER SIMULATION (LESSON) -->
     <section id="screen-sim" class="screen">
       <div class="clay-card">
-        <div class="card-title">⚖️ ห้องทดลองคานสมดุล (Lever Lab)</div>
+        <div class="card-title">⚖️ Lesson: คานสมดุล (Physics Lever)</div>
         
         <!-- Simulation Stage -->
         <div class="lever-stage">
@@ -801,7 +817,7 @@
             <div class="flashcard-face flashcard-back">
               <div class="toast-butter-badge">✨</div>
               <div class="fc-formula" id="fcFormula">M = F × d</div>
-              <div class="fc-answer" id="fcA">โมเมนต์ = แรง × ระยะตั้งฉากถึงจุดหมุน</div>
+              <div class="fc-answer" id="fcA">โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง</div>
               <div style="font-size:11px; color:#6B533E; margin-top:6px;">หน่วย: นิวตัน-เมตร ($N\cdot m$)</div>
             </div>
           </div>
@@ -860,7 +876,7 @@
 
   </main>
 
-  <!-- Bottom Navigation Bar -->
+  <!-- Fixed Bottom Navigation Bar -->
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="switchTab('screen-home', this)">
       <span class="nav-icon">🏠</span>
@@ -868,7 +884,7 @@
     </button>
     <button class="nav-btn" onclick="switchTab('screen-sim', this)">
       <span class="nav-icon">⚖️</span>
-      <span>แล็บคาน</span>
+      <span>Lesson</span>
     </button>
     <button class="nav-btn" onclick="switchTab('screen-deck', this)">
       <span class="nav-icon">🍞</span>
@@ -1070,7 +1086,7 @@
     const tRight = parseFloat(document.getElementById('mRightDisplay').innerText);
     if (Math.abs(tLeft - tRight) < 0.05) {
       addPoints(25);
-      alert("🎉 ถูกต้อง! $M_{ทวน} = M_{ตาม}$ คานอยู่ในภาวะสมดุลสมบูรณ์");
+      alert("🎉 ถูกต้อง! Mทวน = Mตาม คานอยู่ในภาวะสมดุลสมบูรณ์");
     } else {
       alert("❌ คานยังไม่สมดุล ลองเลื่อนระยะทางหรือปรับมวลใหม่อีกครั้งนะ!");
     }
