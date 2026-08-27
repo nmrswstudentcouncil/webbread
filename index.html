@@ -281,7 +281,7 @@
                   </div>
                   <div class="flex items-center gap-3 py-3">
                     <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer shrink-0" onchange="completeTask(this, 20)" id="t2">
-                    <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนและเปิดอ่านเอกสารสรุป 1 เล่ม</label>
+                    <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนและเปิดอ่านสรุป 1 เล่ม</label>
                     <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2.5 py-1 rounded-lg shrink-0">+20</div>
                   </div>
                   <div class="flex items-center gap-3 py-3">
@@ -311,7 +311,7 @@
           <div class="flex bg-cream-300 rounded-2xl p-1.5 gap-1.5 mb-5 shadow-inner max-w-lg mx-auto">
             <button class="lesson-sub-btn active flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-cream-50 shadow-sm transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-pdf', this)">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-              <div>อ่านสรุป (PDF)</div>
+              <div>สรุป</div>
             </button>
             <button class="lesson-sub-btn flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-transparent transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-sim', this)">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
@@ -328,7 +328,7 @@
             <div class="bg-cream-50 rounded-3xl p-5 sm:p-8 shadow-clay border border-white/60">
               <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-4">
                 <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <div>คลังเอกสารสรุปบทเรียน (แตะเปิดอ่านเอกสารจริงได้ทันที)</div>
+                <div>คลังสรุปบทเรียน (แตะเปิดอ่านเอกสารสรุปจริงได้ทันที)</div>
               </div>
 
               <!-- Upload Custom PDF -->
@@ -346,8 +346,8 @@
                   <div class="flex items-center gap-3">
                     <div class="w-11 h-11 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200 shrink-0">PDF</div>
                     <div>
-                      <div class="text-xs sm:text-sm font-bold text-crust-dark">3. PHY.pdf</div>
-                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)</div>
+                      <div class="text-xs sm:text-sm font-bold text-crust-dark">ฟิสิกส์.pdf</div>
+                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">กลศาสตร์ คลื่น ไฟฟ้า ฟิสิกส์ยุคใหม่</div>
                     </div>
                   </div>
                   <button class="bg-butter text-crust-dark px-4 py-2 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm shrink-0" onclick="openPdfReader('phy')">เปิดอ่าน</button>
@@ -357,8 +357,8 @@
                   <div class="flex items-center gap-3">
                     <div class="w-11 h-11 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200 shrink-0">PDF</div>
                     <div>
-                      <div class="text-xs sm:text-sm font-bold text-crust-dark">4. CHEM.pdf</div>
-                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)</div>
+                      <div class="text-xs sm:text-sm font-bold text-crust-dark">เคมี.pdf</div>
+                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">อะตอม พันธะ ปริมาณสาร กรดเบส อินทรีย์</div>
                     </div>
                   </div>
                   <button class="bg-butter text-crust-dark px-4 py-2 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm shrink-0" onclick="openPdfReader('chem')">เปิดอ่าน</button>
@@ -368,8 +368,8 @@
                   <div class="flex items-center gap-3">
                     <div class="w-11 h-11 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200 shrink-0">PDF</div>
                     <div>
-                      <div class="text-xs sm:text-sm font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf</div>
-                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)</div>
+                      <div class="text-xs sm:text-sm font-bold text-crust-dark">ชีววิทยา.pdf</div>
+                      <div class="text-[10px] sm:text-xs text-[#9E7F60]">อนุกรมวิธาน กำเนิดชีวิต มอเนอรา โพรทิสตา</div>
                     </div>
                   </div>
                   <button class="bg-butter text-crust-dark px-4 py-2 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm shrink-0" onclick="openPdfReader('bio')">เปิดอ่าน</button>
@@ -758,7 +758,7 @@
       </button>
       <button class="nav-btn flex-1 flex flex-col items-center gap-1 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-lesson', this)">
         <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        <div>Lesson</div>
+        <div>สรุป</div>
       </button>
       <button class="nav-btn flex-1 flex flex-col items-center gap-1 text-[#B59E87] text-[11px] font-semibold" onclick="switchTab('screen-deck', this)">
         <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
@@ -779,294 +779,217 @@
     let timerInterval = null;
     let isTimerRunning = false;
 
-    // Real Documents Content Database
+    // Real Documents Content Database (Replaced with actual uploaded notes)
     const realDocumentData = {
       phy: {
-        title: "3. PHY.pdf",
-        subtitle: "สรุปฟิสิกส์ ม.ปลาย ทุกบท (กลศาสตร์ คลื่น ไฟฟ้า ฟิสิกส์แผนใหม่)",
+        title: "ฟิสิกส์.pdf",
+        subtitle: "สรุปเนื้อหาฟิสิกส์ ม.ปลาย ฉบับสมบูรณ์ (กลศาสตร์ คลื่น ไฟฟ้า ฟิสิกส์แผนใหม่)",
         sections: [
           {
-            heading: "1. การวัดและเลขนัยสำคัญ",
+            heading: "1. กลศาสตร์ & การเคลื่อนที่แนวตรง",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
-                • <b>ความคลาดเคลื่อน:</b> $(A \\pm \\Delta A) + (B \\pm \\Delta B) = (A + B) \\pm (\\Delta A + \\Delta B)$
+                • <b>หน่วยและการวัด:</b> หน่วยฐาน 7 หน่วย ($kg, m, s, cd, K, A, mol$) และคำอุปสรรค ($T, G, M, k, d, c, m, \mu, n, p$)<br>
+                • <b>เลขนัยสำคัญ:</b> ผลบวก-ลบ อิงทศนิยมที่หยาบที่สุด / ผลคูณ-หาร อิงจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
+                • <b>5 สูตรการเคลื่อนที่แนวตรงเมื่อความเร่งคงตัว ($a$ คงที่):</b>
               </p>
-            `
-          },
-          {
-            heading: "2. การเคลื่อนที่แนวตรง & กฎนิวตัน",
-            body: `
-              <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>5 สูตรการเคลื่อนที่แนวตรงเมื่อความเร่งคงที่ ($a$ คงตัว):</b>
-              </p>
-              <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-3 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$v = u + at \\quad,\\quad s = \\left(\\frac{u+v}{2}\\right)t \\quad,\\quad s = ut + \\frac{1}{2}at^2 \\quad,\\quad v^2 = u^2 + 2as$$
+              <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-3 rounded-xl text-center font-bold text-crust my-1.5 overflow-x-auto">
+                $$v = u + at \quad,\quad s = \left(\frac{u+v}{2}\right)t \quad,\quad s = ut + \frac{1}{2}at^2 \quad,\quad s = vt - \frac{1}{2}at^2 \quad,\quad v^2 = u^2 + 2as$$
               </div>
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>กฎการเคลื่อนที่ของนิวตัน:</b> กฎข้อที่ 1 $\\Sigma \\vec{F} = 0$, กฎข้อที่ 2 $\\Sigma \\vec{F} = m\\vec{a}$, กฎข้อที่ 3 $\\text{Action} = \\text{Reaction}$<br>
-                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\\max} = \\mu_s N$, จลน์ $f_k = \\mu_k N$
+                • <b>กฎนิวตัน:</b> $\Sigma\vec{F} = 0$ (สมดุล), $\Sigma\vec{F} = m\vec{a}$ (มีความเร่ง), $\text{Action} = \text{Reaction}$<br>
+                • <b>แรงเสียดทาน:</b> สถิตสูงสุด $f_{s,\max} = \mu_s N$, จลน์ $f_k = \mu_k N$
               </p>
             `
           },
           {
-            heading: "3. สมดุลกล & โมเมนต์ของแรง (Torque)",
+            heading: "2. สมดุลกล งาน-พลังงาน & โมเมนตัม",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>สมดุลต่อการหมุน:</b> ผลรวมโมเมนต์รอบจุดหมุนเป็นศูนย์
-              </p>
-              <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-3 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$\\Sigma M = 0 \\implies M_{\\text{ทวน}} = M_{\\text{ตาม}} \\quad (M = F \\times d_{\\perp})$$
-              </div>
-              <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>คานสมดุล:</b> $W_1 \\cdot d_1 = W_2 \\cdot d_2$ (น้ำหนักคูณระยะตั้งฉากจากจุดหมุน)
+                • <b>สมดุลต่อการหมุน:</b> $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}} \quad (M = F \times d_\perp)$<br>
+                • <b>งานและพลังงาน:</b> $W = Fs\cos\theta$ (J), กำลัง $P = W/t = Fv_{av}$ (Watt)<br>
+                • <b>พลังงานกล:</b> $E_p = mgh$ (ศักย์โน้มถ่วง), $E_k = \frac{1}{2}mv^2$ (จลน์), $E_s = \frac{1}{2}kx^2$ (ศักย์ยืดหยุ่นสปริง $F=kx$)<br>
+                • <b>โมเมนตัม & การชน:</b> $\vec{p} = m\vec{v}$, แรงดล $\Sigma\vec{F}\Delta t = \Delta\vec{p} = m\vec{v} - m\vec{u}$, กฎอนุรักษ์โมเมนตัม $\Sigma\vec{p}_{\text{ก่อน}} = \Sigma\vec{p}_{\text{หลัง}}$
               </p>
             `
           },
           {
-            heading: "4. คลื่น เสียง แสง และฟิสิกส์อะตอม",
+            heading: "3. การเคลื่อนที่แบบวงกลม, SHM & การหมุน",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>อัตราเร็วคลื่นและเสียง:</b> $v = f\\lambda$, อัตราเร็วเสียงในอากาศ $v = 331 + 0.6t$ ($t$ ในหน่วย °C)<br>
-                • <b>ระดับความเข้มเสียง:</b> $\\beta = 10\\log\\left(\\frac{I}{I_0}\\right)$ (โดย $I_0 = 10^{-12}\\text{ W/m}^2$)<br>
-                • <b>โฟโตอิเล็กทริก:</b> $hf = W_f + E_{k,\\max} \\implies E_{k,\\max} = eV_s$
+                • <b>การเคลื่อนที่วงกลม:</b> $v = \omega R$, ความเร่งสู่ศูนย์กลาง $a_c = \frac{v^2}{R} = \omega^2 R$, แรงสู่ศูนย์กลาง $F_c = \frac{mv^2}{R} = m\omega^2 R$<br>
+                • <b>SHM (Simple Harmonic Motion):</b> การกระจัด $x(t) = A\sin(\omega t + \phi_0)$, ความเร็ว $v_{max} = \omega A$, ความเร่ง $a_{max} = \omega^2 A$<br>
+                • มวลติดสปริง: $\omega = \sqrt{\frac{k}{m}}$, ลูกตุ้มนาฬิกา: $\omega = \sqrt{\frac{g}{L}}$<br>
+                • <b>การหมุน:</b> ทอร์ก $\tau = I\alpha = Fd$, โมเมนต์ความเฉื่อย $I = \Sigma m r^2$, พลังงานจลน์การหมุน $E_{k,\text{rot}} = \frac{1}{2}I\omega^2$
+              </p>
+            `
+          },
+          {
+            heading: "4. สมบัติสาร, แก๊ส & ของไหล",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>แก๊สและทฤษฎีจลน์:</b> $PV = nRT = Nk_B T$, อัตราเร็ว $v_{rms} = \sqrt{\frac{3RT}{M}} = \sqrt{\frac{3k_B T}{m}}$, พลังงานภายใน $U = \frac{3}{2}nRT$<br>
+                • <b>ความร้อน:</b> $Q = mc\Delta T$ (เปลี่ยน T), $Q = mL$ (เปลี่ยนสถานะ), เทอร์โมไดนามิกส์ $\Delta Q = \Delta U + W_{gas}$<br>
+                • <b>ของไหล:</b> ความดันเกจ $P = \rho gh$, แรงลอยตัว $F_B = \rho_{fluid} V_{sub} g$, สมการแบร์นูลลี $P + \frac{1}{2}\rho v^2 + \rho gh = \text{คงที่}$
+              </p>
+            `
+          },
+          {
+            heading: "5. ไฟฟ้าสถิต, วงจรไฟฟ้า & แม่เหล็ก",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>ไฟฟ้าสถิต:</b> แรงคูลอมบ์ $F = \frac{kQq}{R^2}$, สนามไฟฟ้า $E = \frac{kQ}{R^2}$, ศักย์ไฟฟ้า $V = \frac{kQ}{R}$, ตัวเก็บประจุ $Q = CV$<br>
+                • <b>ไฟฟ้ากระแสตรง (DC):</b> $V = IR$, ความต้านทาน $R = \rho\frac{L}{A}$, กำลังไฟฟ้า $P = IV = I^2 R = \frac{V^2}{R}$<br>
+                • <b>แม่เหล็กไฟฟ้า:</b> แรงบนประจุ $F_B = qvB\sin\theta$, แรงบนลวด $F_B = ILB\sin\theta$, กฎฟาราเดย์ $\mathcal{E}_{ind} = -\frac{\Delta\Phi_B}{\Delta t}$
+              </p>
+            `
+          },
+          {
+            heading: "6. คลื่น, แสง, เสียง & ฟิสิกส์ยุคใหม่",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>คลื่น & แสง:</b> $v = f\lambda$, สลิตคู่ แถบสว่าง $d\sin\theta = n\lambda$, กฎสเนลล์ $n_1\sin\theta_1 = n_2\sin\theta_2$<br>
+                • <b>เสียง:</b> $v = 331 + 0.6t$, ระดับความเข้มเสียง $\beta = 10\log(\frac{I}{I_0})$ โดย $I_0 = 10^{-12}\text{ W/m}^2$, ดอปเพลอร์ $f_L = f_S(\frac{v \pm v_L}{v \mp v_S})$<br>
+                • <b>โฟโตอิเล็กทริก:</b> $E_{photon} = hf = W_f + E_{k,\max} \implies eV_s = hf - W_f$<br>
+                • <b>แบบจำลองบอห์ร:</b> $E_n = -\frac{13.6}{n^2}\text{ eV}$, ความยาวคลื่นเดอบรอยล์ $\lambda = \frac{h}{p} = \frac{h}{mv}$<br>
+                • <b>ฟิสิกส์นิวเคลียร์:</b> มวลพร่อง $E = (\Delta m)c^2$ ($1\text{ u} \approx 931.5\text{ MeV}$), ครึ่งชีวิต $N = N_0\left(\frac{1}{2}\right)^{t/T_{1/2}}$
               </p>
             `
           }
         ]
       },
       chem: {
-        title: "4. CHEM.pdf",
-        subtitle: "สรุปเคมี ม.ปลาย ครบทุกบท (ตารางธาตุ ปริมาณสาร สมดุล กรด-เบส เคมีอินทรีย์)",
+        title: "เคมี.pdf",
+        subtitle: "สรุปเนื้อหาเคมี ม.ปลาย ครบถ้วนทุกหมวด (โครงสร้างอะตอม พันธะ ปริมาณสาร กรด-เบส เคมีอินทรีย์)",
         sections: [
           {
-            heading: "1. โครงสร้างอะตอมและตารางธาตุ",
+            heading: "1. โครงสร้างอะตอม & ตารางธาตุ",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} \\dots$<br>
-                • <b>แนวโน้มตารางธาตุ:</b> ขนาดอะตอมเพิ่มขึ้นจากขวาไปซ้ายและบนลงล่าง, ค่า $IE_1, EN, EA$ เพิ่มขึ้นจากซ้ายไปขวาและล่างขึ้นบน
+                • <b>สัญลักษณ์นิวเคลียร์:</b> $_Z^A X$ โดย $A = p^+ + n^0$ (เลขมวล) และ $Z = p^+$ (เลขอะตอม)<br>
+                • <b>การจัดเรียงอิเล็กตรอน:</b> ระดับพลังงานหลัก $2, 8, 18, 32$ | ระดับพลังงานย่อย $s, p, d, f$ (อาฟบาว, เพาลี, ฮุนด์)<br>
+                • <b>แนวโน้มตารางธาตุ:</b> ขนาดอะตอมใหญ่ขึ้นจากขวาไปซ้ายและบนลงล่าง | ค่า $IE_1, EN, EA$ เพิ่มขึ้นจากซ้ายไปขวาและล่างขึ้นบน
               </p>
             `
           },
           {
-            heading: "2. ปริมาณสารสัมพันธ์ & แก๊ส",
+            heading: "2. พันธะเคมี & รูปร่างโมเลกุล",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>พันธะไอออนิก:</b> โลหะ + อโลหะ, วัฏจักรบอร์น-ฮาเบอร์, การละลายน้ำ (พลังงานแลตทิซ vs พลังงานไฮเดรชัน)<br>
+                • <b>พันธะโคเวเลนต์:</b> การใช้อิเล็กตรอนร่วมกันตามกฎออกเตต, เรโซแนนซ์, ประจุฟอร์มอล<br>
+                • <b>รูปร่างโมเลกุล (VSEPR):</b> เส้นตรง ($AX_2$), สามเหลี่ยมแบนราบ ($AX_3$), ทรงสี่หน้า ($AX_4$), พีระมิดฐานสามเหลี่ยม ($AX_3E$), มุมงอ ($AX_2E_2$), พีระมิดคู่ฐานสามเหลี่ยม ($AX_5$), ทรงแปดหน้า ($AX_6$)<br>
+                • <b>แรงยึดเหนี่ยวระหว่างโมเลกุล:</b> พันธะไฮโดรเจน ($H$ กับ $F, O, N$) > แรงดึงดูดระหว่างขั้ว (Dipole-Dipole) > แรงลอนดอน (London dispersion)
+              </p>
+            `
+          },
+          {
+            heading: "3. ปริมาณสารสัมพันธ์ & แก๊ส",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
                 • <b>สูตรโมลสัมพันธ์:</b>
               </p>
-              <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-3 rounded-xl text-center font-bold text-crust my-1 overflow-x-auto">
-                $$\\text{mol} = \\frac{g}{M_w} = \\frac{N}{6.02 \\times 10^{23}} = \\frac{V_{\\text{STP}}}{22.4} = \\frac{CV}{1000}$$
+              <div class="bg-[#FDF1D8] border border-[#ECD9B6] p-3 rounded-xl text-center font-bold text-crust my-1.5 overflow-x-auto">
+                $$\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$$
               </div>
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>กฎแก๊สอุดมคติ:</b> $PV = nRT$ ($R = 0.0821\\text{ atm}\\cdot\\text{L/mol}\\cdot\\text{K}$ หรือ $8.314\\text{ J/mol}\\cdot\\text{K}$)<br>
-                • <b>การแพร่เกรแฮม:</b> $\\frac{R_1}{R_2} = \\sqrt{\\frac{M_2}{M_1}}$ (แก๊สเบากว่าแพร่ได้เร็วกว่า)
+                • <b>สารละลาย:</b> ความเข้มข้นโมลาร์ ($M$), โมแลล ($m$), สมบัติคอลลิเกทีฟ $\Delta T_b = m K_b$ และ $\Delta T_f = m K_f$<br>
+                • <b>กฎของแก๊ส:</b> $PV = nRT$, กฎรวมแก๊ส $\frac{P_1V_1}{T_1} = \frac{P_2V_2}{T_2}$, กฎการแพร่เกรแฮม $\frac{R_1}{R_2} = \sqrt{\frac{M_2}{M_1}}$
               </p>
             `
           },
           {
-            heading: "3. สมดุลเคมี และ กรด-เบส",
+            heading: "4. อัตราการเกิดปฏิกิริยา & สมดุลเคมี",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \\rightleftharpoons cC + dD \\implies K_c = \\frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะของแข็ง $s$ และของเหลวบริสุทธิ์ $l$)<br>
-                • <b>pH และ บัฟเฟอร์:</b> $pH = -\\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]}$
+                • <b>อัตราการเกิดปฏิกิริยา:</b> $R = -\frac{\Delta[\text{สารตั้งต้น}]}{\Delta t} = +\frac{\Delta[\text{ผลิตภัณฑ์}]}{\Delta t}$, กฎอัตรา $R = k[A]^m[B]^n$, ทฤษฎีการชน & พลังงานก่อกัมมันต์ ($E_a$)<br>
+                • <b>ค่าคงที่สมดุล ($K_c$):</b> $aA + bB \rightleftharpoons cC + dD \implies K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$ (ไม่คิดสถานะ $s$ และ $l$ บริสุทธิ์)<br>
+                • <b>หลักเลอชาเตอลิเยร์:</b> เพิ่มความดัน/ลดปริมาตร สมดุลเลื่อนไปทางโมลแก๊สน้อย | ปฏิกิริยาดูดความร้อน เพิ่มอุณหภูมิ $K$ เพิ่ม
               </p>
             `
           },
           {
-            heading: "4. เคมีอินทรีย์ (Organic Chemistry)",
+            heading: "5. กรด-เบส & เคมีไฟฟ้า",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>ลำดับจุดเดือด:</b> Amide > Carboxylic acid > Alcohol > Ketone $\\approx$ Aldehyde > Ether > Alkyne > Alkane > Alkene<br>
-                • <b>ปฏิกิริยาเอสเทอริฟิเคชัน:</b> $\\text{Carboxylic acid} + \\text{Alcohol} \\xrightarrow{H^+} \\text{Ester} + \\text{H}_2\\text{O}$
+                • <b>ทฤษฎีกรด-เบส:</b> อาร์เรเนียส ($H^+/OH^-$), เบรินสเตด-ลาวรี (ให้/รับ $H^+$), ลิวอิส (รับ/ให้คู่ $e^-$)<br>
+                • <b>การคำนวณ pH:</b> $pH = -\log[H_3O^+]$, บัฟเฟอร์กรด $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรดอ่อน}]}$, การไทเทรต $aN_1V_1 = bN_2V_2$<br>
+                • <b>เคมีไฟฟ้า:</b> รีดอกซ์ (Oxidation เสีย $e^-$ / Reduction รับ $e^-$), $E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$, เซลล์กัลวานิก ($E^\circ > 0$) vs เซลล์อิเล็กโทรลิติก
+              </p>
+            `
+          },
+          {
+            heading: "6. เคมีอินทรีย์ & พอลิเมอร์",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>หมู่ฟังก์ชัน & ลำดับจุดเดือด:</b> เอไมด์ > กรดคาร์บอกซิลิก > แอลกอฮอล์ > คีโทน $\approx$ แอลดีไฮด์ > เอสเทอร์ > อีเทอร์ > แอลไคน์ > แอลเคน > แอลคีน<br>
+                • <b>ปฏิกิริยาสำคัญ:</b> เอสเทอริฟิเคชัน ($\text{Carboxylic} + \text{Alcohol} \xrightarrow{H^+} \text{Ester} + \text{H}_2\text{O}$), ไฮโดรไลซิส, สะปอนนิฟิเคชัน<br>
+                • <b>พอลิเมอร์:</b> โฮโมพอลิเมอร์ vs โคพอลิเมอร์, โครงสร้างแบบเส้น/กิ่ง (Thermoplastic) vs แบบร่างแห (Thermoset)
               </p>
             `
           }
         ]
       },
       bio: {
-        title: "สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf",
-        subtitle: "สรุปวิชาชีววิทยา: Taxonomy, Origin of Life, Monera และ Protista",
+        title: "ชีววิทยา.pdf",
+        subtitle: "สรุปอนุกรมวิธาน (Taxonomy), กำเนิดชีวิต, อาณาจักรมอเนอรา และอาณาจักรโพรทิสตา",
         sections: [
           {
-            heading: "1. อนุกรมวิธาน (Taxonomy) & กำเนิดชีวิต",
+            heading: "1. อนุกรมวิธาน (Taxonomy) & แผนภูมิวิวัฒนาการ",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>Carolus Linnaeus:</b> บิดาแห่งอนุกรมวิธาน กำหนดระบบชื่อวิทยาศาสตร์แบบทวินาม (Binomial nomenclature: <i>Genus species</i>)<br>
-                • <b>ลำดับหมวดหมู่:</b> Domain $\\rightarrow$ Kingdom $\\rightarrow$ Phylum $\\rightarrow$ Class $\\rightarrow$ Order $\\rightarrow$ Family $\\rightarrow$ Genus $\\rightarrow$ Species<br>
-                • <b>Phylogenetic tree:</b> จุดแยก (Node) แสดงบรรพบุรุษร่วมล่าสุด (Most recent common ancestor), Monophyletic group (สายวิวัฒนาการที่มีบรรพบุรุษร่วมกันทั้งหมด)
+                • <b>Carolus Linnaeus:</b> บิดาแห่งอนุกรมวิธาน กำหนดระบบการตั้งชื่อวิทยาศาสตร์แบบทวินาม (Binomial nomenclature: <i>Genus species</i> ผู้ตั้ง ปีที่ตีพิมพ์)<br>
+                • <b>ลำดับการจัดหมวดหมู่:</b> Domain $\rightarrow$ Kingdom $\rightarrow$ Phylum $\rightarrow$ Class $\rightarrow$ Order $\rightarrow$ Family $\rightarrow$ Genus $\rightarrow$ Species (ยิ่งระดับล่างยิ่งใกล้ชิดทางวิวัฒนาการ)<br>
+                • <b>Phylogenetic Tree (แผนภูมิต้นไม้):</b> จุดแยก (Node) แสดงบรรพบุรุษร่วมล่าสุด (Common ancestor), Clade (กลุ่มสิ่งมีชีวิตที่มีบรรพบุรุษร่วมกัน)<br>
+                • Monophyletic (รวมบรรพบุรุษร่วมและลูกหลานทั้งหมด), Paraphyletic (รวมบรรพบุรุษร่วมแต่ขาดบางกลุ่ม), Polyphyletic (มาจากต่างบรรพบุรุษ)
               </p>
             `
           },
           {
-            heading: "2. อาณาจักรมอเนอรา (Kingdom Monera)",
+            heading: "2. กำเนิดชีวิต & ทฤษฎีเอนโดซิมไบโอซิส",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>เซลล์โพรแคริโอต:</b> ไม่มีเยื่อหุ้มนิวเคลียส (สารพันธุกรรมอยู่ในบริเวณ Nucleoid), ไรโบโซมขนาด 70S, มี DNA วงแหวนนอกโครโมโซมเรียกว่า Plasmid<br>
-                • <b>การย้อมสีแกรม:</b> Gram-positive (สีม่วง Peptidoglycan หนา) vs Gram-negative (สีแดง Peptidoglycan บางและมีชั้น Lipopolysaccharide)<br>
-                • <b>Cyanobacteria:</b> สังเคราะห์ด้วยแสงได้และมีเซลล์พิเศษ Heterocyst ตรึงไนโตรเจน เช่น <i>Anabaena, Nostoc</i>
+                • <b>สมมติฐาน Oparin-Haldane & การทดลอง Miller-Urey:</b> จำลองบรรยากาศโลกยุคแรก ($CH_4, NH_3, H_2O, H_2$) ใช้ประกายไฟฟ้าสังเคราะห์สารอินทรีย์ขนาดเล็ก เช่น กรดอะมิโนและยูเรียได้ (Primitive soup)<br>
+                • <b>เซลล์เริ่มแรก (Protocell):</b> เกิดจากสารอินทรีย์รวมตัวและถูกห่อหุ้มด้วย Lipid vesicle โดยมี Ribozyme ทำหน้าที่จำลองตัวเอง<br>
+                • <b>Endosymbiosis:</b> ยูแคริโอตกลืนโพรแคริโอตที่ใช้ออกซิเจนกลายเป็น ไมโทคอนเดรีย และกลืนไซยาโนแบคทีเรียกลายเป็น คลอโรพลาสต์<br>
+                • <b>เปรียบเทียบ 3 โดเมน:</b> Eubacteria (มี Peptidoglycan, Ribosome 70S), Archaea (ไม่มี Peptidoglycan, ลิพิดพันธะ Ether, ทนสภาพสุดขั้ว), Eukarya (มีเยื่อหุ้มนิวเคลียส, Ribosome 80S)
               </p>
             `
           },
           {
-            heading: "3. อาณาจักรโพรทิสตา (Kingdom Protista)",
+            heading: "3. อาณาจักรมอเนอรา (Kingdom Monera)",
             body: `
               <p class="text-xs sm:text-sm text-crust leading-relaxed">
-                • <b>Animal-like (โพรโทซัว):</b> อะมีบา (ใช้เท้าเทียม Pseudopodium), พารามีเซียม (ใช้ซิเลีย Cilia และมี Contractile vacuole ควบคุมน้ำ), พลาสโมเดียม (เชื้อมาลาเรีย ไม่มีโครงสร้างเคลื่อนที่)<br>
-                • <b>Plant-like (สาหร่าย):</b> ไดอะตอม (ผนังซิลิกา), ไดโนแฟลกเจลเลต (ปรากฏการณ์ขี้ปลาวาฬ Red tide), สาหร่ายสีเขียว (<i>Chlorella, Spirogyra</i>), สาหร่ายสีแดง (<i>Porphyra</i> จีฉ่าย)
+                • <b>โครงสร้างโพรแคริโอต:</b> ไม่มีเยื่อหุ้มนิวเคลียส (DNA อยู่ในบริเวณ Nucleoid), มี Plasmid, ไรโบโซมขนาด 70S, มี Capsule และ Pili<br>
+                • <b>การย้อมสีแกรม (Gram Stain):</b><br>
+                - <b>Gram-Positive:</b> ติดสีม่วง (Crystal violet) เนื่องจากมีชั้น Peptidoglycan หนา และมี Teichoic acid เช่น <i>Bacillus, Staphylococcus, Lactobacillus</i><br>
+                - <b>Gram-Negative:</b> ติดสีแดง (Safranin) มีชั้น Peptidoglycan บาง และมีเยื่อหุ้มชั้นนอก Lipopolysaccharide เช่น <i>E. coli, Rhizobium</i><br>
+                • <b>Cyanobacteria (สาหร่ายสีเขียวแกมน้ำเงิน):</b> สังเคราะห์ด้วยแสงได้และมี Heterocyst สำหรับตรึงไนโตรเจน เช่น <i>Anabaena, Nostoc, Spirulina</i>
+              </p>
+            `
+          },
+          {
+            heading: "4. อาณาจักรโพรทิสตา (Kingdom Protista)",
+            body: `
+              <p class="text-xs sm:text-sm text-crust leading-relaxed">
+                • <b>Animal-like Protist (โพรโทซัว):</b><br>
+                - <i>Amoeboid:</i> ใช้เท้าเทียม (Pseudopodium) ในการเคลื่อนที่และกินอาหารแบบ Phagocytosis เช่น อะมีบา, <i>Entamoeba histolytica</i> (บิดมีตัว)<br>
+                - <i>Ciliate:</i> ใช้ Cilia เคลื่อนที่ มี Contractile vacuole ขับน้ำส่วนเกิน เช่น พารามีเซียม (<i>Paramecium</i>), <i>Vorticella</i><br>
+                - <i>Flagellate:</i> ใช้ Flagella เช่น <i>Giardia lamblia</i> (ท้องเสีย), <i>Trichonympha</i> (ในลำไส้ปลวกย่อยเซลลูโลส), <i>Trypanosoma</i> (โรคเหงาหลับ)<br>
+                - <i>Apicomplexan / Sporozoa:</i> ไม่มีโครงสร้างเคลื่อนที่ เป็นปรสิต เช่น <i>Plasmodium</i> (เชื้อมาลาเรีย)<br>
+                • <b>Fungus-like Protist (ราเมือก Slime Mold):</b> ไม่มีผนังเซลล์และไม่มีคลอโรฟิลล์ เช่น <i>Physarum, Stemonitis</i><br>
+                • <b>Plant-like Protist (สาหร่าย):</b><br>
+                - <i>Green Algae:</i> มีคลอโรฟิลล์ a, b เก็บแป้ง เช่น <i>Chlorella, Spirogyra, Volvox</i><br>
+                - <i>Diatoms:</i> ผนังเซลล์มีซิลิกา สะสมดินไดอะตอม (Diatomaceous earth)<br>
+                - <i>Dinoflagellates:</i> มีแฟลกเจลลา 2 เส้น ทำให้เกิดปรากฏการณ์ขี้ปลาวาฬ (Red tide)<br>
+                - <i>Brown Algae:</i> ขนาดใหญ่ ซับซ้อน มีรงควัตถุฟิวโคแซนทิน เช่น <i>Sargassum, Laminaria</i> (Kelp)<br>
+                - <i>Red Algae:</i> มีไฟโคอิริทริน เช่น <i>Porphyra</i> (สาหร่ายจีฉ่ายทำอาหาร), <i>Gracilaria</i> (สาหร่ายผมนางสกัดวุ้น)
               </p>
             `
           }
         ]
       }
     };
-
-    // Flashcards Data Array
-    const allFlashcards = [
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
-        q: "สูตรอนุพันธ์ของผลคูณ (Product Rule)",
-        formula: "\\( \\frac{d}{dx}[u \\cdot v] = u\\frac{dv}{dx} + v\\frac{du}{dx} \\)",
-        a: "หน้า ดิฟหลัง + หลัง ดิฟหน้า",
-        detail: "สำหรับผลหาร: (ล่าง ดิฟบน - บน ดิฟล่าง) / ล่างกำลังสอง"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
-        q: "สูตรอนุพันธ์ของผลหาร (Quotient Rule)",
-        formula: "\\( \\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{v\\frac{du}{dx} - u\\frac{dv}{dx}}{v^2} \\)",
-        a: "(ล่าง ดิฟบน - บน ดิฟล่าง) ส่วน ล่างกำลังสอง",
-        detail: "ใช้เมื่อฟังก์ชันอยู่ในรูปเศษส่วนที่ตัวส่วนไม่เท่ากับ 0"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (ลำดับและอนุกรม)",
-        q: "สูตรผลบวกของอนุกรมเรขาคณิตอนันต์",
-        formula: "\\( S_\\infty = \\frac{a_1}{1 - r} \\quad (|r| < 1) \\)",
-        a: "ผลบวกอนุกรมเรขาคณิตอนันต์ที่ลู่เข้า (Convergent)",
-        detail: "อนุกรมจะหาผลบวกได้เมื่ออัตราส่วนร่วม |r| น้อยกว่า 1 เท่านั้น"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (ตรีโกณมิติ)",
-        q: "เอกลักษณ์ตรีโกณมิติพื้นฐาน",
-        formula: "\\( \\sin^2\\theta + \\cos^2\\theta = 1 \\)",
-        a: "กำลังสองของไซน์บวกกำลังสองของโคไซน์เท่ากับ 1",
-        detail: "1 + tan²θ = sec²θ และ 1 + cot²θ = cosec²θ"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (ตรีโกณมิติ)",
-        q: "สูตรไซน์ของผลบวกมุม (Sine Addition)",
-        formula: "\\( \\sin(A + B) = \\sin A\\cos B + \\cos A\\sin B \\)",
-        a: "sin(A + B) = sin A cos B + cos A sin B",
-        detail: "cos(A + B) = cos A cos B - sin A sin B (เครื่องหมายสลับกัน)"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (ลอการิทึม)",
-        q: "สมบัติการบวกของลอการิทึม",
-        formula: "\\( \\log_a(xy) = \\log_a x + \\log_a y \\)",
-        a: "ลอการิทึมของผลคูณเท่ากับผลบวกของลอการิทึม",
-        detail: "log ของผลหาร: log(x/y) = log x - log y"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (ความน่าจะเป็น)",
-        q: "สูตรการจัดหมู่ (Combination)",
-        formula: "\\( \\binom{n}{r} = \\frac{n!}{r!(n-r)!} \\)",
-        a: "เลือกสิ่งของ r ชิ้นจากทั้งหมด n ชิ้น โดยไม่เรียงลำดับ",
-        detail: "การเรียงสับเปลี่ยน (Permutation): P(n,r) = n! / (n-r)!"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (สถิติศาสตร์)",
-        q: "สูตรค่ามาตรฐาน (Z-Score)",
-        formula: "\\( z = \\frac{x - \\mu}{\\sigma} \\)",
-        a: "ค่ามาตรฐาน = (ข้อมูล - ค่าเฉลี่ย) / ส่วนเบี่ยงเบนมาตรฐาน",
-        detail: "ใช้เปรียบเทียบข้อมูลที่มาจากชุดข้อมูลที่มีสเกลต่างกัน"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (จำนวนจริง)",
-        q: "สูตรรากสมการกำลังสอง (Quadratic Formula)",
-        formula: "\\( x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\)",
-        a: "คำตอบของสมการ ax² + bx + c = 0",
-        detail: "ถ้า b² - 4ac > 0 มี 2 คำตอบจริง, = 0 มี 1 คำตอบ, < 0 ไม่มีคำตอบจริง"
-      },
-      {
-        subjTag: "math",
-        subj: "หมวด: คณิตศาสตร์ (เวกเตอร์)",
-        q: "ผลคูณเชิงสเกลาร์ (Dot Product)",
-        formula: "\\( \\vec{u} \\cdot \\vec{v} = |\\vec{u}||\\vec{v}|\\cos\\theta = u_1 v_1 + u_2 v_2 + u_3 v_3 \\)",
-        a: "ผลคูณความยาวเวกเตอร์กับค่า cos ของมุมระหว่างกัน",
-        detail: "ถ้าเวกเตอร์ตั้งฉากกัน ผลคูณ Dot Product จะเท่ากับ 0"
-      },
-      {
-        subjTag: "phys",
-        subj: "หมวด: ฟิสิกส์ (สมดุลกล)",
-        q: "สูตรโมเมนต์ของแรง (Torque) คืออะไร?",
-        formula: "\\( M = F \\times d_\\perp \\)",
-        a: "โมเมนต์ = แรง × ระยะตั้งฉากถึงแนวแรง",
-        detail: "สมดุลต่อการหมุน: โมเมนต์ทวน = โมเมนต์ตาม"
-      },
-      {
-        subjTag: "phys",
-        subj: "หมวด: ฟิสิกส์ (การเคลื่อนที่)",
-        q: "สูตรความเร็วปลายเมื่อไม่ทราบเวลา (t)",
-        formula: "\\( v^2 = u^2 + 2as \\)",
-        a: "ใช้เมื่อความเร่งคงที่และโจทย์ไม่ได้ระบุตัวแปรเวลา",
-        detail: "หน่วย: ความเร็ว (m/s), ความเร่ง (m/s²), การกระจัด (m)"
-      },
-      {
-        subjTag: "phys",
-        subj: "หมวด: ฟิสิกส์ (โฟโตอิเล็กทริก)",
-        q: "สมการโฟโตอิเล็กทริกของไอน์สไตน์",
-        formula: "\\( hf = W_f + E_{k,\\max} \\)",
-        a: "พลังงานโฟตอน = ฟังก์ชันงาน + พลังงานจลน์สูงสุดของอิเล็กตรอน",
-        detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว"
-      },
-      {
-        subjTag: "chem",
-        subj: "หมวด: เคมี (ปริมาณสารสัมพันธ์)",
-        q: "สูตรคำนวณจำนวนโมล (mol) ของสาร",
-        formula: "\\( n = \\frac{g}{M_w} = \\frac{N}{6.02\\times 10^{23}} = \\frac{CV}{1000} \\)",
-        a: "เชื่อมโยงมวล, จำนวนอนุภาค และความเข้มข้นสารละลาย",
-        detail: "ที่ STP: 1 mol ของแก๊สมีปริมาตรเท่ากับ 22.4 dm³"
-      },
-      {
-        subjTag: "chem",
-        subj: "หมวด: เคมี (สมดุลเคมี)",
-        q: "ค่าคงที่สมดุลเคมี (Kc) ของปฏิกิริยา aA + bB ⇌ cC + dD",
-        formula: "\\( K_c = \\frac{[C]^c [D]^d}{[A]^a [B]^b} \\)",
-        a: "อัตราส่วนความเข้มข้นผลิตภัณฑ์ต่อสารตั้งต้น",
-        detail: "ไม่นำสถานะของแข็ง (s) และของเหลวบริสุทธิ์ (l) มาคิดในสมการ"
-      },
-      {
-        subjTag: "chem",
-        subj: "หมวด: เคมี (กรด-เบส)",
-        q: "สูตรคำนวณ pH ของสารละลายบัฟเฟอร์กรด",
-        formula: "\\( pH = pK_a + \\log\\frac{[\\text{เกลือ}]}{[\\text{กรดอ่อน}]} \\)",
-        a: "สมการ Henderson-Hasselbalch",
-        detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)"
-      },
-      {
-        subjTag: "bio",
-        subj: "หมวด: ชีววิทยา (อนุกรมวิธาน)",
-        q: "การจัดหมวดหมู่สิ่งมีชีวิตจากใหญ่ไปเล็ก",
-        formula: "\\( \\text{Domain} \\rightarrow \\text{Kingdom} \\rightarrow \\text{Phylum} \\rightarrow \\text{Class} \\rightarrow \\text{Order} \\rightarrow \\text{Family} \\rightarrow \\text{Genus} \\rightarrow \\text{Species} \\)",
-        a: "ลำดับขั้นการจำแนกสิ่งมีชีวิต (Taxonomic Hierarchy)",
-        detail: "สิ่งมีชีวิตจีนัสเดียวกัน ย่อมมี Family, Order, Class เดียวกันเสมอ"
-      },
-      {
-        subjTag: "bio",
-        subj: "หมวด: ชีววิทยา (แบคทีเรีย)",
-        q: "ความแตกต่างของผนังเซลล์ Gram-positive และ Gram-negative",
-        formula: "\\( \\text{Gram}+ \\text{ (ม่วง: Peptidoglycan หนา)} \\longleftrightarrow \\text{Gram}- \\text{ (แดง: มี Lipopolysaccharide)} \\)",
-        a: "ย้อมติดสี Crystal violet (บวก) vs Safranin (ลบ)",
-        detail: "แกรมลบมีเยื่อหุ้มชั้นนอก (Outer membrane) และชั้น Periplasmic กว้าง"
-      }
-    ];
 
     let filteredCards = [...allFlashcards];
     let currentCardIndex = 0;
@@ -1202,7 +1125,7 @@
       showToast(`+${pts} Crumbs!`);
     }
 
-    /* PDF Reader */
+    /* PDF Reader Real Content Engine */
     function openPdfReader(docKey) {
       const doc = realDocumentData[docKey];
       if (!doc) return;
