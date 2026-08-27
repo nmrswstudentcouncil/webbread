@@ -107,7 +107,7 @@
 </head>
 <body class="bg-cream-500 min-h-screen min-h-[100dvh] flex justify-center items-center m-0 p-0 md:p-4 lg:p-6 select-none">
 
-  <!-- Responsive Container: Fullscreen on mobile, Elegant App Frame on iPad & Desktop -->
+  <!-- Responsive App Container: Phone & iPad -->
   <div class="app-frame w-full h-screen h-[100dvh] md:max-w-4xl lg:max-w-5xl md:h-[92vh] md:max-h-[900px] bg-cream-100 md:rounded-[36px] md:shadow-2xl flex flex-col relative overflow-hidden md:ring-8 md:ring-cream-400">
     
     <!-- Toast Popup Notification -->
@@ -116,7 +116,7 @@
       <div id="toastMsg">+25 Crumbs!</div>
     </div>
 
-    <!-- Header: Responsive for Phone & iPad -->
+    <!-- Responsive Header -->
     <header class="pt-[calc(env(safe-area-inset-top,12px)+8px)] md:pt-4 pb-3 px-4 sm:px-6 md:px-8 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/50">
       <div class="flex items-center gap-3">
         <!-- 3D Mascot Logo Avatar -->
@@ -135,11 +135,11 @@
         </div>
         <div>
           <h1 class="text-lg sm:text-xl font-bold text-crust-dark leading-tight tracking-tight">Breadie</h1>
-          <p class="text-[10px] sm:text-[11px] text-[#9E7F60] font-medium">Science & Math Focus Lab</p>
+          <p class="text-[10px] sm:text-[11px] text-[#9E7F60] font-medium">Science & Math Bakery</p>
         </div>
       </div>
 
-      <!-- Header Center: iPad/Desktop Navigation Bar -->
+      <!-- Top Nav for iPad / Desktop -->
       <div class="hidden md:flex items-center gap-1.5 bg-cream-200/80 p-1.5 rounded-2xl border border-cream-300">
         <button class="top-nav-btn active px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition" onclick="switchTab('screen-home', this)">หน้าหลัก</button>
         <button class="top-nav-btn px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent hover:bg-cream-300 transition" onclick="switchTab('screen-lesson', this)">Lesson</button>
@@ -147,26 +147,25 @@
         <button class="top-nav-btn px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent hover:bg-cream-300 transition" onclick="switchTab('screen-friends', this)">กับเพื่อน</button>
       </div>
       
-      <!-- Crumbs Point Badge -->
+      <!-- Crumbs Points Badge -->
       <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1.5 flex items-center gap-1.5 shadow-clay select-none">
         <svg class="w-4 h-4 text-butter-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 11V7a1 1 0 112 0v4a1 1 0 11-2 0zm2 4a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
         <div id="crumbPoints" class="font-bold text-xs sm:text-sm text-crust-dark">1,250</div>
       </div>
     </header>
 
-    <!-- Main Content Viewport -->
+    <!-- Main Screens Viewport -->
     <main class="screen-container flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 pt-3 pb-24 md:pb-6 no-scrollbar scroll-smooth">
 
       <!-- ================= TAB 1: HOME ================= -->
       <section id="screen-home" class="screen block">
-        <!-- iPad 2-Column Grid Layout -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
           
-          <!-- Oven Oven Device (7 Columns on Tablet/Desktop) -->
+          <!-- Realistic Bakery Oven (7 Cols on Tablet) -->
           <div class="md:col-span-7 bg-cream-50 rounded-[32px] p-4 sm:p-5 shadow-clay border border-white/80">
             <div class="bg-gradient-to-b from-[#EFE0C9] to-[#DFCEB3] rounded-[28px] p-4 sm:p-5 shadow-[inset_0_4px_8px_rgba(255,255,255,0.7),0_8px_16px_rgba(92,58,22,0.15)] border-2 border-[#CCAFA0]/80 relative">
               
-              <!-- Control Panel -->
+              <!-- Oven Controls -->
               <div class="bg-[#E4CFB2] rounded-2xl p-2.5 mb-3 border border-[#C7B192] flex justify-between items-center shadow-inner">
                 <div class="flex items-center gap-1.5">
                   <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:rotate-45 transition-transform">
@@ -197,7 +196,7 @@
                 </div>
               </div>
 
-              <!-- Oven Chamber -->
+              <!-- Oven Chamber Window -->
               <div class="bg-[#D3BC9D] p-2.5 rounded-3xl border-2 border-[#BA9E7D] shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
                 <div class="w-36 h-3.5 bg-gradient-to-r from-[#8C5D33] via-[#D8B48A] to-[#8C5D33] rounded-full mx-auto mb-2 shadow-[0_3px_5px_rgba(0,0,0,0.25)] border border-[#6B431D] flex items-center justify-center">
                   <div class="w-20 h-1 bg-white/40 rounded-full"></div>
@@ -237,7 +236,7 @@
                 </div>
               </div>
 
-              <!-- Controls & Stepper -->
+              <!-- Steppers -->
               <div class="flex items-center justify-center gap-2 mt-3 mb-2">
                 <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-5)">-5</button>
                 <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-1)">-1</button>
@@ -264,7 +263,7 @@
             </div>
           </div>
 
-          <!-- Daily Tasks (5 Columns on Tablet/Desktop) -->
+          <!-- Daily Tasks (5 Cols on Tablet) -->
           <div class="md:col-span-5 bg-cream-50 rounded-[32px] p-4 sm:p-5 shadow-clay border border-white/60">
             <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
               <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
@@ -288,7 +287,7 @@
               </div>
             </div>
 
-            <!-- Focus Tips Card -->
+            <!-- Productivity Note Card -->
             <div class="mt-4 p-3.5 bg-[#F6EDE0] rounded-2xl border border-cream-300/80">
               <div class="text-xs font-bold text-crust mb-1 flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -319,29 +318,31 @@
           </button>
         </div>
 
-        <!-- Sub 1: PDF Hub -->
+        <!-- Sub 1: PDF Hub with Embedded PDF Viewer -->
         <div id="lesson-pdf" class="lesson-sub-view block">
           <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60">
             <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
               <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <div>คลังเอกสารสรุปบทเรียน (แตะเปิดอ่านได้ทันที)</div>
+              <div>คลังเอกสารสรุปบทเรียน (แตะเปิดอ่านเอกสารจริงได้ทันที)</div>
             </div>
 
+            <!-- Upload Custom PDF -->
             <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handlePdfUpload(event)">
             <div class="border-2 border-dashed border-[#CBB191] rounded-2xl p-4 text-center bg-[#FAF2E4] hover:bg-[#F5E8D3] cursor-pointer transition mb-4" onclick="document.getElementById('pdfFileInput').click()">
               <svg class="w-7 h-7 mx-auto mb-1 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-              <div class="font-bold text-crust-dark text-xs sm:text-sm">แตะเพื่ออัปโหลดไฟล์ PDF ของคุณ</div>
-              <div class="text-[10px] sm:text-xs text-[#9E7F60]">เปิดอ่านไฟล์ PDF พร้อมรับแต้มสะสม</div>
+              <div class="font-bold text-crust-dark text-xs sm:text-sm">แตะเพื่ออัปโหลดไฟล์ PDF ของคุณ (อ่านในเว็บได้โดยตรง)</div>
+              <div class="text-[10px] sm:text-xs text-[#9E7F60]">รองรับไฟล์ PDF ทุกขนาด เปิดอ่านผ่านหน้าจอได้ 100%</div>
             </div>
 
-            <div class="text-xs sm:text-sm font-bold text-crust-dark mb-2.5">เอกสารสรุปในระบบ</div>
+            <!-- Document List -->
+            <div class="text-xs sm:text-sm font-bold text-crust-dark mb-2.5">เอกสารสรุปวิชาหลักในระบบ</div>
             <div id="pdfListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs sm:text-sm font-bold text-crust-dark">3. PHY.pdf[span_0](start_span)[span_0](end_span)</div>
-                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)[span_1](start_span)[span_1](end_span)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">3. PHY.pdf</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)[span_0](start_span)[span_0](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('phy')">เปิดอ่าน</button>
@@ -351,8 +352,8 @@
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs sm:text-sm font-bold text-crust-dark">4. CHEM.pdf[span_2](start_span)[span_2](end_span)</div>
-                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)[span_3](start_span)[span_3](end_span)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">4. CHEM.pdf</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)[span_1](start_span)[span_1](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('chem')">เปิดอ่าน</button>
@@ -362,8 +363,8 @@
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs sm:text-sm font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf[span_4](start_span)[span_4](end_span)</div>
-                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)[span_5](start_span)[span_5](end_span)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)[span_2](start_span)[span_2](end_span)</div>
                   </div>
                 </div>
                 <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('bio')">เปิดอ่าน</button>
@@ -372,7 +373,7 @@
           </div>
         </div>
 
-        <!-- Sub 2: Lever Simulation -->
+        <!-- Sub 2: Simulation -->
         <div id="lesson-sim" class="lesson-sub-view hidden">
           <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60 max-w-2xl mx-auto">
             <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
@@ -484,29 +485,29 @@
 
             <!-- Physics Section -->
             <div id="subj-phys" class="subject-section hidden space-y-3">
-              <div class="text-xs sm:text-sm font-bold text-crust">ฟิสิกส์ ม.ปลาย[span_6](start_span)[span_6](end_span)</div>
+              <div class="text-xs sm:text-sm font-bold text-crust">ฟิสิกส์ ม.ปลาย</div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>กลศาสตร์, แรง & การเคลื่อนที่</div>
+                    <div>กลศาสตร์, แรง & การเคลื่อนที่[span_3](start_span)[span_3](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• 5 สูตรการเคลื่อนที่แนวตรงความเร่งคงที่[span_7](start_span)[span_7](end_span): $v = u + at \ ,\ s = ut + \frac{1}{2}at^2 \ ,\ v^2 = u^2 + 2as$[span_8](start_span)[span_8](end_span)</p>
-                    <p>• กฎนิวตัน[span_9](start_span)[span_9](end_span): $\Sigma F = ma$[span_10](start_span)[span_10](end_span) , แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_11](start_span)[span_11](end_span)</p>
-                    <p>• คานและสมดุลต่อการหมุน[span_12](start_span)[span_12](end_span): $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_13](start_span)[span_13](end_span)</p>
+                    <p>• 5 สูตรการเคลื่อนที่แนวตรง: $v = u + at \ ,\ s = ut + \frac{1}{2}at^2 \ ,\ v^2 = u^2 + 2as$[span_4](start_span)[span_4](end_span)</p>
+                    <p>• กฎนิวตัน: $\Sigma F = ma$ , แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_5](start_span)[span_5](end_span)</p>
+                    <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_6](start_span)[span_6](end_span)</p>
                   </div>
                 </div>
 
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>คลื่น, เสียง, แสง & ฟิสิกส์อะตอม</div>
+                    <div>คลื่น, เสียง, แสง & ฟิสิกส์อะตอม[span_7](start_span)[span_7](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• เสียง[span_14](start_span)[span_14](end_span): $v = 331 + 0.6t$[span_15](start_span)[span_15](end_span), ระดับความเข้ม $\beta = 10\log(I/I_0)$[span_16](start_span)[span_16](end_span)</p>
-                    <p>• แสงเชิงคลื่น[span_17](start_span)[span_17](end_span): สลิตคู่ แถบสว่าง $d\sin\theta = n\lambda$[span_18](start_span)[span_18](end_span)</p>
-                    <p>• โฟโตอิเล็กทริก[span_19](start_span)[span_19](end_span): $hf = W_f + E_{k,\max}$[span_20](start_span)[span_20](end_span)</p>
+                    <p>• เสียง: $v = 331 + 0.6t$, ระดับความเข้ม $\beta = 10\log(I/I_0)$[span_8](start_span)[span_8](end_span)</p>
+                    <p>• แสงเชิงคลื่น: สลิตคู่ แถบสว่าง $d\sin\theta = n\lambda$[span_9](start_span)[span_9](end_span)</p>
+                    <p>• โฟโตอิเล็กทริก: $hf = W_f + E_{k,\max}$[span_10](start_span)[span_10](end_span)</p>
                   </div>
                 </div>
               </div>
@@ -514,27 +515,27 @@
 
             <!-- Chemistry Section -->
             <div id="subj-chem" class="subject-section hidden space-y-3">
-              <div class="text-xs sm:text-sm font-bold text-crust">เคมี ม.ปลาย[span_21](start_span)[span_21](end_span)</div>
+              <div class="text-xs sm:text-sm font-bold text-crust">เคมี ม.ปลาย</div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>อะตอม, พันธะ & ปริมาณสาร</div>
+                    <div>อะตอม, พันธะ & ปริมาณสาร[span_11](start_span)[span_11](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• สูตรโมล[span_22](start_span)[span_22](end_span): $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_23](start_span)[span_23](end_span)</p>
-                    <p>• กฎแก๊สอุดมคติ[span_24](start_span)[span_24](end_span): $PV = nRT$[span_25](start_span)[span_25](end_span)</p>
+                    <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_12](start_span)[span_12](end_span)</p>
+                    <p>• กฎแก๊สอุดมคติ: $PV = nRT$[span_13](start_span)[span_13](end_span)</p>
                   </div>
                 </div>
 
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>สมดุลเคมี, กรด-เบส & อินทรีย์</div>
+                    <div>สมดุลเคมี, กรด-เบส & อินทรีย์[span_14](start_span)[span_14](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• ค่าคงที่สมดุล[span_26](start_span)[span_26](end_span): $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_27](start_span)[span_27](end_span)</p>
-                    <p>• กรด-เบส[span_28](start_span)[span_28](end_span): $pH = -\log[H_3O^+]$[span_29](start_span)[span_29](end_span), บัฟเฟอร์ $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรดอ่อน}]}$[span_30](start_span)[span_30](end_span)</p>
+                    <p>• ค่าคงที่สมดุล: $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_15](start_span)[span_15](end_span)</p>
+                    <p>• กรด-เบส: $pH = -\log[H_3O^+]$, บัฟเฟอร์ $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรดอ่อน}]}$[span_16](start_span)[span_16](end_span)</p>
                   </div>
                 </div>
               </div>
@@ -542,27 +543,27 @@
 
             <!-- Biology Section -->
             <div id="subj-bio" class="subject-section hidden space-y-3">
-              <div class="text-xs sm:text-sm font-bold text-crust">ชีววิทยา ม.ปลาย[span_31](start_span)[span_31](end_span)</div>
+              <div class="text-xs sm:text-sm font-bold text-crust">ชีววิทยา ม.ปลาย</div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>อนุกรมวิธาน & อาณาจักรสิ่งมีชีวิต</div>
+                    <div>อนุกรมวิธาน & อาณาจักรสิ่งมีชีวิต[span_17](start_span)[span_17](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• ลำดับการจัดหมวดหมู่[span_32](start_span)[span_32](end_span): Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_33](start_span)[span_33](end_span)</p>
-                    <p>• Monera (แบคทีเรียแกรมบวก/ลบ)[span_34](start_span)[span_34](end_span) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_35](start_span)[span_35](end_span)</p>
+                    <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_18](start_span)[span_18](end_span)</p>
+                    <p>• Monera (แบคทีเรียแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_19](start_span)[span_19](end_span)</p>
                   </div>
                 </div>
 
                 <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
                   <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                    <div>การสังเคราะห์ด้วยแสง & สรีรวิทยา</div>
+                    <div>การสังเคราะห์ด้วยแสง & สรีรวิทยา[span_20](start_span)[span_20](end_span)</div>
                     <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                   </div>
                   <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                    <p>• ปฏิกิริยาแสง (Light Reaction) ในไทลาคอยด์สร้าง ATP, NADPH[span_36](start_span)[span_36](end_span)</p>
-                    <p>• วัฏจักรคัลวิน (Calvin Cycle) ในสโตรมาตรึงคาร์บอนไดออกไซด์เป็นน้ำตาล[span_37](start_span)[span_37](end_span)</p>
+                    <p>• ปฏิกิริยาแสง (Light Reaction) ในไทลาคอยด์สร้าง ATP, NADPH[span_21](start_span)[span_21](end_span)</p>
+                    <p>• วัฏจักรคัลวิน (Calvin Cycle) ในสโตรมาตรึงคาร์บอนไดออกไซด์เป็นน้ำตาล[span_22](start_span)[span_22](end_span)</p>
                   </div>
                 </div>
               </div>
@@ -592,7 +593,7 @@
             <button class="deck-filter-chip px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('bio', this)">ชีวะ</button>
           </div>
 
-          <!-- 3D Flashcard -->
+          <!-- 3D Flashcard Container -->
           <div class="perspective-1000 h-64 sm:h-72 my-2 select-none cursor-pointer" onclick="flipCard()">
             <div id="flashCard" class="w-full h-full relative transform-style-3d transition-transform duration-500">
               <!-- Front -->
@@ -617,7 +618,7 @@
             </div>
           </div>
 
-          <!-- Card Controls -->
+          <!-- Controls -->
           <div class="flex gap-3 mt-4">
             <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs sm:text-sm font-semibold hover:bg-cream-400 transition flex items-center justify-center gap-1" onclick="prevCard()">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -683,7 +684,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">G</div>
                   <div>
                     <div class="text-xs sm:text-sm font-bold text-crust-dark flex items-center gap-1.5">Graine <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
-                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_38](start_span)[span_38](end_span)</p>
+                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_23](start_span)[span_23](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -701,7 +702,7 @@
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">B</div>
                   <div>
                     <div class="text-xs sm:text-sm font-bold text-crust-dark flex items-center gap-1.5">Butter <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
-                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_39](start_span)[span_39](end_span)</p>
+                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_24](start_span)[span_24](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
@@ -720,7 +721,7 @@
 
     </main>
 
-    <!-- PDF Reader Modal -->
+    <!-- Interactive PDF Reader Modal -->
     <div id="pdfModal" class="hidden fixed inset-0 bg-[#2B1D0F]/75 z-50 justify-center items-center p-3 sm:p-5">
       <div class="w-full max-w-xl md:max-w-2xl h-[86vh] bg-cream-50 rounded-3xl p-4 sm:p-6 flex flex-col shadow-2xl border border-white/60">
         
@@ -743,7 +744,7 @@
       </div>
     </div>
 
-    <!-- Mobile Bottom Navigation Bar (Hidden on Tablet / iPad / Desktop) -->
+    <!-- Mobile Bottom Navigation Bar -->
     <nav class="md:hidden shrink-0 bg-cream-50 border-t-2 border-cream-300 flex justify-around items-center pt-2 pb-[calc(env(safe-area-inset-bottom,8px)+6px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
       <button class="nav-btn active flex-1 flex flex-col items-center gap-0.5 text-crust-dark text-[11px] font-semibold" onclick="switchTab('screen-home', this)">
         <svg class="w-5 h-5 -translate-y-0.5 scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -1074,7 +1075,7 @@
       }
     }
 
-    /* Tab Switcher: 100% stable with screen styles */
+    /* Tab Switcher */
     function switchTab(screenId, btnElement) {
       document.querySelectorAll('.screen').forEach(s => {
         s.style.display = 'none';
@@ -1251,7 +1252,7 @@
       document.getElementById('pdfModalTitle').innerText = fileName;
       document.getElementById('pdfContentInject').innerHTML = `
         <div class="w-full h-full flex flex-col items-center">
-          <iframe src="${fileURL}" class="w-full h-[58vh] rounded-xl border border-cream-300"></iframe>
+          <iframe src="${fileURL}#toolbar=0" class="w-full h-[62vh] rounded-xl border border-cream-300"></iframe>
         </div>
       `;
       const modal = document.getElementById('pdfModal');
@@ -1456,6 +1457,7 @@
       showToast("สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
     }
 
+    /* Accordion Logic */
     function toggleTopic(header) {
       const content = header.nextElementSibling;
       content.classList.toggle('hidden');
