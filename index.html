@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Breadie - AI Smart Study & Notes</title>
+  <title>Breadie - Smart Study & Fullscreen Notebook</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- Google Fonts: Kanit & Prompt -->
+  <!-- Google Fonts: Kanit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- jsPDF for PDF Export -->
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
@@ -21,209 +21,362 @@
       touch-action: pan-x pan-y;
       -webkit-tap-highlight-color: transparent;
     }
+    /* Paper Patterns */
     .paper-grid {
       background-size: 24px 24px;
       background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    }
+    .paper-lined {
+      background-size: 100% 28px;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    }
+    .paper-dot {
+      background-size: 20px 20px;
+      background-image: radial-gradient(circle, rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+    }
+    .paper-blank {
+      background-image: none;
     }
     #note-canvas {
       touch-action: none;
       cursor: crosshair;
     }
-    /* Custom Scrollbar */
+    /* Smooth Scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     ::-webkit-scrollbar-track {
-      background: #fdf6ec;
+      background: #faf6f0;
     }
     ::-webkit-scrollbar-thumb {
       background: #d4a373;
-      border-radius: 4px;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body class="bg-[#FFFDF9] text-amber-950 flex flex-col h-screen overflow-hidden select-none">
 
-  <!-- TOP NAVIGATION BAR -->
-  <header class="h-16 bg-white border-b border-amber-100 px-4 sm:px-6 flex items-center justify-between shadow-sm z-30 shrink-0">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center shadow-inner text-2xl">
+  <!-- TOP APP BAR -->
+  <header class="h-14 bg-white border-b border-amber-100 px-3 sm:px-6 flex items-center justify-between shadow-xs z-30 shrink-0">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+      <div class="w-9 h-9 bg-amber-400 rounded-xl flex items-center justify-center text-xl shadow-inner">
         🍞
       </div>
       <div>
-        <h1 class="font-bold text-lg leading-tight text-amber-900">Breadie</h1>
-        <p class="text-xs text-amber-600">AI Note & Study Companion</p>
+        <h1 class="font-bold text-base leading-tight text-amber-900">Breadie</h1>
+        <p class="text-[10px] text-amber-600 font-medium">Smart Study Notebook</p>
       </div>
     </div>
 
     <!-- Navigation Tabs -->
-    <nav class="flex bg-amber-50 p-1 rounded-xl border border-amber-200/60">
-      <button onclick="switchTab('study')" id="tab-btn-study" class="px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition bg-amber-500 text-white shadow-sm flex items-center gap-1.5">
-        <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">ห้องเรียน & จดสรุป</span>
+    <nav class="flex bg-amber-50/80 p-1 rounded-xl border border-amber-200/60 text-xs font-semibold">
+      <button onclick="switchTab('home')" id="tab-btn-home" class="px-3 py-1.5 rounded-lg transition bg-amber-500 text-white shadow-xs flex items-center gap-1.5">
+        <i class="fa-solid fa-house"></i> <span class="hidden sm:inline">หน้าหลัก</span>
       </button>
-      <button onclick="switchTab('wardrobe')" id="tab-btn-wardrobe" class="px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5">
+      <button onclick="switchTab('notebook')" id="tab-btn-notebook" class="px-3 py-1.5 rounded-lg transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5">
+        <i class="fa-solid fa-pen-nib"></i> <span class="hidden sm:inline">สมุดโน้ต</span>
+      </button>
+      <button onclick="switchTab('wardrobe')" id="tab-btn-wardrobe" class="px-3 py-1.5 rounded-lg transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5">
         <i class="fa-solid fa-shirt"></i> <span class="hidden sm:inline">แต่งตัว Breadie</span>
       </button>
-      <button onclick="switchTab('friends')" id="tab-btn-friends" class="px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5">
-        <i class="fa-solid fa-users"></i> <span class="hidden sm:inline">เพื่อน & คอมมูนิตี้</span>
+      <button onclick="switchTab('friends')" id="tab-btn-friends" class="px-3 py-1.5 rounded-lg transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5">
+        <i class="fa-solid fa-users"></i> <span class="hidden sm:inline">คอมมูนิตี้</span>
       </button>
     </nav>
 
-    <!-- Point Wallet -->
-    <div class="flex items-center gap-2 bg-amber-100/70 border border-amber-300 px-3 py-1.5 rounded-full">
-      <span class="text-base">✨</span>
-      <span id="user-points" class="font-bold text-amber-900 text-sm sm:text-base">150</span>
-      <span class="text-xs text-amber-700 font-medium">Crumb</span>
+    <!-- Point Display -->
+    <div class="flex items-center gap-2 bg-amber-100/80 border border-amber-300 px-3 py-1 rounded-full">
+      <span class="text-sm">✨</span>
+      <span id="user-points" class="font-bold text-amber-900 text-sm">250</span>
+      <span class="text-[11px] text-amber-700 font-medium">CP</span>
     </div>
   </header>
 
-  <!-- MAIN VIEWPORT CONTAINER -->
+  <!-- MAIN APP CONTAINER -->
   <main class="flex-1 overflow-hidden relative">
 
-    <!-- VIEW 1: STUDY & NOTE ENGINE (Split-Screen for iPad / Responsive) -->
-    <div id="view-study" class="h-full flex flex-col md:flex-row">
-      
-      <!-- LEFT PANEL: Content Reader & AI Assistant -->
-      <section class="w-full md:w-1/2 lg:w-5/12 h-1/2 md:h-full border-r border-amber-100 bg-[#FFFDF9] flex flex-col z-10 shadow-sm">
+    <!-- VIEW 1: HOME DASHBOARD -->
+    <div id="view-home" class="h-full overflow-y-auto p-4 sm:p-8 bg-[#FFF8EE]">
+      <div class="max-w-5xl mx-auto flex flex-col gap-6">
         
-        <!-- Subject Pills Selector -->
-        <div class="p-3 border-b border-amber-100 bg-amber-50/50 flex gap-2 overflow-x-auto shrink-0">
-          <button onclick="selectSubject('math')" id="subj-math" class="subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-white shadow-sm flex items-center gap-1.5 shrink-0">
-            📐 คณิตศาสตร์
-          </button>
-          <button onclick="selectSubject('physics')" id="subj-physics" class="subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-amber-200 text-amber-800 hover:bg-amber-100 shrink-0">
-            ⚡ ฟิสิกส์
-          </button>
-          <button onclick="selectSubject('chem')" id="subj-chem" class="subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-amber-200 text-amber-800 hover:bg-amber-100 shrink-0">
-            🧪 เคมี
-          </button>
-          <button onclick="selectSubject('bio')" id="subj-bio" class="subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-amber-200 text-amber-800 hover:bg-amber-100 shrink-0">
-            🌿 ชีววิทยา
-          </button>
-        </div>
-
-        <!-- Chapter Select Dropdown -->
-        <div class="px-4 py-2 bg-white border-b border-amber-100 flex items-center justify-between shrink-0">
-          <span class="text-xs font-medium text-amber-700">เลือกบทเรียน:</span>
-          <select id="chapter-select" onchange="loadChapterContent()" class="text-xs sm:text-sm font-medium bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1 text-amber-900 focus:outline-none focus:ring-1 focus:ring-amber-400">
-            <!-- Populated via JS -->
-          </select>
-        </div>
-
-        <!-- Scrollable Article Reader -->
-        <div id="reader-content" class="flex-1 p-4 sm:p-6 overflow-y-auto text-sm sm:text-base leading-relaxed text-amber-950">
-          <!-- Article text injected by JS -->
-        </div>
-
-        <!-- Breadie AI Assistant Drawer / Card -->
-        <div class="p-3 bg-amber-100/40 border-t border-amber-200 shrink-0">
-          <div class="bg-white rounded-xl p-3 border border-amber-200 shadow-sm flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🍞</span>
-                <span class="text-xs font-bold text-amber-900">Breadie AI Assistant</span>
-              </div>
-              <button onclick="triggerAISummary()" class="text-xs bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-lg font-medium transition flex items-center gap-1 shadow-sm">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> สรุปคีย์สำคัญให้อัตโนมัติ
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-r from-amber-400 via-orange-300 to-amber-300 rounded-3xl p-6 sm:p-8 text-amber-950 shadow-md relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="z-10 text-center sm:text-left">
+            <span class="bg-white/80 text-amber-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+              Daily Goal: ขยันวันละนิด 🍞
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-amber-950">ยินดีต้อนรับสู่ Breadie!</h2>
+            <p class="text-xs sm:text-sm text-amber-900/80 mt-1 max-w-md">
+              เลือกอ่านบทเรียนวิทยาศาสตร์-คณิตศาสตร์ แล้วเปิดสมุดโน้ตจดสรุปด้วยตนเองเพื่อสะสมแต้มแต่งตัวให้น้องขนมปัง
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
+              <button onclick="openSubjectFromHome('math', 0)" class="bg-amber-950 text-amber-100 hover:bg-black px-4 py-2 rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                <i class="fa-solid fa-play"></i> เริ่มสรุปบทล่าสุด
+              </button>
+              <button onclick="switchTab('notebook')" class="bg-white text-amber-900 hover:bg-amber-50 px-4 py-2 rounded-xl text-xs font-bold shadow transition">
+                เปิดสมุดโน้ตเปล่า
               </button>
             </div>
-            <div id="ai-response" class="text-xs text-amber-800 bg-amber-50 p-2.5 rounded-lg border border-amber-100 leading-normal max-h-24 overflow-y-auto">
-              สวัสดีครับ! ผมคือ Breadie 🍞 หากอ่านเนื้อหาแล้วสงสัยตรงไหน หรืออยากให้สรุปประเด็นสำหรับจดลงสมุด กดปุ่มด้านบนได้เลยนะ!
+          </div>
+
+          <div class="w-32 h-32 sm:w-40 sm:h-40 bg-white/40 rounded-full flex items-center justify-center p-3 backdrop-blur-xs border border-white/50 shrink-0">
+            <span class="text-6xl sm:text-7xl animate-bounce">🍞</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-lg"><i class="fa-solid fa-fire"></i></div>
+            <div>
+              <p class="text-[11px] text-amber-700">Streak การเรียน</p>
+              <p class="text-base font-bold text-amber-950">5 วันติด</p>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg"><i class="fa-solid fa-book-bookmark"></i></div>
+            <div>
+              <p class="text-[11px] text-amber-700">สรุปที่ทำเสร็จ</p>
+              <p class="text-base font-bold text-amber-950">12 บท</p>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg"><i class="fa-solid fa-star"></i></div>
+            <div>
+              <p class="text-[11px] text-amber-700">Crumb สะสม</p>
+              <p class="text-base font-bold text-amber-950">250 CP</p>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg"><i class="fa-solid fa-trophy"></i></div>
+            <div>
+              <p class="text-[11px] text-amber-700">ระดับขนมปัง</p>
+              <p class="text-base font-bold text-amber-950">Golden Toast</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- RIGHT PANEL: Canvas Studio (Goodnotes Style) -->
-      <section class="w-full md:w-1/2 lg:w-7/12 h-1/2 md:h-full flex flex-col bg-stone-100 relative">
-        
-        <!-- Canvas Floating / Top Toolbar -->
-        <div class="h-12 bg-white border-b border-amber-200 px-3 flex items-center justify-between gap-1 shadow-sm z-20 shrink-0 overflow-x-auto">
-          
-          <!-- Tool Selection -->
-          <div class="flex items-center gap-1">
-            <button onclick="setTool('pen')" id="tool-pen" class="tool-btn w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-sm shadow-sm" title="ปากกา">
-              <i class="fa-solid fa-pen"></i>
-            </button>
-            <button onclick="setTool('highlighter')" id="tool-highlighter" class="tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-sm" title="ไฮไลต์">
-              <i class="fa-solid fa-highlighter"></i>
-            </button>
-            <button onclick="setTool('eraser')" id="tool-eraser" class="tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-sm" title="ยางลบ">
-              <i class="fa-solid fa-eraser"></i>
-            </button>
+        <!-- Course Category Grid -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-base text-amber-950">คลังวิชาบทเรียน (เลือกเพื่อเริ่มอ่าน & สรุป)</h3>
+            <span class="text-xs text-amber-700 font-medium">16 บทเรียนเข้มข้น</span>
           </div>
 
-          <div class="h-5 w-[1px] bg-stone-200 mx-1"></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Math -->
+            <div class="bg-white rounded-2xl border-2 border-amber-200 p-4 shadow-xs hover:border-amber-400 transition flex flex-col justify-between gap-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">📐</span>
+                  <span class="text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">4 บทเรียน</span>
+                </div>
+                <h4 class="font-bold text-amber-900 text-sm">คณิตศาสตร์ (Mathematics)</h4>
+                <p class="text-[11px] text-amber-700 mt-1">แคลคูลัส, ตรีโกณมิติ, เมทริกซ์, เวกเตอร์ 3 มิติ</p>
+              </div>
+              <button onclick="openSubjectFromHome('math', 0)" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-right"></i> เข้าสู่บทเรียน
+              </button>
+            </div>
 
-          <!-- Color Palette -->
-          <div class="flex items-center gap-1">
-            <button onclick="setColor('#292524')" class="w-5 h-5 rounded-full bg-stone-900 border-2 border-white shadow-sm focus:scale-125 transition"></button>
-            <button onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-sm focus:scale-125 transition"></button>
-            <button onclick="setColor('#dc2626')" class="w-5 h-5 rounded-full bg-red-600 border-2 border-white shadow-sm focus:scale-125 transition"></button>
-            <button onclick="setColor('#16a34a')" class="w-5 h-5 rounded-full bg-green-600 border-2 border-white shadow-sm focus:scale-125 transition"></button>
-            <button onclick="setColor('#eab308')" class="w-5 h-5 rounded-full bg-yellow-500 border-2 border-white shadow-sm focus:scale-125 transition"></button>
-          </div>
+            <!-- Physics -->
+            <div class="bg-white rounded-2xl border-2 border-amber-200 p-4 shadow-xs hover:border-amber-400 transition flex flex-col justify-between gap-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">⚡</span>
+                  <span class="text-[10px] font-bold bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">4 บทเรียน</span>
+                </div>
+                <h4 class="font-bold text-amber-900 text-sm">ฟิสิกส์ (Physics)</h4>
+                <p class="text-[11px] text-amber-700 mt-1">กลศาสตร์, งานพลังงาน, ไฟฟ้า-แม่เหล็ก, คลื่นแสง</p>
+              </div>
+              <button onclick="openSubjectFromHome('physics', 0)" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-right"></i> เข้าสู่บทเรียน
+              </button>
+            </div>
 
-          <div class="h-5 w-[1px] bg-stone-200 mx-1"></div>
+            <!-- Chem -->
+            <div class="bg-white rounded-2xl border-2 border-amber-200 p-4 shadow-xs hover:border-amber-400 transition flex flex-col justify-between gap-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">🧪</span>
+                  <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">4 บทเรียน</span>
+                </div>
+                <h4 class="font-bold text-amber-900 text-sm">เคมี (Chemistry)</h4>
+                <p class="text-[11px] text-amber-700 mt-1">ปริมาณสารสัมพันธ์, กรด-เบส, ตารางธาตุ, เคมีอินทรีย์</p>
+              </div>
+              <button onclick="openSubjectFromHome('chem', 0)" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-right"></i> เข้าสู่บทเรียน
+              </button>
+            </div>
 
-          <!-- Actions -->
-          <div class="flex items-center gap-1.5">
-            <button onclick="undoLastStroke()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center text-xs" title="ย้อนกลับ">
-              <i class="fa-solid fa-rotate-left"></i>
-            </button>
-            <button onclick="clearCanvas()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-red-50 text-red-600 flex items-center justify-center text-xs" title="ล้างหน้ากระดาษ">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <button onclick="exportNotePDF()" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-900 text-white text-xs font-medium flex items-center gap-1" title="Export เป็น PDF">
-              <i class="fa-solid fa-file-pdf"></i> <span class="hidden lg:inline">Export PDF</span>
-            </button>
-            <button onclick="completeSummaryTask()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-sm" title="บันทึกและรับแต้ม">
-              <i class="fa-solid fa-check"></i> <span>เสร็จสิ้น (+50 CP)</span>
-            </button>
+            <!-- Bio -->
+            <div class="bg-white rounded-2xl border-2 border-amber-200 p-4 shadow-xs hover:border-amber-400 transition flex flex-col justify-between gap-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-2xl">🌿</span>
+                  <span class="text-[10px] font-bold bg-green-100 text-green-800 px-2 py-0.5 rounded-full">4 บทเรียน</span>
+                </div>
+                <h4 class="font-bold text-amber-900 text-sm">ชีววิทยา (Biology)</h4>
+                <p class="text-[11px] text-amber-700 mt-1">เซลล์, สังเคราะห์แสง/หายใจ, พันธุศาสตร์, ระบบภูมิคุ้มกัน</p>
+              </div>
+              <button onclick="openSubjectFromHome('bio', 0)" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-right"></i> เข้าสู่บทเรียน
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Drawing Canvas Area -->
-        <div id="canvas-container" class="flex-1 w-full h-full relative overflow-hidden paper-grid bg-[#FFFDFB]">
-          <canvas id="note-canvas" class="w-full h-full block"></canvas>
-        </div>
-      </section>
+      </div>
     </div>
 
-    <!-- VIEW 2: BREADIE WARDROBE (Gamification / Avatar Dressing) -->
-    <div id="view-wardrobe" class="h-full hidden p-4 sm:p-8 bg-[#FFF8EE] overflow-y-auto">
-      <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 justify-center min-h-[80%]">
+    <!-- VIEW 2: NOTEBOOK & STUDY STUDIO (With Swap & Open/Close Feature) -->
+    <div id="view-notebook" class="h-full hidden flex flex-col relative">
+
+      <!-- Top Studio Toolbar -->
+      <div class="h-12 bg-white/95 backdrop-blur-md border-b border-amber-200 px-3 sm:px-4 flex items-center justify-between gap-2 shadow-xs z-20 shrink-0 overflow-x-auto">
         
-        <!-- Breadie Mascot Avatar Stage -->
-        <div class="w-full md:w-1/2 flex flex-col items-center bg-white p-6 rounded-3xl border-2 border-amber-200 shadow-sm">
-          <h2 class="text-lg font-bold text-amber-900 mb-2">ตู้เสื้อผ้าของ Breadie 🍞</h2>
-          <p class="text-xs text-amber-600 mb-6">ใช้ Crumb Points ที่ได้จากการจดสรุปมาแต่งตัวให้น้องขนมปัง</p>
+        <!-- Drawing Tools & Colors -->
+        <div class="flex items-center gap-1">
+          <button onclick="setTool('pen')" id="tool-pen" class="tool-btn w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs shadow-xs" title="ปากกา">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button onclick="setTool('highlighter')" id="tool-highlighter" class="tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-xs" title="ปากกาเน้นข้อความ">
+            <i class="fa-solid fa-highlighter"></i>
+          </button>
+          <button onclick="setTool('eraser')" id="tool-eraser" class="tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-xs" title="ยางลบ">
+            <i class="fa-solid fa-eraser"></i>
+          </button>
           
-          <div class="w-64 h-64 relative flex items-center justify-center bg-amber-50/60 rounded-2xl border border-amber-100 p-4">
-            <!-- Dynamic SVG Breadie Mascot -->
+          <div class="h-5 w-[1px] bg-stone-200 mx-1"></div>
+
+          <button onclick="setColor('#1c1917')" class="w-5 h-5 rounded-full bg-stone-900 border-2 border-white shadow-xs focus:scale-125 transition"></button>
+          <button onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-blue-600 border-2 border-white shadow-xs focus:scale-125 transition"></button>
+          <button onclick="setColor('#dc2626')" class="w-5 h-5 rounded-full bg-red-600 border-2 border-white shadow-xs focus:scale-125 transition"></button>
+          <button onclick="setColor('#16a34a')" class="w-5 h-5 rounded-full bg-green-600 border-2 border-white shadow-xs focus:scale-125 transition"></button>
+          <button onclick="setColor('#eab308')" class="w-5 h-5 rounded-full bg-yellow-500 border-2 border-white shadow-xs focus:scale-125 transition"></button>
+        </div>
+
+        <!-- Center Paper Selector -->
+        <div class="hidden lg:flex items-center gap-1 bg-stone-100 p-1 rounded-lg border border-stone-200 text-xs">
+          <button onclick="setPaperStyle('grid')" id="paper-btn-grid" class="px-2 py-0.5 rounded bg-white font-bold text-amber-900 shadow-xs">ตาราง</button>
+          <button onclick="setPaperStyle('lined')" id="paper-btn-lined" class="px-2 py-0.5 rounded text-stone-600">บรรทัด</button>
+          <button onclick="setPaperStyle('dot')" id="paper-btn-dot" class="px-2 py-0.5 rounded text-stone-600">จุด</button>
+          <button onclick="setPaperStyle('blank')" id="paper-btn-blank" class="px-2 py-0.5 rounded text-stone-600">ว่าง</button>
+        </div>
+
+        <!-- Actions: Swap, Toggle Reader, Undo, PDF, Complete -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          
+          <!-- NEW: Swap Left/Right Button -->
+          <button onclick="toggleSideSwap()" id="btn-swap-sides" class="px-2.5 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-semibold flex items-center gap-1.5 transition" title="สลับฝั่งซ้าย-ขวา">
+            <i class="fa-solid fa-right-left text-amber-700"></i> <span class="hidden sm:inline">สลับฝั่ง</span>
+          </button>
+
+          <!-- NEW: Open/Close Reader Toggle Button -->
+          <button onclick="toggleReaderOpen()" id="btn-toggle-reader" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition" title="เปิด/ปิดแถบเนื้อหา">
+            <i class="fa-solid fa-book-open"></i> <span id="reader-toggle-label">ซ่อนเนื้อหา</span>
+          </button>
+
+          <div class="h-5 w-[1px] bg-stone-200 mx-0.5"></div>
+
+          <button onclick="undoLastStroke()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center text-xs" title="ย้อนกลับ">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+          <button onclick="clearCanvas()" class="w-8 h-8 rounded-lg bg-stone-100 hover:bg-red-50 text-red-600 flex items-center justify-center text-xs" title="ล้างหน้า">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <button onclick="exportNotePDF()" class="px-2.5 py-1.5 rounded-lg bg-stone-900 hover:bg-black text-white text-xs font-medium flex items-center gap-1 shadow-xs">
+            <i class="fa-solid fa-file-pdf text-red-400"></i> <span class="hidden md:inline">PDF</span>
+          </button>
+          <button onclick="completeSummaryTask()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs">
+            <i class="fa-solid fa-check"></i> <span class="hidden md:inline">บันทึก</span> (+50 CP)
+          </button>
+        </div>
+      </div>
+
+      <!-- WORKSPACE CONTAINER (Supports Swapping & Toggle) -->
+      <div id="workspace-container" class="flex-1 flex flex-row overflow-hidden relative">
+        
+        <!-- 1. READING CONTENT PANEL -->
+        <aside id="reader-panel" class="w-full md:w-5/12 lg:w-4/12 h-full bg-[#FFFDF9] border-r border-amber-200 shadow-sm flex flex-col shrink-0 transition-all duration-300">
+          
+          <!-- Reader Header with Quick Close -->
+          <div class="h-11 border-b border-amber-100 px-3 bg-amber-50/80 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">📚</span>
+              <span class="text-xs font-bold text-amber-950">เนื้อหาบทเรียน</span>
+            </div>
+            <button onclick="toggleReaderOpen()" class="w-7 h-7 rounded-lg bg-white border border-amber-200 text-amber-800 flex items-center justify-center text-xs hover:bg-amber-100" title="ปิดแถบเนื้อหา">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Subject Ribbon -->
+          <div class="p-2 border-b border-amber-100 bg-white flex gap-1.5 overflow-x-auto shrink-0">
+            <button onclick="selectSubject('math')" id="subj-math" class="subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500 text-white shadow-xs shrink-0">
+              📐 คณิต
+            </button>
+            <button onclick="selectSubject('physics')" id="subj-physics" class="subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-50 border border-amber-200 text-amber-900 shrink-0">
+              ⚡ ฟิสิกส์
+            </button>
+            <button onclick="selectSubject('chem')" id="subj-chem" class="subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-50 border border-amber-200 text-amber-900 shrink-0">
+              🧪 เคมี
+            </button>
+            <button onclick="selectSubject('bio')" id="subj-bio" class="subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-50 border border-amber-200 text-amber-900 shrink-0">
+              🌿 ชีวะ
+            </button>
+          </div>
+
+          <!-- Chapter Select -->
+          <div class="px-3 py-2 bg-amber-50/40 border-b border-amber-100 flex items-center justify-between shrink-0">
+            <span class="text-xs font-medium text-amber-800">เลือกบท:</span>
+            <select id="chapter-select" onchange="loadChapterContent()" class="text-xs font-medium bg-white border border-amber-200 rounded-lg px-2 py-1 text-amber-950 focus:outline-none max-w-[240px]">
+              <!-- JS Injected -->
+            </select>
+          </div>
+
+          <!-- Scrollable Article Reader -->
+          <div id="reader-content" class="flex-1 p-4 overflow-y-auto text-xs sm:text-sm leading-relaxed text-stone-800">
+            <!-- Content Injected -->
+          </div>
+        </aside>
+
+        <!-- 2. NOTEBOOK CANVAS PANEL -->
+        <section id="canvas-panel" class="flex-1 h-full flex flex-col bg-stone-200 relative overflow-hidden">
+          <div id="canvas-container" class="flex-1 w-full h-full relative overflow-hidden paper-grid bg-[#FFFDFB]">
+            <canvas id="note-canvas" class="w-full h-full block"></canvas>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- VIEW 3: BREADIE WARDROBE -->
+    <div id="view-wardrobe" class="h-full hidden p-4 sm:p-8 bg-[#FFF8EE] overflow-y-auto">
+      <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 justify-center min-h-[85%]">
+        
+        <div class="w-full md:w-1/2 flex flex-col items-center bg-white p-6 rounded-3xl border-2 border-amber-200 shadow-xs">
+          <h2 class="text-lg font-bold text-amber-900 mb-1">ตู้เสื้อผ้า Breadie 🍞</h2>
+          <p class="text-xs text-amber-600 mb-5">นำ Crumb Points ที่ได้จากการจดสรุปมาปลดล็อกชุด</p>
+          
+          <div class="w-64 h-64 relative flex items-center justify-center bg-amber-50/70 rounded-2xl border border-amber-100 p-4">
             <svg id="breadie-avatar" viewBox="0 0 200 200" class="w-52 h-52 drop-shadow-md">
-              <!-- Toast Body Base -->
               <path d="M 40 70 C 40 35, 75 30, 100 35 C 125 30, 160 35, 160 70 C 165 120, 155 165, 140 170 C 100 175, 60 170, 45 165 C 35 140, 35 100, 40 70 Z" fill="#E6A862" stroke="#9C5A20" stroke-width="5" />
-              <!-- Bread Crust Inner -->
               <path d="M 50 72 C 50 45, 78 42, 100 45 C 122 42, 150 45, 150 72 C 153 115, 145 155, 133 158 C 100 162, 65 158, 55 155 C 47 135, 46 100, 50 72 Z" fill="#FFE2B0" />
-              
-              <!-- Cute Face (Eyes & Mouth & Blush) -->
               <circle cx="80" cy="95" r="5" fill="#542C0A" />
               <circle cx="120" cy="95" r="5" fill="#542C0A" />
               <ellipse cx="73" cy="104" rx="6" ry="3" fill="#FF9E9E" />
               <ellipse cx="127" cy="104" rx="6" ry="3" fill="#FF9E9E" />
               <path d="M 94 105 Q 100 112 106 105" fill="none" stroke="#542C0A" stroke-width="3" stroke-linecap="round" />
 
-              <!-- ITEM LAYER: Butter (Top) -->
+              <!-- Items -->
               <g id="layer-butter" class="hidden">
                 <rect x="85" y="65" width="30" height="20" rx="3" fill="#FFF066" stroke="#D4B012" stroke-width="2" />
-                <path d="M 85 85 Q 92 100 95 90" fill="#FFF066" />
+                <path d="M 85 85 Q 92 98 95 89" fill="#FFF066" />
               </g>
-
-              <!-- ITEM LAYER: Nerd Glasses -->
               <g id="layer-glasses" class="hidden">
                 <circle cx="80" cy="95" r="14" fill="none" stroke="#1E293B" stroke-width="3.5" />
                 <circle cx="120" cy="95" r="14" fill="none" stroke="#1E293B" stroke-width="3.5" />
@@ -231,89 +384,86 @@
                 <line x1="66" y1="95" x2="52" y2="90" stroke="#1E293B" stroke-width="3" />
                 <line x1="134" y1="95" x2="148" y2="90" stroke="#1E293B" stroke-width="3" />
               </g>
-
-              <!-- ITEM LAYER: Chef Hat -->
               <g id="layer-chefhat" class="hidden">
                 <path d="M 70 42 C 60 15, 140 15, 130 42 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3" />
                 <rect x="72" y="38" width="56" height="10" rx="2" fill="#FFFFFF" stroke="#94A3B8" stroke-width="2" />
               </g>
-
-              <!-- ITEM LAYER: Lab Coat / Scientist -->
               <g id="layer-labcoat" class="hidden">
                 <path d="M 50 135 L 75 160 L 55 165 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
                 <path d="M 150 135 L 125 160 L 145 165 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
                 <line x1="100" y1="130" x2="100" y2="160" stroke="#94A3B8" stroke-width="2" stroke-dasharray="2 2" />
                 <circle cx="100" cy="140" r="2" fill="#0284C7" />
               </g>
+              <g id="layer-crown" class="hidden">
+                <path d="M 75 42 L 82 25 L 100 35 L 118 25 L 125 42 Z" fill="#FBBF24" stroke="#B45309" stroke-width="2" />
+                <circle cx="100" cy="30" r="2" fill="#DC2626" />
+              </g>
             </svg>
           </div>
 
           <div class="mt-4 text-center">
-            <span class="inline-block bg-amber-200/80 text-amber-900 text-xs font-bold px-3 py-1 rounded-full">
-              ระดับความเกรียม: Golden Toast 🍞✨
+            <span class="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-300">
+              สถานะ: ขนมปังปิ้งเนยกรอบ 🍞✨
             </span>
           </div>
         </div>
 
-        <!-- Items Store & Inventory -->
         <div class="w-full md:w-1/2 flex flex-col gap-3">
-          <h3 class="font-bold text-amber-900 text-base">ร้านค้าไอเทมตกแต่ง</h3>
-          
+          <h3 class="font-bold text-amber-900 text-base">ร้านเบเกอรี่แฟชั่น</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- Item 1: Butter -->
-            <div class="bg-white p-3.5 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
-              <div class="flex items-center gap-3">
+            <div class="bg-white p-3 rounded-2xl border border-amber-200 shadow-xs flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">🧈</span>
                 <div>
-                  <h4 class="text-xs font-bold text-amber-950">ก้อนเนยละมุน</h4>
-                  <p class="text-[10px] text-amber-600">ราคา: 50 CP</p>
+                  <h4 class="text-xs font-bold text-amber-950">เนยสดแท้</h4>
+                  <p class="text-[10px] text-amber-600">50 CP</p>
                 </div>
               </div>
-              <button onclick="toggleItem('butter', 50)" id="btn-item-butter" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm transition">
-                ใส่
-              </button>
+              <button onclick="toggleItem('butter', 50)" id="btn-item-butter" class="px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs">ใส่</button>
             </div>
 
-            <!-- Item 2: Glasses -->
-            <div class="bg-white p-3.5 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
-              <div class="flex items-center gap-3">
+            <div class="bg-white p-3 rounded-2xl border border-amber-200 shadow-xs flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">👓</span>
                 <div>
-                  <h4 class="text-xs font-bold text-amber-950">แว่นตานักปราชญ์</h4>
-                  <p class="text-[10px] text-amber-600">ราคา: 100 CP</p>
+                  <h4 class="text-xs font-bold text-amber-950">แว่นเด็กเนิร์ด</h4>
+                  <p class="text-[10px] text-amber-600">100 CP</p>
                 </div>
               </div>
-              <button onclick="toggleItem('glasses', 100)" id="btn-item-glasses" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm transition">
-                ใส่
-              </button>
+              <button onclick="toggleItem('glasses', 100)" id="btn-item-glasses" class="px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs">ใส่</button>
             </div>
 
-            <!-- Item 3: Chef Hat -->
-            <div class="bg-white p-3.5 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
-              <div class="flex items-center gap-3">
+            <div class="bg-white p-3 rounded-2xl border border-amber-200 shadow-xs flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">👨‍🍳</span>
                 <div>
-                  <h4 class="text-xs font-bold text-amber-950">หมวกเชฟเบเกอรี่</h4>
-                  <p class="text-[10px] text-amber-600">ราคา: 120 CP</p>
+                  <h4 class="text-xs font-bold text-amber-950">หมวกเชฟโทสต์</h4>
+                  <p class="text-[10px] text-amber-600">120 CP</p>
                 </div>
               </div>
-              <button onclick="toggleItem('chefhat', 120)" id="btn-item-chefhat" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm transition">
-                ใส่
-              </button>
+              <button onclick="toggleItem('chefhat', 120)" id="btn-item-chefhat" class="px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs">ใส่</button>
             </div>
 
-            <!-- Item 4: Lab Coat -->
-            <div class="bg-white p-3.5 rounded-2xl border border-amber-200 shadow-sm flex items-center justify-between">
-              <div class="flex items-center gap-3">
+            <div class="bg-white p-3 rounded-2xl border border-amber-200 shadow-xs flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">🥼</span>
                 <div>
-                  <h4 class="text-xs font-bold text-amber-950">เสื้อกาวน์นักวิทย์</h4>
-                  <p class="text-[10px] text-amber-600">ราคา: 150 CP</p>
+                  <h4 class="text-xs font-bold text-amber-950">เสื้อกาวน์แล็บ</h4>
+                  <p class="text-[10px] text-amber-600">150 CP</p>
                 </div>
               </div>
-              <button onclick="toggleItem('labcoat', 150)" id="btn-item-labcoat" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm transition">
-                ใส่
-              </button>
+              <button onclick="toggleItem('labcoat', 150)" id="btn-item-labcoat" class="px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs">ใส่</button>
+            </div>
+
+            <div class="bg-white p-3 rounded-2xl border border-amber-200 shadow-xs flex items-center justify-between sm:col-span-2">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">👑</span>
+                <div>
+                  <h4 class="text-xs font-bold text-amber-950">มงกุฎราชาเบเกอรี่</h4>
+                  <p class="text-[10px] text-amber-600">200 CP</p>
+                </div>
+              </div>
+              <button onclick="toggleItem('crown', 200)" id="btn-item-crown" class="px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs">ใส่</button>
             </div>
           </div>
         </div>
@@ -321,273 +471,504 @@
       </div>
     </div>
 
-    <!-- VIEW 3: FRIEND HUB & COMMUNITY -->
+    <!-- VIEW 4: FRIEND HUB & COMMUNITY -->
     <div id="view-friends" class="h-full hidden p-4 sm:p-8 bg-[#FFF8EE] overflow-y-auto">
       <div class="max-w-4xl mx-auto flex flex-col gap-6">
-        
-        <!-- Add Friend Card -->
-        <div class="bg-white p-5 rounded-2xl border border-amber-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="bg-white p-5 rounded-3xl border border-amber-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h2 class="font-bold text-base text-amber-950">ค้นหาและเพิ่มเพื่อน</h2>
-            <p class="text-xs text-amber-600">แลกเปลี่ยนสรุปบทเรียนและส่องตู้โชว์น้องขนมปังของเพื่อนๆ</p>
+            <h2 class="font-bold text-base text-amber-950">แชร์และแลกเปลี่ยนโน้ตสรุป</h2>
+            <p class="text-xs text-amber-600">เพิ่มเพื่อนผ่าน Breadie ID เพื่อดูสมุดโน้ตของเพื่อน</p>
           </div>
           <div class="flex w-full sm:w-auto gap-2">
-            <input type="text" placeholder="กรอก Breadie ID..." class="bg-amber-50 border border-amber-200 text-xs sm:text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-1 focus:ring-amber-400 w-full sm:w-48" />
+            <input type="text" placeholder="พิมพ์ Breadie ID..." class="bg-amber-50 border border-amber-200 text-xs px-3 py-2 rounded-xl focus:outline-none w-full sm:w-48" />
             <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-xs font-bold shrink-0 transition">
               แอดเพื่อน
             </button>
           </div>
         </div>
 
-        <!-- Community Shared Notes Grid -->
         <div>
-          <h3 class="font-bold text-amber-900 text-sm mb-3">สรุปยอดนิยมจากเพื่อนๆ 🔥</h3>
+          <h3 class="font-bold text-amber-900 text-sm mb-3">สรุปยอดฮิตประจำสัปดาห์ 🌟</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
-            <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between gap-3">
+            <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex flex-col justify-between gap-3">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-amber-100 rounded-full flex items-center justify-center text-lg">🍞</div>
                   <div>
-                    <h4 class="text-xs font-bold text-amber-950">Panomkaew P.</h4>
-                    <p class="text-[10px] text-amber-600">สรุปฟิสิกส์: กฎของนิวตัน 3 ข้อ</p>
+                    <h4 class="text-xs font-bold text-amber-950">Taeng P.</h4>
+                    <p class="text-[10px] text-amber-600">คณิตศาสตร์: แคลคูลัส & เทคนิคดิฟผลคูณ</p>
                   </div>
                 </div>
-                <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-heart"></i> 42</span>
+                <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-heart"></i> 128</span>
               </div>
-              <p class="text-xs text-stone-600 line-clamp-2 bg-stone-50 p-2 rounded-lg border border-stone-100">
-                เน้นจำแนกแรงกิริยา-ปฏิกิริยา พร้อมแผนภาพ Free Body Diagram สำหรับเตรียมสอบกลางภาค
+              <p class="text-xs text-stone-600 bg-amber-50/50 p-2 rounded-lg border border-amber-100">
+                สรุปเทคนิคการใช้ Chain Rule และการหาจุดสูงสุดสัมพัทธ์ พร้อมตัวอย่างข้อสอบ A-Level
               </p>
-              <button onclick="alert('ดาวน์โหลดโน้ตสรุปเรียบร้อย!')" class="w-full py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-xl text-xs font-semibold transition">
-                <i class="fa-solid fa-download mr-1"></i> ดาวน์โหลดโน้ตเพื่อน
+              <button onclick="alert('ดาวน์โหลดโน้ตเพื่อนเข้าสมุดสำเร็จ!')" class="w-full py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-xl text-xs font-bold transition">
+                <i class="fa-solid fa-download mr-1"></i> โหลดสรุปเข้าสมุด
               </button>
             </div>
 
-            <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between gap-3">
+            <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-xs flex flex-col justify-between gap-3">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                   <div class="w-9 h-9 bg-amber-100 rounded-full flex items-center justify-center text-lg">🍞</div>
                   <div>
-                    <h4 class="text-xs font-bold text-amber-950">Thank P.</h4>
-                    <p class="text-[10px] text-amber-600">สรุปชีววิทยา: Cellular Respiration</p>
+                    <h4 class="text-xs font-bold text-amber-950">Pinyo K.</h4>
+                    <p class="text-[10px] text-amber-600">เคมี: กรด-เบส และสารละลายบัฟเฟอร์</p>
                   </div>
                 </div>
-                <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-heart"></i> 89</span>
+                <span class="text-xs text-amber-500 font-bold"><i class="fa-solid fa-heart"></i> 94</span>
               </div>
-              <p class="text-xs text-stone-600 line-clamp-2 bg-stone-50 p-2 rounded-lg border border-stone-100">
-                สรุปขั้นตอน Glycolysis, Krebs Cycle และ ETC คำนวณยอด ATP รวมแบบเข้าใจง่าย
+              <p class="text-xs text-stone-600 bg-amber-50/50 p-2 rounded-lg border border-amber-100">
+                วิธีแยกแยะกรดแก่-เบสแก่ และสูตรคำนวณ pH บัฟเฟอร์กรด-เบสแบบเข้าใจง่าย
               </p>
-              <button onclick="alert('ดาวน์โหลดโน้ตสรุปเรียบร้อย!')" class="w-full py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-xl text-xs font-semibold transition">
-                <i class="fa-solid fa-download mr-1"></i> ดาวน์โหลดโน้ตเพื่อน
+              <button onclick="alert('ดาวน์โหลดโน้ตเพื่อนเข้าสมุดสำเร็จ!')" class="w-full py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-xl text-xs font-bold transition">
+                <i class="fa-solid fa-download mr-1"></i> โหลดสรุปเข้าสมุด
               </button>
             </div>
 
           </div>
         </div>
-
       </div>
     </div>
 
   </main>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT ENGINE -->
   <script>
     /* ==========================================================
-       1. LESSON DATABASE (Math, Physics, Chemistry, Biology)
+       1. DATABASE (16 Deep Chapters)
        ========================================================== */
     const studyDatabase = {
       math: [
         {
-          id: "math_calc",
-          title: "บทที่ 1: แคลคูลัส (ลิมิต & อนุพันธ์)",
+          id: "m1",
+          title: "บทที่ 1: แคลคูลัส (Calculus)",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. ลิมิตและความต่อเนื่อง (Limits & Continuity)</h2>
-            <p class="mb-3 text-stone-700">ลิมิตของฟังก์ชัน $f(x)$ เมื่อ $x \\to a$ จะหาค่าได้ก็ต่อเมื่อลิมิตซ้ายและขวามีค่าเท่ากัน:</p>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono mb-3">
-              lim (x → a⁻) f(x) = lim (x → a⁺) f(x) = L
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. ลิมิตและความต่อเนื่อง (Limits & Continuity)</h3>
+                <p class="text-stone-700 leading-relaxed">ลิมิตของ f(x) เมื่อ x เข้าใกล้ a จะหาค่าได้ก็ต่อเมื่อลิมิตทางซ้ายและขวามีค่าเท่ากัน: lim (x→a⁻) f(x) = lim (x→a⁺) f(x) = L</p>
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 my-2 font-mono text-[11px] text-amber-950">
+                  เงื่อนไขความต่อเนื่องที่ x = a: <br/>
+                  1. f(a) หาค่าได้ <br/>
+                  2. lim (x→a) f(x) หาค่าได้ <br/>
+                  3. lim (x→a) f(x) = f(a)
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. สูตรการหาอนุพันธ์สำคัญ (Differentiation Rules)</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li><b>ดิฟผลคูณ:</b> (u · v)' = u'v + uv' (หน้าดิฟหลัง + หลังดิฟหน้า)</li>
+                  <li><b>ดิฟผลหาร:</b> (u / v)' = (u'v - uv') / v²</li>
+                  <li><b>กฎลูกโซ่ (Chain Rule):</b> dy/dx = (dy/du) · (du/dx)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">3. การอินทิเกรต (Integration)</h3>
+                <div class="bg-amber-50 p-2.5 rounded font-mono text-[11px] text-amber-950">
+                  อินทิกรัลไม่จำกัดเขต: ∫ xⁿ dx = (xⁿ⁺¹ / (n + 1)) + C (เมื่อ n ≠ -1)<br/>
+                  ทฤษฎีบทหลักมูล: ∫ [a ถึง b] f(x) dx = F(b) - F(a)
+                </div>
+              </div>
             </div>
-            
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. สูตรการหาอนุพันธ์สำคัญ (Differentiation Rules)</h2>
-            <ul class="list-disc list-inside space-y-1 text-stone-700 mb-3">
-              <li><b>กฎผลคูณ:</b> (u · v)' = u'v + uv'</li>
-              <li><b>กฎผลหาร:</b> (u / v)' = (u'v - uv') / v²</li>
-              <li><b>กฎลูกโซ่ (Chain Rule):</b> dy/dx = (dy/du) · (du/dx)</li>
-            </ul>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">3. การอินทิเกรต (Integration)</h2>
-            <p class="text-stone-700">∫ xⁿ dx = (xⁿ⁺¹ / n+1) + C (เมื่อ n ≠ -1)</p>
-          `,
-          summary: "📌 คีย์ลัดแคลคูลัส:\n1. ลิมิตมีค่า = ซ้ายเท่ากับขวา\n2. ดิฟผลคูณ: หน้าดิฟหลัง + หลังดิฟหน้า\n3. ดิฟผลหาร: (ล่างดิฟบน - บนดิฟล่าง) / ล่างกำลังสอง\n4. อินทิเกรตอย่าลืมบวกค่าคงที่ C"
+          `
         },
         {
-          id: "math_trig",
-          title: "บทที่ 2: ฟังก์ชันตรีโกณมิติ",
+          id: "m2",
+          title: "บทที่ 2: ฟังก์ชันตรีโกณมิติ (Trigonometry)",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. เอกลักษณ์ตรีโกณมิติพื้นฐาน</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono mb-3">
-              • sin²θ + cos²θ = 1<br/>
-              • 1 + tan²θ = sec²θ<br/>
-              • 1 + cot²θ = csc²θ
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. เอกลักษณ์ตรีโกณมิติพื้นฐาน</h3>
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 font-mono text-[11px] space-y-1">
+                  • sin²θ + cos²θ = 1 <br/>
+                  • 1 + tan²θ = sec²θ <br/>
+                  • 1 + cot²θ = csc²θ
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. สูตรผลบวกและผลต่างมุม</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li>sin(A ± B) = sin A cos B ± cos A sin B</li>
+                  <li>cos(A ± B) = cos A cos B ∓ sin A sin B</li>
+                  <li>tan(A ± B) = (tan A ± tan B) / (1 ∓ tan A tan B)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">3. สูตรมุมสองเท่า</h3>
+                <p class="text-stone-700">• sin 2A = 2 sin A cos A</p>
+                <p class="text-stone-700">• cos 2A = cos²A - sin²A = 2cos²A - 1 = 1 - 2sin²A</p>
+              </div>
             </div>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. สูตรมุมสองเท่า (Double Angle)</h2>
-            <ul class="list-disc list-inside space-y-1 text-stone-700">
-              <li>sin 2θ = 2 sin θ cos θ</li>
-              <li>cos 2θ = cos²θ - sin²θ = 2cos²θ - 1 = 1 - 2sin²θ</li>
-              <li>tan 2θ = (2 tan θ) / (1 - tan²θ)</li>
-            </ul>
-          `,
-          summary: "📌 คีย์ลัดตรีโกณมิติ:\n1. sin² + cos² = 1 เสมอ\n2. sin(2A) = 2sinA cosA\n3. cos(2A) แปลงได้ 3 รูปแบบ เลือกใช้ตามโจทย์ที่ให้มา"
+          `
+        },
+        {
+          id: "m3",
+          title: "บทที่ 3: เมทริกซ์และดีเทอร์มิแนนต์ (Matrices)",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. คุณสมบัติของดีเทอร์มิแนนต์ (Determinant)</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li>det(AB) = det(A) · det(B)</li>
+                  <li>det(Aᵗ) = det(A)</li>
+                  <li>det(A⁻¹) = 1 / det(A)</li>
+                  <li>det(k · A) = kⁿ · det(A) (เมื่อ n คือมิติของเมทริกซ์ n×n)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. อินเวอร์สการคูณ (Inverse 2×2)</h3>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono">
+                  ถ้า A = [a b ; c d] → A⁻¹ = (1/det(A)) · [d -b ; -c a]
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "m4",
+          title: "บทที่ 4: เวกเตอร์ในสามมิติ (Vectors)",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. ดอทโปรดักต์ (Dot Product)</h3>
+                <p class="text-stone-700">u · v = |u||v| cos θ = u_x v_x + u_y v_y + u_z v_z</p>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono my-1">
+                  เวกเตอร์ตั้งฉากกัน ↔ u · v = 0
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. ครอสโปรดักต์ (Cross Product)</h3>
+                <p class="text-stone-700 leading-relaxed">u × v ได้เวกเตอร์ตั้งฉากกับระนาบ ขนาด |u × v| = |u||v| sin θ (เท่ากับพื้นที่สี่เหลี่ยมด้านขนาน)</p>
+              </div>
+            </div>
+          `
         }
       ],
       physics: [
         {
-          id: "phy_motion",
-          title: "บทที่ 1: การเคลื่อนที่แนวตรง & กฎนิวตัน",
+          id: "p1",
+          title: "บทที่ 1: กลศาสตร์ & กฎของนิวตัน",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. 5 สมการการเคลื่อนที่แนวตรง (ความเร่ง a คงที่)</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono space-y-1 mb-3">
-              1. v = u + at<br/>
-              2. s = ((u + v) / 2) · t<br/>
-              3. s = ut + ½ at²<br/>
-              4. s = vt - ½ at²<br/>
-              5. v² = u² + 2as
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. 5 สมการการเคลื่อนที่แนวตรง (a คงที่)</h3>
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 font-mono text-[11px] space-y-1">
+                  1. v = u + at <br/>
+                  2. s = ((u + v)/2) · t <br/>
+                  3. s = ut + ½ at² <br/>
+                  4. s = vt - ½ at² <br/>
+                  5. v² = u² + 2as
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. กฎการเคลื่อนที่ 3 ข้อ</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li><b>ข้อที่ 1 (ΣF = 0):</b> สภาพสมดุล ความเร็วคงที่หรือหยุดนิ่ง</li>
+                  <li><b>ข้อที่ 2 (ΣF = ma):</b> มีแรงลัพธ์ทำให้เกิดความเร่ง</li>
+                  <li><b>ข้อที่ 3 (Action = Reaction):</b> แรงกิริยาเท่ากับแรงปฏิกิริยาเสมอ</li>
+                </ul>
+              </div>
             </div>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. กฎ 3 ข้อของนิวตัน (Newton's Laws)</h2>
-            <ul class="list-disc list-inside space-y-1 text-stone-700">
-              <li><b>กฎข้อที่ 1:</b> ΣF = 0 (สภาพสมดุล วัตถุหยุดนิ่งหรือความเร็วคงที่)</li>
-              <li><b>กฎข้อที่ 2:</b> ΣF = ma (ความเร่งแปรผันตรงกับแรง แปรผกผันกับมวล)</li>
-              <li><b>กฎข้อที่ 3:</b> Action = Reaction (ขนาดเท่ากัน ทิศตรงข้าม ทำต่อคนละวัตถุ)</li>
-            </ul>
-          `,
-          summary: "📌 คีย์ลัดฟิสิกส์การเคลื่อนที่:\n1. ไม่มี s ใช้ v = u + at\n2. ไม่มี a ใช้ s = ((u+v)/2)t\n3. ไม่มี v ใช้ s = ut + ½at²\n4. ไม่มี t ใช้ v² = u² + 2as\n5. Action-Reaction กระทำบนวัตถุคนละก้อนเสมอ"
+          `
         },
         {
-          id: "phy_circuit",
-          title: "บทที่ 2: วงจรไฟฟ้ากระแสตรง (DC)",
+          id: "p2",
+          title: "บทที่ 2: งานและพลังงาน (Work & Energy)",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. กฎของโอห์ม & สภาพต้านทาน</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono mb-3">
-              V = I · R  และ  R = ρ(L / A)
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. งานและกำลัง</h3>
+                <p class="text-stone-700">W = F · s · cos θ | กำลัง P = W / t = F · v</p>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. กฎอนุรักษ์พลังงานกล</h3>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono">
+                  E₁ + W_other = E₂ (Ek = ½ mv², Ep = mgh, Es = ½ kx²)
+                </div>
+              </div>
             </div>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. การต่อตัวต้านทาน</h2>
-            <ul class="list-disc list-inside space-y-1 text-stone-700">
-              <li><b>อนุกรม:</b> R_รวม = R₁ + R₂ + ... (กระแส I เท่ากันทั้งวงจร)</li>
-              <li><b>ขนาน:</b> 1/R_รวม = 1/R₁ + 1/R₂ + ... (ความต่างศักย์ V เท่ากันทุกสาย)</li>
-            </ul>
-          `,
-          summary: "📌 คีย์ลัดวงจรไฟฟ้า:\n1. V = IR คือหัวใจ\n2. อนุกรม: I เท่า, V แบ่ง\n3. ขนาน: V เท่า, I แบ่ง\n4. กำลังไฟฟ้า P = IV = I²R = V²/R"
+          `
+        },
+        {
+          id: "p3",
+          title: "บทที่ 3: ไฟฟ้า-แม่เหล็ก (Electromagnetism)",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. กฎของโอห์ม & วงจรไฟฟ้า</h3>
+                <p class="text-stone-700">V = IR | ความต้านทาน R = ρ(L / A)</p>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono">
+                  • อนุกรม: I เท่ากันทั้งวงจร | ขนาน: V เท่ากันทุกกิ่ง
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. แรงแม่เหล็กต่อประจุ</h3>
+                <p class="text-stone-700">F = qvB sin θ (รัศมีการเคลื่อนที่วงกลม R = mv / qB)</p>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "p4",
+          title: "บทที่ 4: คลื่นและแสง (Waves & Optics)",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. อัตราเร็วคลื่น & การหักเห</h3>
+                <p class="text-stone-700">v = f · λ | กฎของสเนลล์: (sin θ₁ / sin θ₂) = (v₁ / v₂) = (n₂ / n₁)</p>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. กระจกและเลนส์</h3>
+                <p class="text-stone-700">(1/f) = (1/s) + (1/s') | กำลังขยาย m = s'/s</p>
+              </div>
+            </div>
+          `
         }
       ],
       chem: [
         {
-          id: "chem_mole",
-          title: "บทที่ 1: ปริมาณสารสัมพันธ์ & แก๊ส",
+          id: "c1",
+          title: "บทที่ 1: ปริมาณสารสัมพันธ์ (Stoichiometry)",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. สูตรความสัมพันธ์ของโมล (Mole Concept)</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono mb-3">
-              n = g / MW = N / (6.02×10²³) = V / 22.4 (STP) = CV / 1000
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. สะพานเชื่อมโมล</h3>
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 font-mono text-[11px]">
+                  n = g / MW = N / (6.02×10²³) = V / 22.4 (STP) = CV / 1000
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. กฎแก๊สอุดมคติ</h3>
+                <p class="text-stone-700">PV = nRT (R = 0.0821 L·atm/mol·K, T = K)</p>
+              </div>
             </div>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. กฎของแก๊สอุดมคติ (Ideal Gas)</h2>
-            <p class="text-stone-700 mb-1"><b>PV = nRT</b> (R = 0.0821 L·atm/mol·K)</p>
-            <p class="text-stone-700">เปรียบเทียบสภาวะ: (P₁V₁) / T₁ = (P₂V₂) / T₂</p>
-          `,
-          summary: "📌 คีย์ลัดปริมาณสารสัมพันธ์:\n1. แปลงทุกอย่างให้เป็น 'โมล (n)' ก่อนเสมอ\n2. STP: แก๊ส 1 โมล = 22.4 dm³ (Litre)\n3. คำนวณแก๊ส อุณหภูมิ T ต้องใช้หน่วยเคลวิน (K = °C + 273)"
+          `
         },
         {
-          id: "chem_acid",
-          title: "บทที่ 2: กรด-เบส และ pH",
+          id: "c2",
+          title: "บทที่ 2: กรด-เบส (Acids & Bases)",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. การคำนวณค่า pH และ pOH</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono mb-3">
-              • pH = -log[H₃O⁺]<br/>
-              • pOH = -log[OH⁻]<br/>
-              • pH + pOH = 14 (ที่ 25°C)
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. คำนวณค่า pH</h3>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono space-y-1">
+                  • pH = -log[H₃O⁺]  |  pOH = -log[OH⁻] <br/>
+                  • pH + pOH = 14 (ที่ 25°C)
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. สารละลายบัฟเฟอร์</h3>
+                <p class="text-stone-700 leading-relaxed">กรดอ่อน + เกลือของกรดอ่อน หรือ เบสอ่อน + เกลือของเบสอ่อน มีสมบัติต้านการเปลี่ยน pH</p>
+              </div>
             </div>
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. ปฏิกิริยาสะเทิน (Neutralization)</h2>
-            <p class="text-stone-700">a · C₁V₁ = b · C₂V₂ (เมื่อ a, b คือจำนวน H⁺ และ OH⁻ ในโมเลกุล)</p>
-          `,
-          summary: "📌 คีย์ลัดกรด-เบส:\n1. [H⁺][OH⁻] = 10⁻¹⁴\n2. ถ้า [H⁺] = 10⁻³ → pH = 3\n3. ไทเทรต: โมลกรดที่แตกตัว = โมลเบสที่แตกตัว"
+          `
+        },
+        {
+          id: "c3",
+          title: "บทที่ 3: โครงสร้างอะตอม & ตารางธาตุ",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. แนวโน้มสมบัติตามตารางธาตุ</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li><b>ขนาดอะตอม:</b> ใหญ่ขึ้นจากบนลงล่าง, เล็กลงจากซ้ายไปขวา</li>
+                  <li><b>ค่า EN, IE, EA:</b> สูงขึ้นจากซ้ายไปขวา, ลดลงจากบนลงล่าง (F มี EN สูงสุด)</li>
+                </ul>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "c4",
+          title: "บทที่ 4: เคมีอินทรีย์เบื้องต้น (Organic Chem)",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. หมู่ฟังก์ชันสำคัญ</h3>
+                <p class="text-stone-700">-OH (แอลกอฮอล์), -COOH (กรดคาร์บอกซิลิก), -COO- (เอสเทอร์), -CONH- (เอไมด์)</p>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. ปฏิกิริยาเอสเทอริฟิเคชัน</h3>
+                <p class="text-stone-700">Carboxylic acid + Alcohol → Ester + H₂O (มีกลิ่นหอมเฉพาะตัว)</p>
+              </div>
+            </div>
+          `
         }
       ],
       bio: [
         {
-          id: "bio_cell",
+          id: "b1",
           title: "บทที่ 1: เซลล์ & การลำเลียงสาร",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. หน้าที่ออร์แกเนลล์สำคัญ</h2>
-            <ul class="list-disc list-inside space-y-1 text-stone-700 mb-3">
-              <li><b>Mitochondria:</b> แหล่งผลิตพลังงาน ATP (มีเยื่อหุ้ม 2 ชั้น)</li>
-              <li><b>Ribosome:</b> สังเคราะห์โปรตีน (70S ในโพรแคริโอต, 80S ในยูแคริโอต)</li>
-              <li><b>Chloroplast:</b> สังเคราะห์ด้วยแสงในพืช</li>
-            </ul>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. การลำเลียงสารผ่านเยื่อหุ้มเซลล์</h2>
-            <p class="text-stone-700"><b>Passive (ไม่ใช้ ATP):</b> Simple diffusion, Facilitated diffusion, Osmosis</p>
-            <p class="text-stone-700"><b>Active Transport (ใช้ ATP):</b> ดันสารจากเข้มข้นน้อย → มาก (เช่น Na⁺/K⁺ pump)</p>
-          `,
-          summary: "📌 คีย์ลัดเซลล์ชีววิทยา:\n1. มีเยื่อหุ้ม 2 ชั้น: นิวเคลียส, ไมโทคอนเดรีย, คลอโรพลาสต์\n2. Active Transport ต้องใช้ ATP และโปรตีนตัวพาเสมอ\n3. ออสโมซิส คือการแพร่ของ 'น้ำ' จากน้ำมากไปน้ำน้อย"
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. ออร์แกเนลล์สำคัญ</h3>
+                <ul class="list-disc list-inside space-y-1 text-stone-700">
+                  <li><b>Mitochondria:</b> ผลิต ATP หายใจระดับเซลล์ (เยื่อหุ้ม 2 ชั้น)</li>
+                  <li><b>Chloroplast:</b> สังเคราะห์ด้วยแสงในพืช</li>
+                  <li><b>Ribosome:</b> สังเคราะห์โปรตีน (ไม่มีเยื่อหุ้ม)</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. การลำเลียงสาร</h3>
+                <p class="text-stone-700"><b>Passive:</b> การแพร่ธรรมดา, ฟาซิลิเทต, ออสโมซิส (ไม่ใช้ ATP)</p>
+                <p class="text-stone-700"><b>Active Transport:</b> สารน้อยไปมากผ่านโปรตีนตัวพา (ใช้ ATP)</p>
+              </div>
+            </div>
+          `
         },
         {
-          id: "bio_genetics",
-          title: "บทที่ 2: พันธุศาสตร์ & Central Dogma",
+          id: "b2",
+          title: "บทที่ 2: หายใจระดับเซลล์ & สังเคราะห์แสง",
           content: `
-            <h2 class="text-base font-bold text-amber-900 mb-2">1. โครงสร้าง DNA & คู่เบส</h2>
-            <p class="text-stone-700 mb-2">DNA สายคู่ทิศ Antiparallel (5'→3' กับ 3'→5') พันธะไฮโดรเจน: <b>A = T (2 พันธะ), C ≡ G (3 พันธะ)</b></p>
-
-            <h2 class="text-base font-bold text-amber-900 mb-2">2. กระบวนการ Central Dogma</h2>
-            <div class="bg-amber-50 border-l-4 border-amber-400 p-2.5 rounded text-xs font-mono space-y-1">
-              1. Replication: จำลอง DNA (ระยะ S-phase)<br/>
-              2. Transcription: DNA → mRNA (ในนิวเคลียส)<br/>
-              3. Translation: mRNA → Polypeptide/โปรตีน (ที่ไรโบโซม)
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. การหายใจระดับเซลล์</h3>
+                <div class="bg-amber-50 p-2 rounded text-[11px] font-mono space-y-1">
+                  1. Glycolysis (Cytosol) → 2 Pyruvate + 2 ATP + 2 NADH <br/>
+                  2. Krebs Cycle (Matrix) → 2 ATP + 6 NADH + 2 FADH₂ <br/>
+                  3. ETC (Inner membrane) → ผลิต ATP ส่วนใหญ่
+                </div>
+              </div>
             </div>
-          `,
-          summary: "📌 คีย์ลัดพันธุศาสตร์:\n1. เบสคู่สม: A คู่ T, C คู่ G (ใน RNA มี U แทน T)\n2. พันธะ C-G แข็งแรงกว่าเพราะมี 3 พันธะไฮโดรเจน\n3. ลำดับ Central Dogma: DNA → RNA → Protein"
+          `
+        },
+        {
+          id: "b3",
+          title: "บทที่ 3: พันธุศาสตร์ & Central Dogma",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. โครงสร้าง DNA & คู่เบส</h3>
+                <p class="text-stone-700">คู่เบสสมนัย: <b>A = T (2 พันธะ H), C ≡ G (3 พันธะ H)</b></p>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. ลำดับ Central Dogma</h3>
+                <p class="text-stone-700 font-mono text-[11px] bg-amber-50 p-2 rounded">
+                  DNA (Replication) → mRNA (Transcription) → Protein (Translation)
+                </p>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "b4",
+          title: "บทที่ 4: ระบบหมุนเวียนเลือด & ภูมิคุ้มกัน",
+          content: `
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">1. การไหลเวียนเลือด</h3>
+                <p class="text-stone-700">เลือดดำจากร่างกาย → หัวใจห้องบนขวา (RA) → ล่างขวา (RV) → ปอด → บนซ้าย (LA) → ล่างซ้าย (LV: ผนังหนาสุด) → สู่ร่างกาย</p>
+              </div>
+              <div>
+                <h3 class="font-bold text-amber-900 text-sm mb-1">2. เม็ดเลือดขาว</h3>
+                <p class="text-stone-700"><b>B-cell:</b> ผลิตแอนติบอดี | <b>T-cell:</b> ทำลายเซลล์ติดเชื้อโดยตรง</p>
+              </div>
+            </div>
+          `
         }
       ]
     };
 
     /* ==========================================================
-       2. APP STATE MANAGEMENT
+       2. NAVIGATION, SWAPPING & TOGGLE STATE
        ========================================================== */
     let currentSubject = 'math';
     let currentChapterIndex = 0;
-    let userPoints = 150;
+    let userPoints = 250;
     let unlockedItems = ['butter'];
     let equippedItems = [];
+    
+    // NEW STATES FOR SWAP & TOGGLE
+    let isReaderOpen = true;
+    let isSwapped = false;
 
-    // Tab switcher
     function switchTab(tabId) {
-      ['study', 'wardrobe', 'friends'].forEach(t => {
+      ['home', 'notebook', 'wardrobe', 'friends'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
-        document.getElementById(`tab-btn-${t}`).className = "px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5";
+        document.getElementById(`tab-btn-${t}`).className = "px-3 py-1.5 rounded-lg transition text-amber-800 hover:bg-amber-100 flex items-center gap-1.5";
       });
       document.getElementById(`view-${tabId}`).classList.remove('hidden');
-      document.getElementById(`tab-btn-${tabId}`).className = "px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition bg-amber-500 text-white shadow-sm flex items-center gap-1.5";
+      document.getElementById(`tab-btn-${tabId}`).className = "px-3 py-1.5 rounded-lg transition bg-amber-500 text-white shadow-xs flex items-center gap-1.5";
       
-      if (tabId === 'study') {
-        setTimeout(resizeCanvas, 50);
+      if (tabId === 'notebook') {
+        setTimeout(resizeCanvas, 60);
       }
     }
 
-    // Select Subject
+    function openSubjectFromHome(subjectKey, chapterIndex = 0) {
+      currentSubject = subjectKey;
+      currentChapterIndex = chapterIndex;
+      switchTab('notebook');
+      selectSubject(subjectKey);
+      
+      if (!isReaderOpen) {
+        toggleReaderOpen();
+      }
+    }
+
+    // TOGGLE OPEN/CLOSE READER
+    function toggleReaderOpen() {
+      const panel = document.getElementById('reader-panel');
+      const label = document.getElementById('reader-toggle-label');
+      const btn = document.getElementById('btn-toggle-reader');
+      
+      isReaderOpen = !isReaderOpen;
+      
+      if (isReaderOpen) {
+        panel.classList.remove('hidden');
+        label.innerText = "ซ่อนเนื้อหา";
+        btn.className = "px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition";
+      } else {
+        panel.classList.add('hidden');
+        label.innerText = "เปิดเนื้อหา";
+        btn.className = "px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold flex items-center gap-1.5 shadow-xs transition";
+      }
+
+      setTimeout(resizeCanvas, 50);
+      setTimeout(resizeCanvas, 320);
+    }
+
+    // TOGGLE SWAP SIDES (Left vs Right)
+    function toggleSideSwap() {
+      const container = document.getElementById('workspace-container');
+      const panel = document.getElementById('reader-panel');
+      
+      isSwapped = !isSwapped;
+      
+      if (isSwapped) {
+        container.classList.remove('flex-row');
+        container.classList.add('flex-row-reverse');
+        panel.classList.remove('border-r');
+        panel.classList.add('border-l');
+      } else {
+        container.classList.remove('flex-row-reverse');
+        container.classList.add('flex-row');
+        panel.classList.remove('border-l');
+        panel.classList.add('border-r');
+      }
+
+      setTimeout(resizeCanvas, 50);
+      setTimeout(resizeCanvas, 320);
+    }
+
     function selectSubject(subKey) {
       currentSubject = subKey;
       currentChapterIndex = 0;
       
       document.querySelectorAll('.subj-btn').forEach(btn => {
-        btn.className = "subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-amber-200 text-amber-800 hover:bg-amber-100 shrink-0";
+        btn.className = "subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-stone-50 border border-amber-200 text-amber-900 shrink-0";
       });
-      document.getElementById(`subj-${subKey}`).className = "subj-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-white shadow-sm flex items-center gap-1.5 shrink-0";
+      document.getElementById(`subj-${subKey}`).className = "subj-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500 text-white shadow-xs shrink-0";
 
       populateChapters();
       loadChapterContent();
     }
 
-    // Populate Chapter Selector
     function populateChapters() {
       const select = document.getElementById('chapter-select');
       select.innerHTML = '';
@@ -597,41 +978,30 @@
         opt.textContent = chap.title;
         select.appendChild(opt);
       });
+      select.value = currentChapterIndex;
     }
 
-    // Load Article Content
     function loadChapterContent() {
       const select = document.getElementById('chapter-select');
       currentChapterIndex = parseInt(select.value) || 0;
       const data = studyDatabase[currentSubject][currentChapterIndex];
       document.getElementById('reader-content').innerHTML = data.content;
-      document.getElementById('ai-response').innerText = `สวัสดีครับ! อ่านเนื้อหาเรื่อง "${data.title}" แล้ว กดปุ่มสรุปด้านบนเพื่อให้ Breadie ดึงประเด็นสำคัญมาช่วยจดได้เลยนะ 🍞`;
-    }
-
-    // AI Summary Trigger
-    function triggerAISummary() {
-      const data = studyDatabase[currentSubject][currentChapterIndex];
-      const aiBox = document.getElementById('ai-response');
-      aiBox.innerHTML = `<span class="animate-pulse">🍞 Breadie กำลังสรุปเนื้อหา...</span>`;
-      
-      setTimeout(() => {
-        aiBox.innerText = data.summary;
-      }, 400);
     }
 
     /* ==========================================================
-       3. CANVAS ENGINE (Inking, Stylus, High-DPI, Undo)
+       3. CANVAS DRAWING ENGINE
        ========================================================== */
     const canvas = document.getElementById('note-canvas');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
-    let currentTool = 'pen'; // 'pen', 'highlighter', 'eraser'
-    let currentColor = '#292524';
+    let currentTool = 'pen';
+    let currentColor = '#1c1917';
     let strokes = [];
     let currentStroke = [];
 
     function resizeCanvas() {
       const container = document.getElementById('canvas-container');
+      if (!container) return;
       const dpr = window.devicePixelRatio || 1;
       const rect = container.getBoundingClientRect();
       
@@ -649,7 +1019,6 @@
         if (stroke.points.length < 2) return;
         ctx.beginPath();
         ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
-        
         ctx.strokeStyle = stroke.color;
         ctx.lineWidth = stroke.width;
         ctx.lineCap = 'round';
@@ -682,14 +1051,13 @@
       };
     }
 
-    // Pointer Event Listeners (Pencil & Touch)
     canvas.addEventListener('pointerdown', (e) => {
       isDrawing = true;
       const pos = getPointerPos(e);
       currentStroke = {
         tool: currentTool,
         color: currentColor,
-        width: currentTool === 'highlighter' ? 18 : (currentTool === 'eraser' ? 24 : 3),
+        width: currentTool === 'highlighter' ? 20 : (currentTool === 'eraser' ? 26 : 3),
         points: [pos]
       };
       strokes.push(currentStroke);
@@ -705,18 +1073,32 @@
     window.addEventListener('pointerup', () => { isDrawing = false; });
     window.addEventListener('pointercancel', () => { isDrawing = false; });
 
-    // Toolbar Controls
     function setTool(tool) {
       currentTool = tool;
       document.querySelectorAll('.tool-btn').forEach(btn => {
-        btn.className = "tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-sm";
+        btn.className = "tool-btn w-8 h-8 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 flex items-center justify-center text-xs";
       });
-      document.getElementById(`tool-${tool}`).className = "tool-btn w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-sm shadow-sm";
+      document.getElementById(`tool-${tool}`).className = "tool-btn w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs shadow-xs";
     }
 
     function setColor(color) {
       currentColor = color;
       if (currentTool === 'eraser') setTool('pen');
+    }
+
+    function setPaperStyle(styleName) {
+      const container = document.getElementById('canvas-container');
+      container.className = `flex-1 w-full h-full relative overflow-hidden bg-[#FFFDFB] paper-${styleName}`;
+      ['grid', 'lined', 'dot', 'blank'].forEach(st => {
+        const btn = document.getElementById(`paper-btn-${st}`);
+        if (btn) {
+          if (st === styleName) {
+            btn.className = "px-2 py-0.5 rounded bg-white font-bold text-amber-900 shadow-xs";
+          } else {
+            btn.className = "px-2 py-0.5 rounded text-stone-600";
+          }
+        }
+      });
     }
 
     function undoLastStroke() {
@@ -725,19 +1107,19 @@
     }
 
     function clearCanvas() {
-      if (confirm('คุณต้องการลบโน้ตทั้งหมดบนหน้านี้หรือไม่?')) {
+      if (confirm('ต้องการลบโน้ตทั้งหมดบนหน้านี้หรือไม่?')) {
         strokes = [];
         redrawCanvas();
       }
     }
 
-    // PDF Export
     function exportNotePDF() {
       const { jsPDF } = window.jspdf;
+      const dpr = window.devicePixelRatio || 1;
       const pdf = new jsPDF({
         orientation: 'landscape',
         unit: 'px',
-        format: [canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1)]
+        format: [canvas.width / dpr, canvas.height / dpr]
       });
 
       const tempCanvas = document.createElement('canvas');
@@ -745,21 +1127,19 @@
       tempCanvas.height = canvas.height;
       const tempCtx = tempCanvas.getContext('2d');
 
-      // Draw white background
       tempCtx.fillStyle = '#FFFDFB';
       tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
       tempCtx.drawImage(canvas, 0, 0);
 
       const imgData = tempCanvas.toDataURL('image/png');
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / dpr, canvas.height / dpr);
       pdf.save(`Breadie_Note_${currentSubject}_${Date.now()}.pdf`);
     }
 
-    // Complete Task & Reward Points
     function completeSummaryTask() {
       userPoints += 50;
       document.getElementById('user-points').innerText = userPoints;
-      alert('🎉 เก่งมาก! คุณสรุปบทเรียนสำเร็จ ได้รับ +50 Crumb Points ✨');
+      alert('🎉 ยอดเยี่ยม! บันทึกสรุปเรียบร้อย ได้รับ +50 Crumb Points ✨');
     }
 
     /* ==========================================================
@@ -770,28 +1150,25 @@
       const btn = document.getElementById(`btn-item-${itemId}`);
 
       if (equippedItems.includes(itemId)) {
-        // Unequip
         equippedItems = equippedItems.filter(id => id !== itemId);
         layer.classList.add('hidden');
         btn.innerText = "ใส่";
-        btn.className = "px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-sm transition";
+        btn.className = "px-3 py-1 bg-amber-500 text-white rounded-xl text-xs font-bold shadow-xs";
       } else {
-        // Check if unlocked
         if (!unlockedItems.includes(itemId)) {
           if (userPoints >= price) {
             userPoints -= price;
             document.getElementById('user-points').innerText = userPoints;
             unlockedItems.push(itemId);
           } else {
-            alert('❌ Crumb Points ไม่เพียงพอ! จดสรุปเพิ่มเพื่อสะสมแต้มนะ');
+            alert('❌ Crumb Points ไม่พอ! ทำสรุปเพิ่มเพื่อสะสมแต้มนะ');
             return;
           }
         }
-        // Equip
         equippedItems.push(itemId);
         layer.classList.remove('hidden');
         btn.innerText = "ถอด";
-        btn.className = "px-3 py-1.5 bg-stone-700 hover:bg-stone-800 text-white rounded-xl text-xs font-bold shadow-sm transition";
+        btn.className = "px-3 py-1 bg-stone-700 text-white rounded-xl text-xs font-bold shadow-xs";
       }
     }
 
