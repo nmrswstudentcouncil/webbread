@@ -71,7 +71,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* 3D Flashcard styles */
     .perspective-1000 {
       perspective: 1000px;
       -webkit-perspective: 1000px;
@@ -89,7 +88,6 @@
       -webkit-transform: rotateY(180deg);
     }
 
-    /* Oven Animations & Visuals */
     .oven-glow-active {
       background: radial-gradient(circle at 50% 60%, rgba(255, 140, 0, 0.35) 0%, rgba(59, 28, 8, 0.95) 75%) !important;
       box-shadow: inset 0 0 25px rgba(255, 120, 0, 0.4), 0 0 15px rgba(255, 150, 0, 0.2);
@@ -107,23 +105,23 @@
     }
   </style>
 </head>
-<body class="bg-cream-500 min-h-screen flex justify-center items-center m-0 p-0 sm:p-4 select-none">
+<body class="bg-cream-500 min-h-screen min-h-[100dvh] flex justify-center items-center m-0 p-0 md:p-4 lg:p-6 select-none">
 
-  <!-- Mobile App Container -->
-  <div class="app-frame w-full max-w-[430px] h-screen h-[100dvh] sm:h-[880px] sm:max-h-[94vh] bg-cream-100 sm:rounded-[40px] shadow-2xl flex flex-col relative overflow-hidden sm:ring-8 sm:ring-cream-400">
+  <!-- Responsive Container: Fullscreen on mobile, Elegant App Frame on iPad & Desktop -->
+  <div class="app-frame w-full h-screen h-[100dvh] md:max-w-4xl lg:max-w-5xl md:h-[92vh] md:max-h-[900px] bg-cream-100 md:rounded-[36px] md:shadow-2xl flex flex-col relative overflow-hidden md:ring-8 md:ring-cream-400">
     
-    <!-- Toast Notification -->
-    <div id="toastPopup" class="fixed top-16 left-1/2 -translate-x-1/2 -translate-y-8 bg-crust-dark text-[#FFECC7] px-4 py-2 rounded-full text-xs font-semibold shadow-toast opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-1.5">
+    <!-- Toast Popup Notification -->
+    <div id="toastPopup" class="fixed top-16 left-1/2 -translate-x-1/2 -translate-y-8 bg-crust-dark text-[#FFECC7] px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold shadow-toast opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
       <svg class="w-4 h-4 text-butter" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
       <div id="toastMsg">+25 Crumbs!</div>
     </div>
 
-    <!-- App Header -->
-    <header class="pt-[calc(env(safe-area-inset-top,12px)+10px)] pb-3 px-5 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/50">
+    <!-- Header: Responsive for Phone & iPad -->
+    <header class="pt-[calc(env(safe-area-inset-top,12px)+8px)] md:pt-4 pb-3 px-4 sm:px-6 md:px-8 bg-cream-100 flex justify-between items-center shrink-0 z-20 border-b border-cream-300/50">
       <div class="flex items-center gap-3">
-        <!-- 3D Mascot Avatar -->
-        <div class="w-12 h-12 bg-[#F6DEB2] rounded-2xl flex items-center justify-center shadow-clay relative border-2 border-[#D8A86C] overflow-hidden shrink-0">
-          <svg viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-sm">
+        <!-- 3D Mascot Logo Avatar -->
+        <div class="w-11 h-11 sm:w-12 sm:h-12 bg-[#F6DEB2] rounded-2xl flex items-center justify-center shadow-clay relative border-2 border-[#D8A86C] overflow-hidden shrink-0">
+          <svg viewBox="0 0 100 100" class="w-9 h-9 sm:w-10 sm:h-10 drop-shadow-sm">
             <path d="M22 28 C22 14, 38 10, 50 18 C62 10, 78 14, 78 28 C85 45, 83 74, 75 84 C68 88, 32 88, 25 84 C17 74, 15 45, 22 28 Z" fill="#C68A4C" />
             <path d="M26 31 C26 19, 39 16, 50 22 C61 16, 74 19, 74 31 C80 46, 78 70, 71 80 C65 84, 35 84, 29 80 C22 70, 20 46, 26 31 Z" fill="#FCE6B5" />
             <path d="M44 20 Q50 13 62 17 Q68 24 64 32 Q55 35 46 31 Q40 26 44 20 Z" fill="#FCE166" stroke="#E5BE32" stroke-width="1.5" />
@@ -136,148 +134,169 @@
           </svg>
         </div>
         <div>
-          <h1 class="text-xl font-bold text-crust-dark leading-tight tracking-tight">Breadie</h1>
-          <p class="text-[11px] text-[#9E7F60] font-medium">Science & Math Bakery</p>
+          <h1 class="text-lg sm:text-xl font-bold text-crust-dark leading-tight tracking-tight">Breadie</h1>
+          <p class="text-[10px] sm:text-[11px] text-[#9E7F60] font-medium">Science & Math Focus Lab</p>
         </div>
       </div>
+
+      <!-- Header Center: iPad/Desktop Navigation Bar -->
+      <div class="hidden md:flex items-center gap-1.5 bg-cream-200/80 p-1.5 rounded-2xl border border-cream-300">
+        <button class="top-nav-btn active px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition" onclick="switchTab('screen-home', this)">หน้าหลัก</button>
+        <button class="top-nav-btn px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent hover:bg-cream-300 transition" onclick="switchTab('screen-lesson', this)">Lesson</button>
+        <button class="top-nav-btn px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent hover:bg-cream-300 transition" onclick="switchTab('screen-deck', this)">การ์ดสูตร</button>
+        <button class="top-nav-btn px-4 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent hover:bg-cream-300 transition" onclick="switchTab('screen-friends', this)">กับเพื่อน</button>
+      </div>
       
-      <!-- Crumbs Balance -->
-      <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1 flex items-center gap-1.5 shadow-clay select-none">
+      <!-- Crumbs Point Badge -->
+      <div class="bg-cream-50 border-2 border-cream-300 rounded-full px-3.5 py-1.5 flex items-center gap-1.5 shadow-clay select-none">
         <svg class="w-4 h-4 text-butter-dark" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 11V7a1 1 0 112 0v4a1 1 0 11-2 0zm2 4a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
-        <div id="crumbPoints" class="font-bold text-sm text-crust-dark">1,250</div>
+        <div id="crumbPoints" class="font-bold text-xs sm:text-sm text-crust-dark">1,250</div>
       </div>
     </header>
 
-    <!-- Main Screens Viewport -->
-    <main class="screen-container flex-1 overflow-y-auto px-4 pt-3 pb-6 no-scrollbar scroll-smooth">
+    <!-- Main Content Viewport -->
+    <main class="screen-container flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 pt-3 pb-24 md:pb-6 no-scrollbar scroll-smooth">
 
       <!-- ================= TAB 1: HOME ================= -->
       <section id="screen-home" class="screen block">
-        <!-- Oven Card -->
-        <div class="bg-cream-50 rounded-[32px] p-4 mb-4 shadow-clay border border-white/80">
-          <div class="bg-gradient-to-b from-[#EFE0C9] to-[#DFCEB3] rounded-[28px] p-4 shadow-[inset_0_4px_8px_rgba(255,255,255,0.7),0_8px_16px_rgba(92,58,22,0.15)] border-2 border-[#CCAFA0]/80 relative">
-            
-            <!-- Oven Top Controls -->
-            <div class="bg-[#E4CFB2] rounded-2xl p-2.5 mb-3 border border-[#C7B192] flex justify-between items-center shadow-inner">
-              <div class="flex items-center gap-1.5">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:rotate-45 transition-transform">
-                  <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
-                  <div class="absolute top-0.5 w-0.5 h-2 bg-red-500 rounded-full"></div>
-                </div>
-                <div class="text-[10px] font-bold text-crust leading-tight">
-                  <div>180°C</div>
-                  <div class="text-[9px] text-[#A07A55]">HEAT</div>
-                </div>
-              </div>
-
-              <!-- Status Light -->
-              <div class="flex items-center gap-1 bg-[#D8BE9E] px-2.5 py-1 rounded-full border border-[#BFA280]">
-                <div id="ovenStatusLed" class="w-2 h-2 rounded-full bg-gray-400"></div>
-                <div id="ovenLedText" class="text-[9px] font-bold text-crust-dark">READY</div>
-              </div>
-
-              <div class="flex items-center gap-1.5">
-                <div class="text-[10px] font-bold text-crust text-right leading-tight">
-                  <div>FOCUS</div>
-                  <div class="text-[9px] text-[#A07A55]">MODE</div>
-                </div>
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:-rotate-45 transition-transform">
-                  <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
-                  <div class="absolute top-0.5 w-0.5 h-2 bg-amber-600 rounded-full"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Oven Glass Chamber -->
-            <div class="bg-[#D3BC9D] p-2.5 rounded-3xl border-2 border-[#BA9E7D] shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
-              <div class="w-36 h-3.5 bg-gradient-to-r from-[#8C5D33] via-[#D8B48A] to-[#8C5D33] rounded-full mx-auto mb-2 shadow-[0_3px_5px_rgba(0,0,0,0.25)] border border-[#6B431D] flex items-center justify-center">
-                <div class="w-20 h-1 bg-white/40 rounded-full"></div>
-              </div>
-
-              <div id="ovenChamber" class="bg-gradient-to-b from-[#1F1207] via-[#2A170A] to-[#1A0D04] rounded-2xl h-44 relative flex flex-col justify-between items-center p-2.5 overflow-hidden border border-[#523318] shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] transition-all duration-500">
-                <svg id="heatingElement" class="w-full h-3 stroke-[#5C3A16] fill-none transition-all duration-500" viewBox="0 0 200 10">
-                  <path d="M5 5 Q15 0 25 5 T45 5 T65 5 T85 5 T105 5 T125 5 T145 5 T165 5 T185 5 T195 5" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-
-                <div class="bg-black/60 border border-amber-900/60 rounded-xl px-4 py-1 z-10 backdrop-blur-sm cursor-pointer" onclick="promptCustomMinutes()">
-                  <div id="timerDisplay" class="text-4xl sm:text-5xl font-bold text-[#FFB020] tracking-widest text-center drop-shadow-[0_0_8px_rgba(255,165,0,0.6)]">25:00</div>
-                  <div id="bakingStatus" class="text-[9px] text-[#FFE8B2] text-center">แตะตัวเลขเพื่อพิมพ์เวลา (นาที)</div>
-                </div>
-
-                <div class="w-full relative flex flex-col items-center z-10">
-                  <div id="ovenBreadLoaf" class="relative -mb-1 transition-transform duration-300">
-                    <svg viewBox="0 0 80 50" class="w-20 h-12 drop-shadow-md">
-                      <path d="M12 30 C10 18, 25 12, 40 12 C55 12, 70 18, 68 30 C70 38, 65 42, 58 43 C46 44, 34 44, 22 43 C15 42, 10 38, 12 30 Z" fill="#D4934B" />
-                      <path d="M15 28 C15 20, 26 15, 40 15 C54 15, 65 20, 65 28 C66 35, 60 39, 54 40 C44 41, 36 41, 26 40 C20 39, 14 35, 15 28 Z" fill="#FCE1A9" />
-                      <rect x="34" y="16" width="12" height="8" rx="2" fill="#FEE75C" stroke="#D4AC0D" stroke-width="1"/>
-                      <path d="M30 28 Q33 31 36 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
-                      <path d="M44 28 Q47 31 50 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
+        <!-- iPad 2-Column Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
+          
+          <!-- Oven Oven Device (7 Columns on Tablet/Desktop) -->
+          <div class="md:col-span-7 bg-cream-50 rounded-[32px] p-4 sm:p-5 shadow-clay border border-white/80">
+            <div class="bg-gradient-to-b from-[#EFE0C9] to-[#DFCEB3] rounded-[28px] p-4 sm:p-5 shadow-[inset_0_4px_8px_rgba(255,255,255,0.7),0_8px_16px_rgba(92,58,22,0.15)] border-2 border-[#CCAFA0]/80 relative">
+              
+              <!-- Control Panel -->
+              <div class="bg-[#E4CFB2] rounded-2xl p-2.5 mb-3 border border-[#C7B192] flex justify-between items-center shadow-inner">
+                <div class="flex items-center gap-1.5">
+                  <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:rotate-45 transition-transform">
+                    <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
+                    <div class="absolute top-0.5 w-0.5 h-2 bg-red-500 rounded-full"></div>
                   </div>
+                  <div class="text-[10px] font-bold text-crust leading-tight">
+                    <div>180°C</div>
+                    <div class="text-[9px] text-[#A07A55]">HEAT</div>
+                  </div>
+                </div>
 
-                  <div class="w-full h-2.5 bg-[#4A3828] border-t-2 border-b border-[#73583E] rounded flex justify-around items-center px-2">
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
-                    <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                <!-- Status Light -->
+                <div class="flex items-center gap-1 bg-[#D8BE9E] px-2.5 py-1 rounded-full border border-[#BFA280]">
+                  <div id="ovenStatusLed" class="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <div id="ovenLedText" class="text-[9px] font-bold text-crust-dark">READY</div>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <div class="text-[10px] font-bold text-crust text-right leading-tight">
+                    <div>FOCUS</div>
+                    <div class="text-[9px] text-[#A07A55]">MODE</div>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#FAF3E0] to-[#CBB191] border border-[#9E7F60] shadow flex items-center justify-center relative cursor-pointer active:-rotate-45 transition-transform">
+                    <div class="w-1.5 h-1.5 bg-crust-dark rounded-full"></div>
+                    <div class="absolute top-0.5 w-0.5 h-2 bg-amber-600 rounded-full"></div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Stepper Buttons -->
-            <div class="flex items-center justify-center gap-2 mt-3 mb-2">
-              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-5)">-5</button>
-              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-1)">-1</button>
-              <div class="text-xs font-bold text-crust px-1">ปรับเวลา</div>
-              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+1)">+1</button>
-              <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+5)">+5</button>
-            </div>
+              <!-- Oven Chamber -->
+              <div class="bg-[#D3BC9D] p-2.5 rounded-3xl border-2 border-[#BA9E7D] shadow-[0_4px_10px_rgba(0,0,0,0.1)] relative">
+                <div class="w-36 h-3.5 bg-gradient-to-r from-[#8C5D33] via-[#D8B48A] to-[#8C5D33] rounded-full mx-auto mb-2 shadow-[0_3px_5px_rgba(0,0,0,0.25)] border border-[#6B431D] flex items-center justify-center">
+                  <div class="w-20 h-1 bg-white/40 rounded-full"></div>
+                </div>
 
-            <!-- Presets -->
-            <div class="flex justify-center gap-1.5 my-2 flex-wrap">
-              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(15, this)">15 นาที</button>
-              <button class="preset-pill active bg-butter border-crust px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark -translate-y-0.5 shadow-sm" onclick="setPresetTime(25, this)">25 นาที</button>
-              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(45, this)">45 นาที</button>
-              <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(60, this)">60 นาที</button>
-            </div>
+                <div id="ovenChamber" class="bg-gradient-to-b from-[#1F1207] via-[#2A170A] to-[#1A0D04] rounded-2xl h-44 sm:h-52 relative flex flex-col justify-between items-center p-3 overflow-hidden border border-[#523318] shadow-[inset_0_4px_15px_rgba(0,0,0,0.8)] transition-all duration-500">
+                  <svg id="heatingElement" class="w-full h-3 stroke-[#5C3A16] fill-none transition-all duration-500" viewBox="0 0 200 10">
+                    <path d="M5 5 Q15 0 25 5 T45 5 T65 5 T85 5 T105 5 T125 5 T145 5 T165 5 T185 5 T195 5" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
 
-            <!-- Timer Action Buttons -->
-            <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 mt-2" onclick="toggleTimer()">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <div>เริ่มอบความรู้ (+50 Crumbs)</div>
-            </button>
-            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition flex items-center justify-center gap-1.5" onclick="fastForwardTimer()">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <div>ทดสอบเร่งเวลา (รับแต้มทันที)</div>
-            </button>
+                  <div class="bg-black/60 border border-amber-900/60 rounded-xl px-4 py-1.5 z-10 backdrop-blur-sm cursor-pointer" onclick="promptCustomMinutes()">
+                    <div id="timerDisplay" class="text-4xl sm:text-5xl font-bold text-[#FFB020] tracking-widest text-center drop-shadow-[0_0_8px_rgba(255,165,0,0.6)]">25:00</div>
+                    <div id="bakingStatus" class="text-[9px] sm:text-[10px] text-[#FFE8B2] text-center">แตะตัวเลขเพื่อพิมพ์เวลา (นาที)</div>
+                  </div>
+
+                  <div class="w-full relative flex flex-col items-center z-10">
+                    <div id="ovenBreadLoaf" class="relative -mb-1 transition-transform duration-300">
+                      <svg viewBox="0 0 80 50" class="w-20 h-12 sm:w-24 sm:h-14 drop-shadow-md">
+                        <path d="M12 30 C10 18, 25 12, 40 12 C55 12, 70 18, 68 30 C70 38, 65 42, 58 43 C46 44, 34 44, 22 43 C15 42, 10 38, 12 30 Z" fill="#D4934B" />
+                        <path d="M15 28 C15 20, 26 15, 40 15 C54 15, 65 20, 65 28 C66 35, 60 39, 54 40 C44 41, 36 41, 26 40 C20 39, 14 35, 15 28 Z" fill="#FCE1A9" />
+                        <rect x="34" y="16" width="12" height="8" rx="2" fill="#FEE75C" stroke="#D4AC0D" stroke-width="1"/>
+                        <path d="M30 28 Q33 31 36 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M44 28 Q47 31 50 28" fill="none" stroke="#5C3A16" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+
+                    <div class="w-full h-2.5 bg-[#4A3828] border-t-2 border-b border-[#73583E] rounded flex justify-around items-center px-2">
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                      <div class="w-0.5 h-full bg-[#8C6D4F]"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Controls & Stepper -->
+              <div class="flex items-center justify-center gap-2 mt-3 mb-2">
+                <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-5)">-5</button>
+                <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(-1)">-1</button>
+                <div class="text-xs font-bold text-crust px-2">ปรับเวลา</div>
+                <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+1)">+1</button>
+                <button class="w-8 h-8 rounded-full bg-cream-50 font-bold text-xs text-crust-dark shadow-clay active:scale-90" onclick="adjustTimer(+5)">+5</button>
+              </div>
+
+              <div class="flex justify-center gap-1.5 my-2 flex-wrap">
+                <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(15, this)">15 นาที</button>
+                <button class="preset-pill active bg-butter border-crust px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark -translate-y-0.5 shadow-sm" onclick="setPresetTime(25, this)">25 นาที</button>
+                <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(45, this)">45 นาที</button>
+                <button class="preset-pill bg-cream-50 border border-cream-400 px-3 py-1 rounded-xl text-xs font-semibold text-crust-dark" onclick="setPresetTime(60, this)">60 นาที</button>
+              </div>
+
+              <button id="timerActionBtn" class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-sm font-bold shadow-[0_4px_0_#D9B738] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 mt-2" onclick="toggleTimer()">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div>เริ่มอบความรู้ (+50 Crumbs)</div>
+              </button>
+              <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition flex items-center justify-center gap-1.5" onclick="fastForwardTimer()">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <div>ทดสอบเร่งเวลา (รับแต้มทันที)</div>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Daily Tasks -->
-        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-          <div class="text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
-            <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-            <div>ภารกิจวันนี้ (Daily Tasks)</div>
-          </div>
-          <div class="divide-y divide-dashed divide-cream-300">
-            <div class="flex items-center gap-3 py-2.5">
-              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 30)" id="t1">
-              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t1">ทดลองคานสมดุลใน Simulation</label>
-              <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+30</div>
+          <!-- Daily Tasks (5 Columns on Tablet/Desktop) -->
+          <div class="md:col-span-5 bg-cream-50 rounded-[32px] p-4 sm:p-5 shadow-clay border border-white/60">
+            <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <div>ภารกิจวันนี้ (Daily Tasks)</div>
             </div>
-            <div class="flex items-center gap-3 py-2.5">
-              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 20)" id="t2">
-              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนและเปิดอ่านเอกสารสรุป 1 เล่ม</label>
-              <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+20</div>
+            <div class="divide-y divide-dashed divide-cream-300">
+              <div class="flex items-center gap-3 py-3">
+                <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 30)" id="t1">
+                <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t1">ทดลองคานสมดุลใน Simulation</label>
+                <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+30</div>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 20)" id="t2">
+                <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t2">ทบทวนและเปิดอ่านเอกสารสรุป 1 เล่ม</label>
+                <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+20</div>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 50)" id="t3">
+                <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t3">อบความรู้ครบ 25 นาทีร่วมกับเพื่อน</label>
+                <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+50</div>
+              </div>
             </div>
-            <div class="flex items-center gap-3 py-2.5">
-              <input type="checkbox" class="w-5 h-5 accent-crust rounded cursor-pointer" onchange="completeTask(this, 50)" id="t3">
-              <label class="text-xs sm:text-sm text-crust-dark flex-1 cursor-pointer" for="t3">อบความรู้ครบ 25 นาทีร่วมกับเพื่อน</label>
-              <div class="text-xs font-bold text-[#68B984] bg-[#EAF8EE] px-2 py-0.5 rounded-lg">+50</div>
+
+            <!-- Focus Tips Card -->
+            <div class="mt-4 p-3.5 bg-[#F6EDE0] rounded-2xl border border-cream-300/80">
+              <div class="text-xs font-bold text-crust mb-1 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                เทคนิคการอบความรู้
+              </div>
+              <div class="text-[11px] text-[#7D6148] leading-relaxed">
+                การอ่านหนังสือแบบ 25 นาทีและพัก 5 นาที (Pomodoro) ช่วยให้สมองจำสูตรและคอนเซปต์วิทย์-คณิตได้ยาวนานยิ่งขึ้น
+              </div>
             </div>
           </div>
         </div>
@@ -285,8 +304,7 @@
 
       <!-- ================= TAB 2: LESSON ================= -->
       <section id="screen-lesson" class="screen hidden">
-        <!-- Sub-Nav Switcher -->
-        <div class="flex bg-cream-300 rounded-2xl p-1 gap-1 mb-3.5 shadow-inner">
+        <div class="flex bg-cream-300 rounded-2xl p-1 gap-1 mb-4 shadow-inner max-w-md mx-auto">
           <button class="lesson-sub-btn active flex-1 py-2 rounded-xl text-xs font-bold text-crust-dark bg-cream-50 shadow-sm transition flex items-center justify-center gap-1.5" onclick="switchLessonSubTab('lesson-pdf', this)">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
             <div>อ่านสรุป (PDF)</div>
@@ -303,52 +321,52 @@
 
         <!-- Sub 1: PDF Hub -->
         <div id="lesson-pdf" class="lesson-sub-view block">
-          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-            <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
-              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60">
+            <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               <div>คลังเอกสารสรุปบทเรียน (แตะเปิดอ่านได้ทันที)</div>
             </div>
 
             <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handlePdfUpload(event)">
-            <div class="border-2 border-dashed border-[#CBB191] rounded-2xl p-3.5 text-center bg-[#FAF2E4] hover:bg-[#F5E8D3] cursor-pointer transition mb-3" onclick="document.getElementById('pdfFileInput').click()">
-              <svg class="w-6 h-6 mx-auto mb-1 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            <div class="border-2 border-dashed border-[#CBB191] rounded-2xl p-4 text-center bg-[#FAF2E4] hover:bg-[#F5E8D3] cursor-pointer transition mb-4" onclick="document.getElementById('pdfFileInput').click()">
+              <svg class="w-7 h-7 mx-auto mb-1 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               <div class="font-bold text-crust-dark text-xs sm:text-sm">แตะเพื่ออัปโหลดไฟล์ PDF ของคุณ</div>
-              <div class="text-[10px] text-[#9E7F60]">เปิดอ่านไฟล์ PDF จริง พร้อมรับแต้มสะสม</div>
+              <div class="text-[10px] sm:text-xs text-[#9E7F60]">เปิดอ่านไฟล์ PDF พร้อมรับแต้มสะสม</div>
             </div>
 
-            <div class="text-xs font-bold text-crust-dark mb-2">เอกสารสรุปในระบบ</div>
-            <div id="pdfListContainer" class="space-y-2">
-              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+            <div class="text-xs sm:text-sm font-bold text-crust-dark mb-2.5">เอกสารสรุปในระบบ</div>
+            <div id="pdfListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">3. PHY.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">3. PHY.pdf[span_0](start_span)[span_0](end_span)</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์ ม.ปลาย ทุกบท (32 หน้า)[span_1](start_span)[span_1](end_span)</div>
                   </div>
                 </div>
-                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('phy')">เปิดอ่าน</button>
+                <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('phy')">เปิดอ่าน</button>
               </div>
 
-              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">4. CHEM.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">4. CHEM.pdf[span_2](start_span)[span_2](end_span)</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี ม.ปลาย ครบทุกบท (47 หน้า)[span_3](start_span)[span_3](end_span)</div>
                   </div>
                 </div>
-                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('chem')">เปิดอ่าน</button>
+                <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('chem')">เปิดอ่าน</button>
               </div>
 
-              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+              <div class="bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf</div>
-                    <div class="text-[10px] text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)</div>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark">สรุปหลักอนุกรมวิธาน-Monera-Protista.pdf[span_4](start_span)[span_4](end_span)</div>
+                    <div class="text-[10px] sm:text-xs text-[#9E7F60]">ชีววิทยา Taxonomy & Protista (7 หน้า)[span_5](start_span)[span_5](end_span)</div>
                   </div>
                 </div>
-                <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('bio')">เปิดอ่าน</button>
+                <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openPdfReader('bio')">เปิดอ่าน</button>
               </div>
             </div>
           </div>
@@ -356,152 +374,196 @@
 
         <!-- Sub 2: Lever Simulation -->
         <div id="lesson-sim" class="lesson-sub-view hidden">
-          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-            <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-2">
-              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+          <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60 max-w-2xl mx-auto">
+            <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
               <div>เครื่องจำลองคานสมดุล (Lever Simulation)</div>
             </div>
 
-            <div class="bg-[#FFFDF8] rounded-2xl p-4 relative h-40 flex flex-col justify-end items-center border-2 border-[#EBDBC6] overflow-hidden">
-              <div id="leverBar" class="w-[88%] h-3 relative transition-transform duration-300 origin-center">
+            <div class="bg-[#FFFDF8] rounded-2xl p-4 sm:p-6 relative h-48 sm:h-56 flex flex-col justify-end items-center border-2 border-[#EBDBC6] overflow-hidden">
+              <div id="leverBar" class="w-[88%] h-3 sm:h-3.5 relative transition-transform duration-300 origin-center">
                 <div class="w-full h-full bg-crust-light rounded-full shadow relative">
-                  <div id="leftWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 20%;">
-                    <div class="text-xl select-none">🍞</div>
+                  <div id="leftWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] sm:text-xs text-crust-dark" style="left: 20%;">
+                    <div class="text-xl sm:text-2xl select-none">🍞</div>
                     <div id="leftWeightLabel">4 kg</div>
                   </div>
-                  <div id="rightWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] text-crust-dark" style="left: 80%;">
-                    <div class="text-xl select-none">🧈</div>
+                  <div id="rightWeightBox" class="absolute bottom-3 -translate-x-1/2 flex flex-col items-center font-bold text-[10px] sm:text-xs text-crust-dark" style="left: 80%;">
+                    <div class="text-xl sm:text-2xl select-none">🧈</div>
                     <div id="rightWeightLabel">4 kg</div>
                   </div>
                 </div>
               </div>
-              <div class="w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[26px] border-b-[#734823] -mt-0.5 z-10"></div>
-              <div class="w-16 h-2 bg-[#5C3A16] rounded-full"></div>
+              <div class="w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-b-[30px] border-b-[#734823] -mt-0.5 z-10"></div>
+              <div class="w-20 h-2 bg-[#5C3A16] rounded-full"></div>
             </div>
 
-            <div class="flex justify-between items-center mt-3 px-3 py-2 bg-cream-200 rounded-xl text-xs font-bold text-crust-dark border border-cream-300">
+            <div class="flex justify-between items-center mt-3 px-4 py-2.5 bg-cream-200 rounded-xl text-xs sm:text-sm font-bold text-crust-dark border border-cream-300">
               <div><i>M</i><sub>ทวน</sub>: <span id="mLeftDisplay">8.0</span> N·m</div>
               <div id="balanceState" class="text-[#68B984]">คานสมดุล</div>
               <div><i>M</i><sub>ตาม</sub>: <span id="mRightDisplay">8.0</span> N·m</div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5 mt-3">
-              <div class="bg-[#FBF6EB] p-2.5 rounded-xl border border-cream-300">
-                <div class="text-xs font-bold text-crust-dark mb-1">ฝั่งซ้าย (ทวนเข็ม)</div>
-                <label class="text-[10px] text-crust">มวล: <b id="m1Val">4</b> kg</label>
+            <div class="grid grid-cols-2 gap-3 mt-3">
+              <div class="bg-[#FBF6EB] p-3 rounded-xl border border-cream-300">
+                <div class="text-xs sm:text-sm font-bold text-crust-dark mb-1">ฝั่งซ้าย (ทวนเข็ม)</div>
+                <label class="text-[10px] sm:text-xs text-crust">มวล: <b id="m1Val">4</b> kg</label>
                 <input type="range" class="w-full accent-crust my-1" id="m1" min="1" max="10" value="4" oninput="updateSimulation()">
-                <label class="text-[10px] text-crust">ระยะ: <b id="d1Val">2.0</b> m</label>
+                <label class="text-[10px] sm:text-xs text-crust">ระยะ: <b id="d1Val">2.0</b> m</label>
                 <input type="range" class="w-full accent-crust my-1" id="d1" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
               </div>
-              <div class="bg-[#FBF6EB] p-2.5 rounded-xl border border-cream-300">
-                <div class="text-xs font-bold text-crust-dark mb-1">ฝั่งขวา (ตามเข็ม)</div>
-                <label class="text-[10px] text-crust">มวล: <b id="m2Val">4</b> kg</label>
+              <div class="bg-[#FBF6EB] p-3 rounded-xl border border-cream-300">
+                <div class="text-xs sm:text-sm font-bold text-crust-dark mb-1">ฝั่งขวา (ตามเข็ม)</div>
+                <label class="text-[10px] sm:text-xs text-crust">มวล: <b id="m2Val">4</b> kg</label>
                 <input type="range" class="w-full accent-crust my-1" id="m2" min="1" max="10" value="4" oninput="updateSimulation()">
-                <label class="text-[10px] text-crust">ระยะ: <b id="d2Val">2.0</b> m</label>
+                <label class="text-[10px] sm:text-xs text-crust">ระยะ: <b id="d2Val">2.0</b> m</label>
                 <input type="range" class="w-full accent-crust my-1" id="d2" min="0.5" max="3.0" step="0.5" value="2.0" oninput="updateSimulation()">
               </div>
             </div>
 
-            <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-xs font-bold mt-3.5 shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1.5" onclick="checkPhysicsQuiz()">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <div>ส่งคำตอบตรวจสมดุล (+25 Crumbs)</div>
-            </button>
-            <button class="w-full bg-cream-300 text-crust-dark py-2 rounded-xl text-xs font-semibold mt-2 hover:bg-cream-400 transition" onclick="randomLeverChallenge()">
-              สุ่มโจทย์คำนวณใหม่
-            </button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1.5" onclick="checkPhysicsQuiz()">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div>ตรวจความสมดุล (+25)</div>
+              </button>
+              <button class="w-full bg-cream-300 text-crust-dark py-3 rounded-2xl text-xs sm:text-sm font-semibold hover:bg-cream-400 transition" onclick="randomLeverChallenge()">
+                สุ่มโจทย์ใหม่
+              </button>
+            </div>
           </div>
         </div>
 
         <!-- Sub 3: Curriculum Topics -->
         <div id="lesson-content" class="lesson-sub-view hidden">
-          <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-            <div class="text-sm font-bold text-crust-dark flex items-center justify-between mb-2">
+          <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60">
+            <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center justify-between mb-3">
               <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 <div>คลังสรุปหลักสูตร ม.ปลาย (ม.4 - ม.6)</div>
               </div>
             </div>
 
-            <!-- Subject Chips Navigation -->
-            <div class="grid grid-cols-4 gap-1.5 mb-3 bg-cream-200/60 p-1 rounded-2xl border border-cream-300">
-              <button class="subj-chip active py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter shadow-sm transition text-center" onclick="filterSubject('subj-math', this)">คณิต</button>
-              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-phys', this)">ฟิสิกส์</button>
-              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-chem', this)">เคมี</button>
-              <button class="subj-chip py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-bio', this)">ชีวะ</button>
+            <!-- Subject Tabs -->
+            <div class="grid grid-cols-4 gap-2 mb-4 bg-cream-200/60 p-1.5 rounded-2xl border border-cream-300 max-w-md mx-auto">
+              <button class="subj-chip active py-1.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-butter shadow-sm transition text-center" onclick="filterSubject('subj-math', this)">คณิต</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-phys', this)">ฟิสิกส์</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-chem', this)">เคมี</button>
+              <button class="subj-chip py-1.5 rounded-xl text-xs sm:text-sm font-bold text-crust-dark bg-transparent transition text-center" onclick="filterSubject('subj-bio', this)">ชีวะ</button>
             </div>
 
-            <!-- Math View -->
-            <div id="subj-math" class="subject-section block space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">คณิตศาสตร์ ม.ปลาย</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <div>1. เซต, ตรรกศาสตร์ & จำนวนจริง</div>
-                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <!-- Math Section -->
+            <div id="subj-math" class="subject-section block space-y-3">
+              <div class="text-xs sm:text-sm font-bold text-crust">คณิตศาสตร์ ม.ปลาย</div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>1. เซต, ตรรกศาสตร์ & จำนวนจริง</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• <b>เซต:</b> $n(A \cup B) = n(A) + n(B) - n(A \cap B)$</p>
+                    <p>• <b>ตรรกศาสตร์สมมูล:</b> $p \rightarrow q \equiv \sim p \lor q$</p>
+                    <p>• <b>รากสมการกำลังสอง:</b> $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+                    <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold mt-1" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                  </div>
                 </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>เซต:</b> $n(A \cup B) = n(A) + n(B) - n(A \cap B)$</p>
-                  <p>• <b>ตรรกศาสตร์สมมูล:</b> $p \rightarrow q \equiv \sim p \lor q \equiv \sim q \rightarrow \sim p$</p>
-                  <p>• <b>รากสมการพหุนามกำลังสอง:</b> $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
-                </div>
-              </div>
 
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <div>2. ฟังก์ชันตรีโกณมิติ, ลำดับ & แคลคูลัส</div>
-                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• <b>เอกลักษณ์ตรีโกณ:</b> $\sin^2\theta + \cos^2\theta = 1$</p>
-                  <p>• <b>อนุกรมเรขาคณิตอนันต์:</b> $S_\infty = \frac{a_1}{1 - r}$ เมื่อ $|r| < 1$</p>
-                  <p>• <b>อนุพันธ์และปริพันธ์:</b> $\frac{d}{dx}[x^n] = nx^{n-1} \ ,\ \int x^n dx = \frac{x^{n+1}}{n+1} + C$</p>
-                  <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Physics View -->
-            <div id="subj-phys" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">ฟิสิกส์ ม.ปลาย</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <div>กลศาสตร์ & การเคลื่อนที่</div>
-                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• 5 สูตรการเคลื่อนที่แนวตรง (ความเร่งคงที่): $v = u + at$, $s = ut + \frac{1}{2}at^2$, $v^2 = u^2 + 2as$</p>
-                  <p>• กฎการเคลื่อนที่นิวตัน: $\Sigma F = ma$, แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$</p>
-                  <p>• คานและสมดุลต่อการหมุน: $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$</p>
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>2. ตรีโกณมิติ, ลำดับ & แคลคูลัส</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• <b>เอกลักษณ์:</b> $\sin^2\theta + \cos^2\theta = 1$</p>
+                    <p>• <b>อนุกรมเรขาคณิตอนันต์:</b> $S_\infty = \frac{a_1}{1 - r}$ เมื่อ $|r| < 1$</p>
+                    <p>• <b>อนุพันธ์ & ปริพันธ์:</b> $\frac{d}{dx}[x^n] = nx^{n-1} \ ,\ \int x^n dx = \frac{x^{n+1}}{n+1} + C$</p>
+                    <button class="w-full bg-cream-300 text-crust-dark py-1.5 rounded-lg text-xs font-semibold mt-1" onclick="addPoints(15)">ทำความเข้าใจแล้ว (+15)</button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Chemistry View -->
-            <div id="subj-chem" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">เคมี ม.ปลาย</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <div>ปริมาณสารสัมพันธ์ & แก๊ส</div>
-                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <!-- Physics Section -->
+            <div id="subj-phys" class="subject-section hidden space-y-3">
+              <div class="text-xs sm:text-sm font-bold text-crust">ฟิสิกส์ ม.ปลาย[span_6](start_span)[span_6](end_span)</div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>กลศาสตร์, แรง & การเคลื่อนที่</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• 5 สูตรการเคลื่อนที่แนวตรงความเร่งคงที่[span_7](start_span)[span_7](end_span): $v = u + at \ ,\ s = ut + \frac{1}{2}at^2 \ ,\ v^2 = u^2 + 2as$[span_8](start_span)[span_8](end_span)</p>
+                    <p>• กฎนิวตัน[span_9](start_span)[span_9](end_span): $\Sigma F = ma$[span_10](start_span)[span_10](end_span) , แรงเสียดทาน $f_s \le \mu_s N, f_k = \mu_k N$[span_11](start_span)[span_11](end_span)</p>
+                    <p>• คานและสมดุลต่อการหมุน[span_12](start_span)[span_12](end_span): $\Sigma M = 0 \implies M_{\text{ทวน}} = M_{\text{ตาม}}$[span_13](start_span)[span_13](end_span)</p>
+                  </div>
                 </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• สูตรโมล: $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$</p>
-                  <p>• กฎแก๊สอุดมคติ: $PV = nRT$, สมดุลเคมี $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$</p>
+
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>คลื่น, เสียง, แสง & ฟิสิกส์อะตอม</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• เสียง[span_14](start_span)[span_14](end_span): $v = 331 + 0.6t$[span_15](start_span)[span_15](end_span), ระดับความเข้ม $\beta = 10\log(I/I_0)$[span_16](start_span)[span_16](end_span)</p>
+                    <p>• แสงเชิงคลื่น[span_17](start_span)[span_17](end_span): สลิตคู่ แถบสว่าง $d\sin\theta = n\lambda$[span_18](start_span)[span_18](end_span)</p>
+                    <p>• โฟโตอิเล็กทริก[span_19](start_span)[span_19](end_span): $hf = W_f + E_{k,\max}$[span_20](start_span)[span_20](end_span)</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Biology View -->
-            <div id="subj-bio" class="subject-section hidden space-y-2.5">
-              <div class="text-xs font-bold text-crust flex items-center gap-1">ชีววิทยา ม.ปลาย</div>
-              <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
-                <div class="p-3 flex justify-between items-center cursor-pointer font-bold text-xs text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
-                  <div>อนุกรมวิธาน & อาณาจักรสิ่งมีชีวิต</div>
-                  <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            <!-- Chemistry Section -->
+            <div id="subj-chem" class="subject-section hidden space-y-3">
+              <div class="text-xs sm:text-sm font-bold text-crust">เคมี ม.ปลาย[span_21](start_span)[span_21](end_span)</div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>อะตอม, พันธะ & ปริมาณสาร</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• สูตรโมล[span_22](start_span)[span_22](end_span): $\text{mol} = \frac{g}{M_w} = \frac{N}{6.02 \times 10^{23}} = \frac{V_{\text{STP}}}{22.4} = \frac{CV}{1000}$[span_23](start_span)[span_23](end_span)</p>
+                    <p>• กฎแก๊สอุดมคติ[span_24](start_span)[span_24](end_span): $PV = nRT$[span_25](start_span)[span_25](end_span)</p>
+                  </div>
                 </div>
-                <div class="hidden p-3 text-xs text-crust-text border-t border-dashed border-cream-300 space-y-2">
-                  <p>• ลำดับการจัดหมวดหมู่: Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species</p>
-                  <p>• Monera (แบคทีเรียย้อมแกรมบวก/ลบ) & Protista (โพรโทซัว สาหร่าย ราเมือก)</p>
+
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>สมดุลเคมี, กรด-เบส & อินทรีย์</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• ค่าคงที่สมดุล[span_26](start_span)[span_26](end_span): $K_c = \frac{[C]^c[D]^d}{[A]^a[B]^b}$[span_27](start_span)[span_27](end_span)</p>
+                    <p>• กรด-เบส[span_28](start_span)[span_28](end_span): $pH = -\log[H_3O^+]$[span_29](start_span)[span_29](end_span), บัฟเฟอร์ $pH = pK_a + \log\frac{[\text{เกลือ}]}{[\text{กรดอ่อน}]}$[span_30](start_span)[span_30](end_span)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Biology Section -->
+            <div id="subj-bio" class="subject-section hidden space-y-3">
+              <div class="text-xs sm:text-sm font-bold text-crust">ชีววิทยา ม.ปลาย[span_31](start_span)[span_31](end_span)</div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>อนุกรมวิธาน & อาณาจักรสิ่งมีชีวิต</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• ลำดับการจัดหมวดหมู่[span_32](start_span)[span_32](end_span): Domain > Kingdom > Phylum > Class > Order > Family > Genus > Species[span_33](start_span)[span_33](end_span)</p>
+                    <p>• Monera (แบคทีเรียแกรมบวก/ลบ)[span_34](start_span)[span_34](end_span) & Protista (โพรโทซัว สาหร่าย ราเมือก)[span_35](start_span)[span_35](end_span)</p>
+                  </div>
+                </div>
+
+                <div class="border border-cream-300 rounded-2xl overflow-hidden bg-[#FFFDF8]">
+                  <div class="p-3.5 flex justify-between items-center cursor-pointer font-bold text-xs sm:text-sm text-crust-dark bg-cream-200/50" onclick="toggleTopic(this)">
+                    <div>การสังเคราะห์ด้วยแสง & สรีรวิทยา</div>
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </div>
+                  <div class="hidden p-3.5 text-xs sm:text-sm text-crust-text border-t border-dashed border-cream-300 space-y-2">
+                    <p>• ปฏิกิริยาแสง (Light Reaction) ในไทลาคอยด์สร้าง ATP, NADPH[span_36](start_span)[span_36](end_span)</p>
+                    <p>• วัฏจักรคัลวิน (Calvin Cycle) ในสโตรมาตรึงคาร์บอนไดออกไซด์เป็นน้ำตาล[span_37](start_span)[span_37](end_span)</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -512,56 +574,56 @@
 
       <!-- ================= TAB 3: DAILY FLASHCARDS ================= -->
       <section id="screen-deck" class="screen hidden">
-        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-          <div class="text-sm font-bold text-crust-dark flex items-center justify-between mb-1">
+        <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60 max-w-lg mx-auto">
+          <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center justify-between mb-1">
             <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               <div>การ์ดสูตร & คอนเซปต์ (Toast Cards)</div>
             </div>
           </div>
-          <p class="text-[11px] text-crust mb-2.5">เลือกหมวดวิชาแล้วแตะที่การ์ดเพื่อพลิกดูเฉลย</p>
+          <p class="text-[11px] sm:text-xs text-crust mb-3">เลือกหมวดวิชาแล้วแตะที่การ์ดเพื่อพลิกดูเฉลย</p>
 
           <!-- Subject Filter Pills -->
-          <div class="flex gap-1 overflow-x-auto no-scrollbar pb-1 mb-2">
-            <button class="deck-filter-chip active px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-butter border border-crust/20 shrink-0" onclick="filterDeckSubject('all', this)">ทั้งหมด</button>
-            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('math', this)">คณิต</button>
-            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('phys', this)">ฟิสิกส์</button>
-            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('chem', this)">เคมี</button>
-            <button class="deck-filter-chip px-3 py-1 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('bio', this)">ชีวะ</button>
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1 mb-3">
+            <button class="deck-filter-chip active px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-butter border border-crust/20 shrink-0" onclick="filterDeckSubject('all', this)">ทั้งหมด</button>
+            <button class="deck-filter-chip px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('math', this)">คณิต</button>
+            <button class="deck-filter-chip px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('phys', this)">ฟิสิกส์</button>
+            <button class="deck-filter-chip px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('chem', this)">เคมี</button>
+            <button class="deck-filter-chip px-3.5 py-1.5 rounded-xl text-xs font-bold text-crust-dark bg-cream-200 border border-cream-300 shrink-0" onclick="filterDeckSubject('bio', this)">ชีวะ</button>
           </div>
 
-          <!-- 3D Interactive Flashcard -->
-          <div class="perspective-1000 h-64 my-2 select-none cursor-pointer" onclick="flipCard()">
+          <!-- 3D Flashcard -->
+          <div class="perspective-1000 h-64 sm:h-72 my-2 select-none cursor-pointer" onclick="flipCard()">
             <div id="flashCard" class="w-full h-full relative transform-style-3d transition-transform duration-500">
-              <!-- Card Front -->
-              <div class="flashcard-face absolute inset-0 backface-hidden bg-[#FFFDF7] rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
+              <!-- Front -->
+              <div class="flashcard-face absolute inset-0 backface-hidden bg-[#FFFDF7] rounded-3xl p-5 sm:p-6 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
                 <div class="w-10 h-10 rounded-2xl bg-butter flex items-center justify-center text-crust-dark mb-2 shadow-inner">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                 </div>
-                <div id="fcSubj" class="text-[11px] font-semibold text-[#A07A55]">หมวด: คณิตศาสตร์ (แคลคูลัส)</div>
+                <div id="fcSubj" class="text-[11px] sm:text-xs font-semibold text-[#A07A55]">หมวด: คณิตศาสตร์ (แคลคูลัส)</div>
                 <div id="fcQ" class="text-sm sm:text-base font-bold text-crust-dark mt-2 mb-1">สูตรอนุพันธ์ของผลคูณ (Product Rule)</div>
-                <div class="text-[10px] text-crust mt-3">(แตะเพื่อพลิกขนมปัง)</div>
+                <div class="text-[10px] sm:text-xs text-crust mt-3">(แตะเพื่อพลิกขนมปัง)</div>
               </div>
 
-              <!-- Card Back -->
-              <div class="flashcard-face absolute inset-0 backface-hidden rotate-y-180 bg-butter-light rounded-3xl p-5 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
+              <!-- Back -->
+              <div class="flashcard-face absolute inset-0 backface-hidden rotate-y-180 bg-butter-light rounded-3xl p-5 sm:p-6 flex flex-col justify-center items-center text-center shadow-clay border-4 border-[#EAD4B7]">
                 <div class="w-8 h-8 rounded-full bg-butter flex items-center justify-center text-crust-dark mb-1">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
-                <div id="fcFormula" class="text-base font-bold text-crust-dark bg-[#FCE8B2] px-3.5 py-1.5 rounded-xl my-1.5 overflow-x-auto max-w-full"></div>
-                <div id="fcA" class="text-xs font-semibold text-[#9C4A1A]">หน้า ดิฟหลัง + หลัง ดิฟหน้า</div>
-                <div id="fcDetail" class="text-[10px] text-[#6B533E] mt-1">สูตรหาอนุพันธ์ผลคูณของฟังก์ชัน 2 ตัว</div>
+                <div id="fcFormula" class="text-sm sm:text-base font-bold text-crust-dark bg-[#FCE8B2] px-3.5 py-1.5 rounded-xl my-1.5 overflow-x-auto max-w-full"></div>
+                <div id="fcA" class="text-xs sm:text-sm font-semibold text-[#9C4A1A]">หน้า ดิฟหลัง + หลัง ดิฟหน้า</div>
+                <div id="fcDetail" class="text-[10px] sm:text-xs text-[#6B533E] mt-1">สูตรหาอนุพันธ์ผลคูณของฟังก์ชัน 2 ตัว</div>
               </div>
             </div>
           </div>
 
-          <!-- Card Switch Controls -->
-          <div class="flex gap-2 mt-3">
-            <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs font-semibold hover:bg-cream-400 transition flex items-center justify-center gap-1" onclick="prevCard()">
+          <!-- Card Controls -->
+          <div class="flex gap-3 mt-4">
+            <button class="flex-1 bg-cream-300 text-crust-dark py-2.5 rounded-xl text-xs sm:text-sm font-semibold hover:bg-cream-400 transition flex items-center justify-center gap-1" onclick="prevCard()">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
               <div>ก่อนหน้า</div>
             </button>
-            <button class="flex-1 bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1" onclick="nextCard()">
+            <button class="flex-1 bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none transition flex items-center justify-center gap-1" onclick="nextCard()">
               <div>ถัดไป (+10)</div>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
@@ -571,32 +633,32 @@
 
       <!-- ================= TAB 4: FRIENDS & ROOMS ================= -->
       <section id="screen-friends" class="screen hidden">
-        <div class="bg-cream-50 rounded-3xl p-4 shadow-clay border border-white/60">
-          <div class="text-sm font-bold text-crust-dark flex items-center gap-2 mb-3">
+        <div class="bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-clay border border-white/60">
+          <div class="text-sm sm:text-base font-bold text-crust-dark flex items-center gap-2 mb-3">
             <svg class="w-5 h-5 text-crust" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             <div>เตาอบอ่านหนังสือร่วมกับเพื่อน</div>
           </div>
 
-          <div id="roomOverview" class="space-y-3">
-            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
-              <div class="flex justify-between items-center mb-1">
+          <div id="roomOverview" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-4">
+              <div class="flex justify-between items-center mb-1.5">
                 <div class="font-bold text-crust-dark text-xs sm:text-sm">ห้องติวรวม ม.ปลาย (วิทย์-คณิต)</div>
-                <div class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">ออนไลน์ 4 คน</div>
+                <div class="bg-[#68B984] text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full">ออนไลน์ 4 คน</div>
               </div>
-              <p class="text-[11px] text-[#7D6148] mb-2.5">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
-              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1" onclick="enterRoomView('ห้องติวรวม ม.ปลาย (วิทย์-คณิต)')">
+              <p class="text-[11px] sm:text-xs text-[#7D6148] mb-3">อ่านพร้อมกันและดูเวลาที่เพื่อนกำลังจับจริง</p>
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1.5" onclick="enterRoomView('ห้องติวรวม ม.ปลาย (วิทย์-คณิต)')">
                 <div>เข้าดูสมาชิกและเวลาโฟกัส</div>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
             </div>
 
-            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-3.5">
-              <div class="flex justify-between items-center mb-1">
+            <div class="bg-[#F8EFE0] border border-[#E8D7BF] rounded-2xl p-4">
+              <div class="flex justify-between items-center mb-1.5">
                 <div class="font-bold text-crust-dark text-xs sm:text-sm">ห้องเตรียมสอบเข้ามหาวิทยาลัย</div>
-                <div class="bg-[#68B984] text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">ออนไลน์ 2 คน</div>
+                <div class="bg-[#68B984] text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full">ออนไลน์ 2 คน</div>
               </div>
-              <p class="text-[11px] text-[#7D6148] mb-2.5">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
-              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1" onclick="enterRoomView('ห้องเตรียมสอบเข้ามหาวิทยาลัย')">
+              <p class="text-[11px] sm:text-xs text-[#7D6148] mb-3">ห้องอ่านหนังสือเงียบ โฟกัสจับเวลา</p>
+              <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-[0_3px_0_#D9B738] flex items-center justify-center gap-1.5" onclick="enterRoomView('ห้องเตรียมสอบเข้ามหาวิทยาลัย')">
                 <div>เข้าดูสมาชิกและเวลาโฟกัส</div>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
@@ -604,66 +666,48 @@
           </div>
 
           <div id="roomDetailView" class="hidden">
-            <div class="bg-[#F2E4CF] rounded-2xl p-3 flex justify-between items-center mb-3">
+            <div class="bg-[#F2E4CF] rounded-2xl p-3.5 flex justify-between items-center mb-3">
               <div>
-                <div id="activeRoomName" class="text-xs font-bold text-crust-dark">ห้องติวรวม ม.ปลาย</div>
-                <div class="text-[10px] text-[#7D6148]">กำลังจับเวลาโฟกัสร่วมกัน</div>
+                <div id="activeRoomName" class="text-xs sm:text-sm font-bold text-crust-dark">ห้องติวรวม ม.ปลาย</div>
+                <div class="text-[10px] sm:text-xs text-[#7D6148]">กำลังจับเวลาโฟกัสร่วมกัน</div>
               </div>
-              <button class="bg-[#ECD7C0] text-crust-dark px-2.5 py-1 rounded-xl text-[11px] font-semibold hover:bg-cream-400 flex items-center gap-1" onclick="leaveRoomView()">
+              <button class="bg-[#ECD7C0] text-crust-dark px-3 py-1 rounded-xl text-xs font-semibold hover:bg-cream-400 flex items-center gap-1" onclick="leaveRoomView()">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 <div>ออก</div>
               </button>
             </div>
 
-            <div class="space-y-2">
-              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">G</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Graine <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
-                    <p class="text-[10px] text-[#9E7F60]">ฟิสิกส์: กลศาสตร์</p>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark flex items-center gap-1.5">Graine <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
+                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">ฟิสิกส์: กลศาสตร์[span_38](start_span)[span_38](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <div class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">45 นาที</div>
-                  <div class="text-[10px] font-bold text-[#68B984] block mt-0.5">+90</div>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Graine')">
+                  <div class="text-xs sm:text-sm font-bold text-crust-dark bg-[#F6EBD9] px-2.5 py-0.5 rounded-lg">45 นาที</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-[#68B984] block mt-0.5">+90</div>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2.5 py-0.5 rounded-lg text-xs font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Graine')">
                     <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
                     <div>Cheer</div>
                   </button>
                 </div>
               </div>
 
-              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
+              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
                   <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">B</div>
                   <div>
-                    <div class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Butter <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
-                    <p class="text-[10px] text-[#9E7F60]">เคมี: เคมีอินทรีย์</p>
+                    <div class="text-xs sm:text-sm font-bold text-crust-dark flex items-center gap-1.5">Butter <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
+                    <p class="text-[10px] sm:text-xs text-[#9E7F60]">เคมี: เคมีอินทรีย์[span_39](start_span)[span_39](end_span)</p>
                   </div>
                 </div>
                 <div class="text-right">
-                  <div class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">30 นาที</div>
-                  <div class="text-[10px] font-bold text-[#68B984] block mt-0.5">+60</div>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Butter')">
-                    <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
-                    <div>Cheer</div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="bg-cream-50 border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-10 h-10 bg-[#FDF3DB] rounded-xl flex items-center justify-center text-crust font-bold text-sm">T</div>
-                  <div>
-                    <div class="text-xs font-bold text-crust-dark flex items-center gap-1.5">Thank <div class="w-2 h-2 rounded-full bg-[#68B984] inline-block"></div></div>
-                    <p class="text-[10px] text-[#9E7F60]">ชีวะ: อนุกรมวิธาน</p>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <div class="text-[11px] font-bold text-crust-dark bg-[#F6EBD9] px-2 py-0.5 rounded-lg">50 นาที</div>
-                  <div class="text-[10px] font-bold text-[#68B984] block mt-0.5">+100</div>
-                  <button class="bg-red-50 text-red-500 border border-red-200 px-2 py-0.5 rounded-lg text-[10px] font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Thank')">
+                  <div class="text-xs sm:text-sm font-bold text-crust-dark bg-[#F6EBD9] px-2.5 py-0.5 rounded-lg">30 นาที</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-[#68B984] block mt-0.5">+60</div>
+                  <button class="bg-red-50 text-red-500 border border-red-200 px-2.5 py-0.5 rounded-lg text-xs font-bold active:scale-95 flex items-center gap-1 ml-auto mt-1" onclick="cheerFriend('Butter')">
                     <svg class="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
                     <div>Cheer</div>
                   </button>
@@ -676,31 +720,31 @@
 
     </main>
 
-    <!-- Interactive PDF Reader Modal -->
-    <div id="pdfModal" class="hidden fixed inset-0 bg-[#2B1D0F]/75 z-50 justify-center items-center p-3 sm:p-4">
-      <div class="w-full max-w-md h-[86vh] bg-cream-50 rounded-3xl p-4 flex flex-col shadow-2xl border border-white/60">
+    <!-- PDF Reader Modal -->
+    <div id="pdfModal" class="hidden fixed inset-0 bg-[#2B1D0F]/75 z-50 justify-center items-center p-3 sm:p-5">
+      <div class="w-full max-w-xl md:max-w-2xl h-[86vh] bg-cream-50 rounded-3xl p-4 sm:p-6 flex flex-col shadow-2xl border border-white/60">
         
-        <div class="flex justify-between items-center pb-2.5 border-b border-cream-300">
+        <div class="flex justify-between items-center pb-3 border-b border-cream-300">
           <div class="flex items-center gap-2 overflow-hidden">
-            <div class="bg-red-100 text-red-600 font-bold text-[10px] px-2 py-0.5 rounded-md">PDF READER</div>
-            <div id="pdfModalTitle" class="text-xs font-bold text-crust-dark truncate">เอกสารสรุปบทเรียน</div>
+            <div class="bg-red-100 text-red-600 font-bold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-md">PDF READER</div>
+            <div id="pdfModalTitle" class="text-xs sm:text-sm font-bold text-crust-dark truncate">เอกสารสรุปบทเรียน</div>
           </div>
-          <button class="bg-cream-300 text-crust-dark px-2.5 py-1 rounded-xl text-xs font-bold hover:bg-cream-400" onclick="closePdfModal()">ปิด</button>
+          <button class="bg-cream-300 text-crust-dark px-3 py-1 rounded-xl text-xs font-bold hover:bg-cream-400" onclick="closePdfModal()">ปิด</button>
         </div>
 
-        <div id="pdfReaderScrollArea" class="flex-1 bg-cream-100/70 border border-cream-300/80 rounded-2xl my-2.5 p-3.5 overflow-y-auto no-scrollbar space-y-3">
+        <div id="pdfReaderScrollArea" class="flex-1 bg-cream-100/70 border border-cream-300/80 rounded-2xl my-3 p-4 overflow-y-auto no-scrollbar space-y-3">
           <div id="pdfContentInject"></div>
         </div>
 
-        <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 rounded-xl text-xs font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 shrink-0" onclick="readPdfFinish()">
+        <button class="w-full bg-butter hover:bg-butter-hover text-crust-dark py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold shadow-[0_3px_0_#D9B738] active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 shrink-0" onclick="readPdfFinish()">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
           <div>อ่านจบแล้ว รับแต้ม (+20 Crumbs)</div>
         </button>
       </div>
     </div>
 
-    <!-- Fixed Bottom Navigation Bar -->
-    <nav class="shrink-0 bg-cream-50 border-t-2 border-cream-300 flex justify-around items-center pt-2 pb-[calc(env(safe-area-inset-bottom,8px)+6px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
+    <!-- Mobile Bottom Navigation Bar (Hidden on Tablet / iPad / Desktop) -->
+    <nav class="md:hidden shrink-0 bg-cream-50 border-t-2 border-cream-300 flex justify-around items-center pt-2 pb-[calc(env(safe-area-inset-bottom,8px)+6px)] z-30 shadow-[0_-4px_15px_rgba(141,91,40,0.08)]">
       <button class="nav-btn active flex-1 flex flex-col items-center gap-0.5 text-crust-dark text-[11px] font-semibold" onclick="switchTab('screen-home', this)">
         <svg class="w-5 h-5 -translate-y-0.5 scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <div>หน้าหลัก</div>
@@ -720,7 +764,7 @@
     </nav>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Engine -->
   <script>
     let crumbPoints = 1250;
     let timerMinutes = 25;
@@ -738,7 +782,7 @@
             heading: "1. การวัดและเลขนัยสำคัญ",
             body: `
               <p class="text-xs text-crust leading-relaxed">
-                • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด (น้อยที่สุด) ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
+                • <b>การคำนวณเลขนัยสำคัญ:</b> ผลลัพธ์จากการบวก-ลบ ให้อิงตามตำแหน่งทศนิยมที่หยาบที่สุด ผลลัพธ์จากการคูณ-หาร ให้อิงตามจำนวนเลขนัยสำคัญที่น้อยที่สุด<br>
                 • <b>ความคลาดเคลื่อน:</b> $(A \\pm \\Delta A) + (B \\pm \\Delta B) = (A + B) \\pm (\\Delta A + \\Delta B)$
               </p>
             `
@@ -871,7 +915,6 @@
 
     // Flashcards Data Array
     const allFlashcards = [
-      // Mathematics Flashcards
       {
         subjTag: "math",
         subj: "หมวด: คณิตศาสตร์ (แคลคูลัส)",
@@ -952,8 +995,6 @@
         a: "ผลคูณความยาวเวกเตอร์กับค่า cos ของมุมระหว่างกัน",
         detail: "ถ้าเวกเตอร์ตั้งฉากกัน ผลคูณ Dot Product จะเท่ากับ 0"
       },
-
-      // Physics Flashcards
       {
         subjTag: "phys",
         subj: "หมวด: ฟิสิกส์ (สมดุลกล)",
@@ -978,8 +1019,6 @@
         a: "พลังงานโฟตอน = ฟังก์ชันงาน + พลังงานจลน์สูงสุดของอิเล็กตรอน",
         detail: "โฟตอน 1 ตัวถ่ายทอดพลังงานให้อิเล็กตรอน 1 ตัว"
       },
-
-      // Chemistry Flashcards
       {
         subjTag: "chem",
         subj: "หมวด: เคมี (ปริมาณสารสัมพันธ์)",
@@ -1004,8 +1043,6 @@
         a: "สมการ Henderson-Hasselbalch",
         detail: "บัฟเฟอร์มีประสิทธิภาพสูงสุดเมื่อ [กรดอ่อน] = [เกลือ] (pH = pKa)"
       },
-
-      // Biology Flashcards
       {
         subjTag: "bio",
         subj: "หมวด: ชีววิทยา (อนุกรมวิธาน)",
@@ -1037,7 +1074,7 @@
       }
     }
 
-    /* Tab Switcher */
+    /* Tab Switcher: 100% stable with screen styles */
     function switchTab(screenId, btnElement) {
       document.querySelectorAll('.screen').forEach(s => {
         s.style.display = 'none';
@@ -1047,17 +1084,30 @@
         activeScreen.style.display = 'block';
       }
 
+      // Sync Mobile Bottom Nav
       document.querySelectorAll('.nav-btn').forEach(b => {
         b.classList.remove('text-crust-dark', 'active');
         b.classList.add('text-[#B59E87]');
         const icon = b.querySelector('svg');
         if (icon) icon.classList.remove('-translate-y-0.5', 'scale-110');
       });
+
+      // Sync Tablet Top Nav
+      document.querySelectorAll('.top-nav-btn').forEach(b => {
+        b.classList.remove('active', 'bg-butter', 'shadow-sm');
+        b.classList.add('bg-transparent');
+      });
+
       if (btnElement) {
-        btnElement.classList.add('text-crust-dark', 'active');
-        btnElement.classList.remove('text-[#B59E87]');
-        const activeIcon = btnElement.querySelector('svg');
-        if (activeIcon) activeIcon.classList.add('-translate-y-0.5', 'scale-110');
+        if (btnElement.classList.contains('nav-btn')) {
+          btnElement.classList.add('text-crust-dark', 'active');
+          btnElement.classList.remove('text-[#B59E87]');
+          const activeIcon = btnElement.querySelector('svg');
+          if (activeIcon) activeIcon.classList.add('-translate-y-0.5', 'scale-110');
+        } else if (btnElement.classList.contains('top-nav-btn')) {
+          btnElement.classList.add('active', 'bg-butter', 'shadow-sm');
+          btnElement.classList.remove('bg-transparent');
+        }
       }
 
       if (screenId === 'screen-deck') {
@@ -1180,16 +1230,16 @@
       if (file && file.type === 'application/pdf') {
         const fileURL = URL.createObjectURL(file);
         const newCard = document.createElement('div');
-        newCard.className = 'bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3 flex items-center justify-between shadow-sm';
+        newCard.className = 'bg-[#FFFDF8] border border-cream-300 rounded-2xl p-3.5 flex items-center justify-between shadow-sm';
         newCard.innerHTML = `
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-red-100 text-red-600 font-bold text-xs rounded-xl flex items-center justify-center border border-red-200">PDF</div>
             <div>
-              <div class="text-xs font-bold text-crust-dark truncate max-w-[170px]">${file.name}</div>
-              <div class="text-[10px] text-[#9E7F60]">${(file.size / (1024*1024)).toFixed(1)} MB • ไฟล์ของคุณ</div>
+              <div class="text-xs sm:text-sm font-bold text-crust-dark truncate max-w-[170px]">${file.name}</div>
+              <div class="text-[10px] sm:text-xs text-[#9E7F60]">${(file.size / (1024*1024)).toFixed(1)} MB • ไฟล์ของคุณ</div>
             </div>
           </div>
-          <button class="bg-butter text-crust-dark px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover" onclick="openUploadedPdf('${file.name}', '${fileURL}')">เปิดอ่าน</button>
+          <button class="bg-butter text-crust-dark px-3.5 py-1.5 rounded-xl text-xs font-bold hover:bg-butter-hover shadow-sm" onclick="openUploadedPdf('${file.name}', '${fileURL}')">เปิดอ่าน</button>
         `;
         document.getElementById('pdfListContainer').prepend(newCard);
         addPoints(15);
@@ -1220,7 +1270,7 @@
       closePdfModal();
     }
 
-    /* Oven Visual State Updates */
+    /* Oven Heating Effects */
     function setOvenVisuals(isActive) {
       const chamber = document.getElementById('ovenChamber');
       const heatingEl = document.getElementById('heatingElement');
@@ -1406,7 +1456,6 @@
       showToast("สร้างโจทย์ใหม่แล้ว! จงปรับฝั่งขวาให้สมดุล");
     }
 
-    /* Accordion Logic */
     function toggleTopic(header) {
       const content = header.nextElementSibling;
       content.classList.toggle('hidden');
@@ -1417,7 +1466,7 @@
       reRenderMath();
     }
 
-    /* Flashcard Logic */
+    /* Flashcard Actions */
     function flipCard() {
       const card = document.getElementById('flashCard');
       card.classList.toggle('rotate-y-180');
@@ -1464,7 +1513,7 @@
 
     function leaveRoomView() {
       document.getElementById('roomDetailView').style.display = 'none';
-      document.getElementById('roomOverview').style.display = 'block';
+      document.getElementById('roomOverview').style.display = 'grid';
     }
 
     function cheerFriend(name) {
